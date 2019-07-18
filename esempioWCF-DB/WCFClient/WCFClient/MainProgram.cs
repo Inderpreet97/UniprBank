@@ -8,6 +8,7 @@ using System.Configuration;
 
 namespace WCFClient
 {
+    // Messaggio di prova
     static class LoggedUser // Questa è una classe static, non possiamo creare oggi di questa classe, 
     {                       // "esiste un unico oggetto" visibile in tutto il namespace WCFClient
         public static string username;
