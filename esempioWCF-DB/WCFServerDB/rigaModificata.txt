@@ -1,0 +1,3 @@
+<baseAddresses>
+                        <add baseAddress="http://localhost:8733/Design_Time_Addresses/WCFServerDB/Service1/" />
+                    </baseAddresses>

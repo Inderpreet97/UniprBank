@@ -1,0 +1,40 @@
+Menù direttore:
+1)Amministrazione filiale
+	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
+	1.2)Visualizza lista clienti
+	1.3)Visualizza lista impiegati
+2)Amministrazione impiegati
+	2.1)Sospendi impiegato
+	2.2)Attiva impiegato
+	2.3)Elimina impiegato
+	2.4)Aggiungi impiegato
+	2.5)Modifica Dati Impiegato
+	2.6)Visualizza lista impiegati
+3)Amministrazione clienti
+	3.1)Registrare persona/account
+	3.2)Creare un conto corrente
+	3.3)Modifica persona/account
+	3.4)Modificare conto corrente (IBAN)
+	3.5)Visualizza lista clienti
+	3.6)Visualizzare lista movimenti di un cliente
+	3.7)Effettuare movimento di un cliente
+4)Modifica profilo direttore
+	4.1)Cambia anagrafe direttore
+
+Menu impiegato:
+1.1)Registrare persona/account
+1.2)Creare un conto corrente
+1.3)Modifica persona/account
+1.4)Modificare conto corrente (IBAN)
+1.5)Visualizza lista clienti e relativo saldo
+1.6)Visualizzare lista movimenti di un cliente
+1.7)Effettuare movimento di un cliente
+1.8)Modifica profilo impiegato (anagrafe)
+
+Menu cliente
+1)Visualizzare lista movimenti
+2)Movimenti
+	2.1)Bonifico
+	2.2)Prelievo
+	2.3)Deposito
+3)Modifica profilo Cliente(anagrafe)
