@@ -1,6 +1,25 @@
 Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
+
+		Filiale GetFiliale(string idFiliale);
+
+		Nome: nomeFiliale
+		Indirizzo: Via della filiale
+		.
+		.
+		.
+		Numero Telefono: 0000000000
+		
+		Vuoi cambiare qualcosa? (menu) si o no?
+		
+		Nome (Premere invio non modificare):
+		Indirizzo (Premere invio non modificare):
+		
+		bool UpdateDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....)
+
+		bool risultato = wcfClient.UpdateDatiFiliale(string.Empty, varIndirizzoString, null, string.empty, varIntero, null);
+
 	1.2)Visualizza lista clienti
 	1.3)Visualizza lista impiegati
 2)Amministrazione impiegati
