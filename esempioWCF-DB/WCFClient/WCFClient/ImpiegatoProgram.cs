@@ -6,10 +6,10 @@ namespace WCFClient
     class ImpiegatoProgram : Program
     {
         public ImpiegatoProgram()
-            : base("Menu Impiegato", breadcrumbHeader: true)
+            : base("Menu Impiegato", breadcrumbHeader: true) //Breadcrumber = percorso dei menu
         {
             AddPage(new MainMenuImpiegato(this));
-            AddPage(new ClientiPage1(this));
+            AddPage(new RegistraPersona(this));
             AddPage(new ClientiPage2(this));
             AddPage(new ClientiPage3(this));
             AddPage(new ClientiPage4(this));

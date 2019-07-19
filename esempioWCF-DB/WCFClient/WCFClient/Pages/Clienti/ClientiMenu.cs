@@ -6,7 +6,7 @@ namespace WCFClient.Pages
     {
         public ClientiMenu(Program program)
             : base("Clienti", program,
-                    new Option("Registra Persona/Account", () => program.NavigateTo<ClientiPage1>()),
+                    new Option("Registra Persona/Account", () => program.NavigateTo<RegistraPersona>()),
                     new Option("Crea ContoCorrente", () => program.NavigateTo<ClientiPage2>()),
                     new Option("Modifica Persona/Account", () => program.NavigateTo<ClientiPage3>()),
                     new Option("Modifica ContoCorrente", () => program.NavigateTo<ClientiPage4>()),

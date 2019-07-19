@@ -10,7 +10,7 @@ namespace WCFClient
         {
             AddPage(new MainMenuDirettore(this));
             AddPage(new ClientiMenu(this));
-            AddPage(new ClientiPage1(this));
+            AddPage(new RegistraPersona(this));
             AddPage(new ClientiPage2(this));
             AddPage(new ClientiPage3(this));
             AddPage(new ClientiPage4(this));

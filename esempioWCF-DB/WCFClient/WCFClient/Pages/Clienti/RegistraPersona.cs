@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ClientiPage1 : Page
+    class RegistraPersona : Page
     {
-        public ClientiPage1(Program program) : base("Registra Persona/Account", program) {}
+        public RegistraPersona(Program program) : base("Registra Persona/Account", program) {}
 
         public override void Display()
         {
