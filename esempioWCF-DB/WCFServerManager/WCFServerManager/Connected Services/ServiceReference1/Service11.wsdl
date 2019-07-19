@@ -7,18 +7,6 @@
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/WCFServerDB/Service1/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFServerDB" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IService1_openDbConnection_InputMessage">
-    <wsdl:part name="parameters" element="tns:openDbConnection" />
-  </wsdl:message>
-  <wsdl:message name="IService1_openDbConnection_OutputMessage">
-    <wsdl:part name="parameters" element="tns:openDbConnectionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IService1_closeDbConnection_InputMessage">
-    <wsdl:part name="parameters" element="tns:closeDbConnection" />
-  </wsdl:message>
-  <wsdl:message name="IService1_closeDbConnection_OutputMessage">
-    <wsdl:part name="parameters" element="tns:closeDbConnectionResponse" />
-  </wsdl:message>
   <wsdl:message name="IService1_SelectContoCorrente_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectContoCorrente" />
   </wsdl:message>
@@ -38,14 +26,6 @@
     <wsdl:part name="parameters" element="tns:GetPrivilegiResponse" />
   </wsdl:message>
   <wsdl:portType name="IService1">
-    <wsdl:operation name="openDbConnection">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/openDbConnection" message="tns:IService1_openDbConnection_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/openDbConnectionResponse" message="tns:IService1_openDbConnection_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="closeDbConnection">
-      <wsdl:input wsaw:Action="http://tempuri.org/IService1/closeDbConnection" message="tns:IService1_closeDbConnection_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IService1/closeDbConnectionResponse" message="tns:IService1_closeDbConnection_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="SelectContoCorrente">
       <wsdl:input wsaw:Action="http://tempuri.org/IService1/SelectContoCorrente" message="tns:IService1_SelectContoCorrente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IService1/SelectContoCorrenteResponse" message="tns:IService1_SelectContoCorrente_OutputMessage" />
@@ -61,24 +41,6 @@
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IService1" type="tns:IService1">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="openDbConnection">
-      <soap:operation soapAction="http://tempuri.org/IService1/openDbConnection" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="closeDbConnection">
-      <soap:operation soapAction="http://tempuri.org/IService1/closeDbConnection" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="SelectContoCorrente">
       <soap:operation soapAction="http://tempuri.org/IService1/SelectContoCorrente" style="document" />
       <wsdl:input>

@@ -110,18 +110,6 @@ namespace WCFServerManager.ServiceReference1 {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/openDbConnection", ReplyAction="http://tempuri.org/IService1/openDbConnectionResponse")]
-        void openDbConnection();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/openDbConnection", ReplyAction="http://tempuri.org/IService1/openDbConnectionResponse")]
-        System.Threading.Tasks.Task openDbConnectionAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/closeDbConnection", ReplyAction="http://tempuri.org/IService1/closeDbConnectionResponse")]
-        void closeDbConnection();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/closeDbConnection", ReplyAction="http://tempuri.org/IService1/closeDbConnectionResponse")]
-        System.Threading.Tasks.Task closeDbConnectionAsync();
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectContoCorrente", ReplyAction="http://tempuri.org/IService1/SelectContoCorrenteResponse")]
         WCFServerManager.ServiceReference1.ContoCorrente SelectContoCorrente(int idContoCorrente);
         
@@ -166,22 +154,6 @@ namespace WCFServerManager.ServiceReference1 {
         
         public Service1Client(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
-        }
-        
-        public void openDbConnection() {
-            base.Channel.openDbConnection();
-        }
-        
-        public System.Threading.Tasks.Task openDbConnectionAsync() {
-            return base.Channel.openDbConnectionAsync();
-        }
-        
-        public void closeDbConnection() {
-            base.Channel.closeDbConnection();
-        }
-        
-        public System.Threading.Tasks.Task closeDbConnectionAsync() {
-            return base.Channel.closeDbConnectionAsync();
         }
         
         public WCFServerManager.ServiceReference1.ContoCorrente SelectContoCorrente(int idContoCorrente) {

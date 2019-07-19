@@ -7,12 +7,6 @@ namespace WCFServerDB {
     public interface IService1 {
 
         [OperationContract]
-        void openDbConnection();
-
-        [OperationContract]
-        void closeDbConnection();
-
-        [OperationContract]
         ContoCorrente SelectContoCorrente(int idContoCorrente);
 
         [OperationContract]
@@ -41,5 +35,8 @@ namespace WCFServerDB {
             this.Id = id;
             this.Saldo = saldo;
         }
+
+        [OperationContract]
+        public double getSaldo() { return Saldo; }
     }
 }

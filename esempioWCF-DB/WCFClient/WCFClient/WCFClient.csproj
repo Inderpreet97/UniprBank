@@ -57,7 +57,7 @@
     <Compile Include="Pages\MainMenuCliente.cs" />
     <Compile Include="Pages\MainMenuImpiegato.cs" />
     <Compile Include="Pages\Clienti\ClientiMenu.cs" />
-    <Compile Include="Pages\Clienti\ClientiPage1.cs" />
+    <Compile Include="Pages\Clienti\RegistraPersona.cs" />
     <Compile Include="Pages\Clienti\ClientiPage2.cs" />
     <Compile Include="Pages\Clienti\ClientiPage3.cs" />
     <Compile Include="Pages\Clienti\ClientiPage4.cs" />
