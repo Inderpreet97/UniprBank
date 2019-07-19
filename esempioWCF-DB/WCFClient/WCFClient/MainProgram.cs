@@ -76,7 +76,6 @@ namespace WCFClient
                     Console.ReadLine();
                     break;
             }
-
         }
     }
 }
