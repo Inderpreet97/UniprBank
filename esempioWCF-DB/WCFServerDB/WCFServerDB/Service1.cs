@@ -92,13 +92,13 @@ namespace WCFServerDB
                     {
                         case "ADMIN":
                             return (int)Privilegi.admin;
-                          
+
+                        case "IMPIEGATO":
+                            return (int)Privilegi.impiegato;
+
                         case "CLIENTE":
                             return (int)Privilegi.cliente;
                           
-                        case "IMPIEGATO":
-                            return (int)Privilegi.impiegato;
-                      
                         default:
                             return (int)Privilegi.unknown;
                     }
