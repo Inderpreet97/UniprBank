@@ -48,6 +48,12 @@ CREATE TABLE ContoCorrente(
     CONSTRAINT FK_idFiliale FOREIGN KEY (idFiliale) REFERENCES Filiale(idFiliale) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT AK_IBAN UNIQUE(IBAN)
 );
+-- QUESTO TRIGGER DA DEI PROBLEMI PERCHE' IN SQL SERVER NON ESISTE il NEW
+create trigger IBAN_ContoCorrente
+on ContoCorrente
+before INSERT
+for each row
+set new.IBAN = new.idFiliale + new.idContoCorrente;
 
 CREATE TABLE Movimenti(
     idMovimenti NUMERIC(12) NOT NULL,
@@ -58,7 +64,17 @@ CREATE TABLE Movimenti(
     dataOra DATETIME NOT NULL,
     CONSTRAINT PK_IdMovimenti PRIMARY KEY (IdMovimenti),
     CONSTRAINT FK_Committente FOREIGN KEY (IBANCommittente) REFERENCES ContoCorrente(IBAN)  ON UPDATE CASCADE,
-    --CONSTRAINT FK_Beneficiario FOREIGN KEY (IBANBeneficiario) REFERENCES ContoCorrente(IBAN)  ON UPDATE CASCADE,
+    -- CONSTRAINT FK_Beneficiario FOREIGN KEY (IBANBeneficiario) REFERENCES ContoCorrente(IBAN); -- SQL non permette di aver ON UPDATE CASCADE su tutte e due le Foreign Key
+    -- FK_Beneficiario BISOGNA TOGLIERLO PER FAR FUNZIONARE IL TRIGGER 
 );
-
-ALTER TABLE Movimenti ADD CONSTRAINT FK_Beneficiario FOREIGN KEY (IBANBeneficiario) REFERENCES ContoCorrente(IBAN) ON UPDATE CASCADE;
+-- QUESTO TRIGGER FUNZIONA PERFETTAMENTE
+CREATE TRIGGER UpdateIBANBeneficiario
+ON ContoCorrente
+after UPDATE
+AS IF UPDATE(IBAN)
+BEGIN
+SET NOCOUNT ON;
+   UPDATE Movimenti
+   SET IBANBeneficiario = (SELECT IBAN FROM INSERTED)
+   WHERE IBANBeneficiario = (SELECT IBAN FROM DELETED)
+END
