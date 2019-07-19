@@ -12,8 +12,8 @@ namespace WCFClient
     // Messaggio di prova 2
     static class LoggedUser // Questa è una classe static, non possiamo creare oggi di questa classe, 
     {                       // "esiste un unico oggetto" visibile in tutto il namespace WCFClient
-        public static string username;
-        public static string privilegi;
+        public static string username = "default";
+        public static string privilegi = "admin";
         public static string nome;
     }
 
@@ -61,7 +61,8 @@ namespace WCFClient
         public Filiale() {
         }
 
-        public Filiale(string idFiliale, string nome, string indirizzo, int CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
+        public Filiale(string idFiliale, string nome, string indirizzo,
+            int CAP, string citta, string provincia, string stato, string numeroDiTelefono, string direttore) {
             this.idFiliale = idFiliale;
             this.nome = nome;
             this.indirizzo = indirizzo;
@@ -70,6 +71,7 @@ namespace WCFClient
             this.provincia = provincia;
             this.stato = stato;
             this.numeroDiTelefono = numeroDiTelefono;
+            this.direttore = direttore;
         }
 
         public string idFiliale { get; set; }
@@ -80,6 +82,7 @@ namespace WCFClient
         public string provincia { get; set; }
         public string stato { get; set; }
         public string numeroDiTelefono { get; set; }
+        public string direttore { get; set; }
     }
 
     public class ContoCorrente {

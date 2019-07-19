@@ -1,8 +1,8 @@
 Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
-
-		Filiale GetFiliale(string idFiliale);
+		WCFClient.getFiliale(string username):
+			per ottenere il codice della filiale sapendo l'username del direttore
 
 		Nome: nomeFiliale
 		Indirizzo: Via della filiale

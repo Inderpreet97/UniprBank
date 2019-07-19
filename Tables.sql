@@ -32,7 +32,9 @@ CREATE TABLE Filiale(
     provincia varchar(2) NOT NULL,
     stato varchar(255) NOT NULL,
     numTelefono varchar(20) NOT NULL,
-    CONSTRAINT PK_Filiale PRIMARY KEY (idFiliale)
+    direttore VARCHAR(255) NOT NULL,
+    CONSTRAINT PK_Filiale PRIMARY KEY (idFiliale),
+    CONSTRAINT FK_direttore FOREIGN KEY (direttore) REFERENCES Account(username)
 );
 
 CREATE TABLE ContoCorrente(

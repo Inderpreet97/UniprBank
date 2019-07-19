@@ -65,7 +65,7 @@
     <Compile Include="Pages\Clienti\ClientiPage6.cs" />
     <Compile Include="Pages\Clienti\ClientiPage7.cs" />
     <Compile Include="Pages\Filiale\FilialeMenu.cs" />
-    <Compile Include="Pages\Filiale\FilialePage1.cs" />
+    <Compile Include="Pages\Filiale\ModificaDatiFiliale.cs" />
     <Compile Include="Pages\Impiegati\ImpiegatiMenu.cs" />
     <Compile Include="Pages\Impiegati\ImpiegatiPage1.cs" />
     <Compile Include="Pages\Impiegati\ImpiegatiPage2.cs" />
