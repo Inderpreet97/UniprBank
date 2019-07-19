@@ -2,18 +2,21 @@
 
 namespace WCFClient.Pages
 {
-    class FilialePage1 : Page
-    {
-        public FilialePage1(Program program) : base("Modifica Dati Filiale", program) { }
+    class ModificaDatiFiliale : Page{
 
-        public override void Display()
-        {
+        public ModificaDatiFiliale(Program program) : base("Modifica Dati Filiale", program) { }
+
+        public override void Display(){
             base.Display();
 
+            //WCFClient.getFiliale(string idFiliale)
             Output.WriteLine("Hello from Page 1Ai");
+
+
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();
+
         }
     }
 }

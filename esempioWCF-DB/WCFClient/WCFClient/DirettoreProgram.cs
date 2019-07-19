@@ -18,7 +18,7 @@ namespace WCFClient
             AddPage(new ClientiPage6(this));
             AddPage(new ClientiPage7(this));
             AddPage(new FilialeMenu(this));
-            AddPage(new FilialePage1(this));
+            AddPage(new ModificaDatiFiliale(this));
             AddPage(new ImpiegatiMenu(this));
             AddPage(new ImpiegatiPage1(this));
             AddPage(new ImpiegatiPage2(this));

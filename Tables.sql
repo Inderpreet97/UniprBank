@@ -51,7 +51,7 @@ CREATE TABLE Movimenti(
     idMovimenti NUMERIC(12) NOT NULL,
     IBANCommittente varchar(20) NOT NULL,
     tipo VARCHAR(255) NOT NULL,
-    denaro DECIMAL(12,2) NOT NULL,
+    importo DECIMAL(12,2) NOT NULL,
     IBANBeneficiario varchar(20),
     dataOra DATETIME NOT NULL,
     CONSTRAINT PK_IdMovimenti PRIMARY KEY (IdMovimenti),

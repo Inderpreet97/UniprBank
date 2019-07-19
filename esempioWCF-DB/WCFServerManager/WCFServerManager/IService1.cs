@@ -4,6 +4,8 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WCFServerManager.ServiceReference1;
+
 
 namespace WCFServerManager
 {
@@ -11,9 +13,12 @@ namespace WCFServerManager
     [ServiceContract]
     public interface IService1
     {
-        [OperationContract]
-        double GetSaldo(int idContoCorrente);
 
+        //Operazioni su conto corrente
+        [OperationContract]
+        double? GetSaldo(int idContoCorrente);
+
+        //Operazioni di login
         [OperationContract]
         bool Login(string username, string password);
 

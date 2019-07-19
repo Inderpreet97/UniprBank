@@ -13,19 +13,18 @@ namespace WCFServerManager
     {
         private ServiceReference1.Service1Client wcfDBClient = new ServiceReference1.Service1Client();
 
-        public double GetSaldo(int idContoCorrente)
-        {
-            ContoCorrente myConto = new ContoCorrente() { };
+        //Operazioni su conto corrente
+        public double? GetSaldo(int idContoCorrente){
+            ContoCorrente myConto = new ContoCorrente();
             myConto = wcfDBClient.SelectContoCorrente(idContoCorrente);
 
             if (myConto != null) { return myConto.Saldo; }
-            return 0;
+            return null;
         }
-
+        //Operazioni di Login
         public bool Login(string username, string password){
             return wcfDBClient.Login(username, password);
         }
-
         public int GetPrivilegi(string username){
             return wcfDBClient.GetPrivilegi(username);
         }
