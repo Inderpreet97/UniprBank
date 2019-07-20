@@ -2,8 +2,7 @@ Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
 		WCFClient.getFiliale(string username);
-		bool UpdateDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....)
-		bool risultato = wcfClient.UpdateDatiFiliale(string.Empty, varIndirizzoString, null, string.empty, varIntero, null)
+		bool ModificaDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....) string.empty, varIntero, null)
 2)Amministrazione impiegati
 	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string usernameDirettore) -> fornisce la lista completa degli impiegati che lavorano nella filiale 				in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
 	2.1)Sospendi impiegato -> bool WCFCLient.SospendiImpiegato(string username); restituisce true se trova l'impiegato e lo sospende, false se non lo trova
