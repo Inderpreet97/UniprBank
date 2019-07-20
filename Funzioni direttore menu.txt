@@ -1,4 +1,0 @@
-WCFClient.getFiliale(string username):
-	per ottenere il codice della filiale sapendo l'username del direttore
-
-	 
