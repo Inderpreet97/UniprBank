@@ -2,14 +2,18 @@
 
 namespace WCFClient.Pages
 {
-    class ImpiegatiPage6 : Page
+    class ListaClienti : Page
     {
-        public ImpiegatiPage6(Program program) : base("Visualizza Lista Impiegati", program) { }
+        public ListaClienti(Program program) : base("Crea ContoCorrente", program) { }
 
         public override void Display()
         {
             base.Display();
-            Output.WriteLine("Hello from Page 1Ai");
+            Output.WriteLine("Lista clienti");
+
+
+
+            
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

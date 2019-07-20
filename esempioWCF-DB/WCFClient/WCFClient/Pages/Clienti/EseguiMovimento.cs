@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ClientiPage4 : Page
+    class EseguiMovimento : Page
     {
-        public ClientiPage4(Program program) : base("Modifica ContoCorrente", program) { }
+        public EseguiMovimento(Program program) : base("Effetua un Movimento", program) { }
 
         public override void Display()
         {

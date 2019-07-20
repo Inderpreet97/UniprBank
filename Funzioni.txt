@@ -1,35 +1,19 @@
 Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
-		WCFClient.getFiliale(string username):
-			per ottenere il codice della filiale sapendo l'username del direttore
-
-		Nome: nomeFiliale
-		Indirizzo: Via della filiale
-		.
-		.
-		.
-		Numero Telefono: 0000000000
-		
-		Vuoi cambiare qualcosa? (menu) si o no?
-		
-		Nome (Premere invio non modificare):
-		Indirizzo (Premere invio non modificare):
-		
+		WCFClient.getFiliale(string username);
 		bool UpdateDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....)
-
-		bool risultato = wcfClient.UpdateDatiFiliale(string.Empty, varIndirizzoString, null, string.empty, varIntero, null);
-
-	1.2)Visualizza lista clienti
-	1.3)Visualizza lista impiegati
+		bool risultato = wcfClient.UpdateDatiFiliale(string.Empty, varIndirizzoString, null, string.empty, varIntero, null)
 2)Amministrazione impiegati
-	2.1)Sospendi impiegato
-	2.2)Attiva impiegato
-	2.3)Elimina impiegato
-	2.4)Aggiungi impiegato
-	2.5)Modifica Dati Impiegato
-	2.6)Visualizza lista impiegati
+	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string usernameDirettore) -> fornisce la lista completa degli impiegati che lavorano nella filiale 				in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
+	2.1)Sospendi impiegato -> bool WCFCLient.SospendiImpiegato(string username); restituisce true se trova l'impiegato e lo sospende, false se non lo trova
+	2.2)Attiva impiegato -> bool WCFCLient.AttivaImpiegato(string username); stessa logica di sospendi impiegato
+	2.3)Elimina impiegato -> bool WCFCLient.EliminaImpiegato(string username); stessa logica di sospendi impiegato    
+	2.4)Aggiungi impiegato -> bool WCFClient.ControllaUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
+			       -> bool WCFCLient.RegistraPersona(Persona p, string password) -> True successo operazione, false il contrario
+	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona();
 3)Amministrazione clienti
+	3.0)Visualizza lista clienti
 	3.1)Registrare persona/account
 	3.2)Creare un conto corrente
 	3.3)Modifica persona/account

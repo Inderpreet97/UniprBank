@@ -6,9 +6,9 @@ namespace WCFClient.Pages
     {
         public MovimentiMenu(Program program)
             : base("Movimenti", program,
-                    new Option("Bonifico", () => program.NavigateTo<MovimentiPage1>()),
-                    new Option("Prelievo", () => program.NavigateTo<MovimentiPage2>()),
-                    new Option("Deposito", () => program.NavigateTo<MovimentiPage3>()))
+                    new Option("Bonifico", () => program.NavigateTo<Bonifico>()),
+                    new Option("Prelievo", () => program.NavigateTo<Prelievo>()),
+                    new Option("Deposito", () => program.NavigateTo<Deposito>()))
         {
         }
     }

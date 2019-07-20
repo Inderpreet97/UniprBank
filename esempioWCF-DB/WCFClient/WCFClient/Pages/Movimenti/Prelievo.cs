@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class MovimentiPage2 : Page
+    class Prelievo : Page
     {
-        public MovimentiPage2(Program program) : base("Prelievo", program) { }
+        public Prelievo(Program program) : base("Prelievo", program) { }
 
         public override void Display()
         {

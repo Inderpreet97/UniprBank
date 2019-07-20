@@ -9,11 +9,11 @@ namespace WCFClient
             : base("Menu Cliente", breadcrumbHeader: true)
         {
             AddPage(new MainMenuCliente(this));
-            AddPage(new ClientiPage6(this));
+            AddPage(new ListaMovimenti(this));
             AddPage(new MovimentiMenu(this));
-            AddPage(new MovimentiPage1(this));
-            AddPage(new MovimentiPage2(this));
-            AddPage(new MovimentiPage3(this));
+            AddPage(new Bonifico(this));
+            AddPage(new Prelievo(this));
+            AddPage(new Deposito(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
 

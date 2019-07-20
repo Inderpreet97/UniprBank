@@ -10,12 +10,12 @@ namespace WCFClient
         {
             AddPage(new MainMenuImpiegato(this));
             AddPage(new RegistraPersona(this));
-            AddPage(new ClientiPage2(this));
-            AddPage(new ClientiPage3(this));
-            AddPage(new ClientiPage4(this));
-            AddPage(new ClientiPage5(this));
-            AddPage(new ClientiPage6(this));
-            AddPage(new ClientiPage7(this));
+            AddPage(new ListaClienti(this));
+            AddPage(new CreaContoCorrente(this));
+            AddPage(new ModificaAccount(this));
+            AddPage(new ModificaContoCorrente(this));
+            AddPage(new ListaMovimenti(this));
+            AddPage(new EseguiMovimento(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
 

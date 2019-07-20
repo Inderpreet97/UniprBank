@@ -26,7 +26,7 @@ namespace WCFClient
 
         public Persona(string username, string privilegi, string codiceFiscale,
             string nome, string cognome, DateTime dataDiNascita, string sesso, string indirizzo, string CAP,
-            string citta, string provincia, string stato, string numeroDiTelefono) {
+            string citta, string provincia, string stato, string numeroDiTelefono, string filiale) {
             this.username = username;
             this.privilegi = privilegi;
             this.codiceFiscale = codiceFiscale;
@@ -40,6 +40,16 @@ namespace WCFClient
             this.provincia = provincia;
             this.stato = stato;
             this.numeroDiTelefono = numeroDiTelefono;
+            this.filiale = filiale;
+        }
+
+        public void Stampa() {
+            Output.WriteLine("#########################################");
+            Output.WriteLine("Tipo di utenza: ", this.privilegi);
+            Output.WriteLine("\nUsername: ", this.username + "\nNome: ", this.nome + "\nCognome: ", this.cognome);
+            Output.WriteLine("\nCodice Fiscale: ", this.codiceFiscale + "\nSesso: ", this.sesso + "\nData di nascita", this.dataDiNascita);
+            Output.WriteLine("\nCittà: ", this.citta + "\nProvincia: ", this.provincia + "\nStato: ", this.stato);
+            Output.WriteLine("\nNumero di telefono: ", numeroDiTelefono);
         }
 
         public string username { get; set; }
@@ -55,6 +65,7 @@ namespace WCFClient
         public string provincia { get; set; }
         public string stato { get; set; }
         public string numeroDiTelefono { get; set; }
+        public string filiale { get; set; }
     }
 
     public class Filiale {

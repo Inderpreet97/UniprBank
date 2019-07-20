@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ClientiPage5 : Page
+    class ListaMovimenti : Page
     {
-        public ClientiPage5(Program program) : base("Visualizza Lista Clienti", program) { }
+        public ListaMovimenti(Program program) : base("Visualizza Lista Movimenti Cliente", program) { }
 
         public override void Display()
         {

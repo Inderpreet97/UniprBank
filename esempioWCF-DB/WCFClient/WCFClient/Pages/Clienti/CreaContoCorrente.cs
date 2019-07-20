@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ImpiegatiPage4 : Page
+    class CreaContoCorrente : Page
     {
-        public ImpiegatiPage4(Program program) : base("Aggiungi", program) { }
+        public CreaContoCorrente(Program program) : base("Modifica Persona/Account", program) { }
 
         public override void Display()
         {

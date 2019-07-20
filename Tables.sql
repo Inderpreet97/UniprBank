@@ -19,8 +19,10 @@ CREATE TABLE Account (
     password varchar(255) NOT NULL,
     privilegi varchar(255) NOT NULL,
     codiceFiscale VARCHAR(16) NOT NULL,
+    filiale VARCHAR(10) NOT NULL,
     CONSTRAINT PK_utente PRIMARY KEY (username),
-    CONSTRAINT FK_codiceFiscale FOREIGN KEY (codiceFiscale) REFERENCES Persona(codiceFiscale)
+    CONSTRAINT FK_codiceFiscale FOREIGN KEY (codiceFiscale) REFERENCES Persona(codiceFiscale),
+    CONSTRAINT FK_filiale FOREIGN KEY (filiale) REFERENCES Filiale(idFiliale)
 );
 
 CREATE TABLE Filiale(

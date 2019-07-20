@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ImpiegatiPage1 : Page
+    class Deposito : Page
     {
-        public ImpiegatiPage1(Program program) : base("Sospendi", program) { }
+        public Deposito(Program program) : base("Deposito", program) { }
 
         public override void Display()
         {

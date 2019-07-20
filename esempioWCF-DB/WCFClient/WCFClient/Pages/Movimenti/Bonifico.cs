@@ -2,9 +2,9 @@
 
 namespace WCFClient.Pages
 {
-    class ClientiPage3 : Page
+    class Bonifico : Page
     {
-        public ClientiPage3(Program program) : base("Modifica Persona/Account", program) { }
+        public Bonifico(Program program) : base("Bonifico", program) { }
 
         public override void Display()
         {
