@@ -56,13 +56,13 @@ namespace WCFServerDB
         [DataMember]
         public string cognome { get; set; }
         [DataMember]
-        public DateTime dataDiNascita { get; set; }
+        public DateTime? dataDiNascita { get; set; }
         [DataMember]
         public string sesso { get; set; }
         [DataMember]
         public string indirizzo { get; set; }
         [DataMember]
-        public int CAP { get; set; }
+        public int? CAP { get; set; }
         [DataMember]
         public string citta { get; set; }
         [DataMember]
@@ -71,13 +71,29 @@ namespace WCFServerDB
         public string stato { get; set; }
         [DataMember]
         public string numeroDiTelefono { get; set; }
+        [DataMember]
+        public string filiale { get; set; }
 
         public Persona() {
+            this.username = string.Empty;
+            this.privilegi = string.Empty;
+            this.codiceFiscale = string.Empty;
+            this.nome = string.Empty;
+            this.cognome = string.Empty;
+            this.dataDiNascita = null;
+            this.sesso = string.Empty;
+            this.indirizzo = string.Empty;
+            this.CAP = null;
+            this.citta = string.Empty;
+            this.provincia = string.Empty;
+            this.stato = string.Empty;
+            this.numeroDiTelefono = string.Empty;
+            this.filiale = string.Empty;
         }
 
         public Persona(string username, string privilegi, string codiceFiscale, string nome,
-                            string cognome, DateTime dataDiNascita, string sesso, string indirizzo,
-                            int CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
+                            string cognome, DateTime? dataDiNascita, string sesso, string indirizzo,
+                            int? CAP, string citta, string provincia, string stato, string numeroDiTelefono, string filiale) {
             this.username = username;
             this.privilegi = privilegi;
             this.codiceFiscale = codiceFiscale;
@@ -91,6 +107,7 @@ namespace WCFServerDB
             this.provincia = provincia;
             this.stato = stato;
             this.numeroDiTelefono = numeroDiTelefono;
+            this.filiale = filiale;
         }
     }
 }

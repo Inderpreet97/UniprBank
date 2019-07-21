@@ -16,19 +16,39 @@ namespace WCFServerDB
     }
 
     [DataContract]
-    public class Movimenti
+    public class Movimento
     {
+        
+
         [DataMember]
-        public int idMovimenti { get; set; }
+        public int? idMovimenti { get; set; }
         [DataMember]
         public string IBANCommittente { get; set; }
         [DataMember]
         public string tipo { get; set; }
         [DataMember]
-        public decimal importo { get; set; }
+        public decimal? importo { get; set; }
         [DataMember]
         public string IBANBeneficiario { get; set; }
         [DataMember]
-        public DateTime dataOra { get; set; }
+        public DateTime? dataOra { get; set; }
+
+        public Movimento() {
+            this.idMovimenti = null;
+            this.IBANCommittente = string.Empty;
+            this.tipo = string.Empty;
+            this.importo = null;
+            this.IBANBeneficiario = string.Empty;
+            this.dataOra = null;
+        }
+
+        public Movimento(int? idMovimenti, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
+            this.idMovimenti = idMovimenti;
+            this.IBANCommittente = IBANCommittente;
+            this.tipo = tipo;
+            this.importo = importo;
+            this.IBANBeneficiario = IBANBeneficiario;
+            this.dataOra = dataOra;
+        }
     }
 }
