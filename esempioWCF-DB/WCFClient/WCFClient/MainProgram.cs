@@ -143,10 +143,24 @@ namespace WCFClient
     public class Persona 
     {
         public Persona() {
+            this.username = string.Empty;
+            this.privilegi = string.Empty;
+            this.codiceFiscale = string.Empty;
+            this.nome = string.Empty;
+            this.cognome = string.Empty;
+            this.dataDiNascita = null;
+            this.sesso = string.Empty;
+            this.indirizzo = string.Empty;
+            this.CAP = null;
+            this.citta = string.Empty;
+            this.provincia = string.Empty;
+            this.stato = string.Empty;
+            this.numeroDiTelefono = string.Empty;
+            this.filiale = string.Empty;
         }
 
         public Persona(string username, string privilegi, string codiceFiscale,
-            string nome, string cognome, DateTime dataDiNascita, string sesso, string indirizzo, int CAP,
+            string nome, string cognome, DateTime? dataDiNascita, string sesso, string indirizzo, int? CAP,
             string citta, string provincia, string stato, string numeroDiTelefono, string filiale) {
             this.username = username;
             this.privilegi = privilegi;
@@ -178,10 +192,10 @@ namespace WCFClient
         public string codiceFiscale { get; set; }
         public string nome { get; set; }
         public string cognome { get; set; }
-        public DateTime dataDiNascita { get; set; }
+        public DateTime? dataDiNascita { get; set; }
         public string sesso { get; set; }
         public string indirizzo { get; set; }
-        public int CAP { get; set; }
+        public int? CAP { get; set; }
         public string citta { get; set; }
         public string provincia { get; set; }
         public string stato { get; set; }
@@ -191,10 +205,19 @@ namespace WCFClient
 
     public class Filiale {
         public Filiale() {
+            this.idFiliale = string.Empty;
+            this.direttore = string.Empty;
+            this.nome = string.Empty;
+            this.indirizzo = string.Empty;
+            this.CAP = null;
+            this.citta = string.Empty;
+            this.provincia = string.Empty;
+            this.stato = string.Empty;
+            this.numeroDiTelefono = string.Empty;
         }
 
         public Filiale(string idFiliale, string nome, string indirizzo,
-            int CAP, string citta, string provincia, string stato, string numeroDiTelefono, string direttore) {
+            int? CAP, string citta, string provincia, string stato, string numeroDiTelefono, string direttore) {
             this.idFiliale = idFiliale;
             this.nome = nome;
             this.indirizzo = indirizzo;
@@ -209,7 +232,7 @@ namespace WCFClient
         public string idFiliale { get; set; }
         public string nome { get; set; }
         public string indirizzo { get; set; }
-        public int CAP { get; set; }
+        public int? CAP { get; set; }
         public string citta { get; set; }
         public string provincia { get; set; }
         public string stato { get; set; }
@@ -219,9 +242,14 @@ namespace WCFClient
 
     public class ContoCorrente {
         public ContoCorrente() {
+            this.idContoCorrente = null;
+            this.IBAN = string.Empty;
+            this.username = string.Empty;
+            this.saldo = null;
+            this.idFiliale = string.Empty;
         }
 
-        public ContoCorrente(int idContoCorrente, string IBAN, string username, decimal saldo, string idFiliale) {
+        public ContoCorrente(int? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
             this.idContoCorrente = idContoCorrente;
             this.IBAN = IBAN;
             this.username = username;
@@ -229,18 +257,24 @@ namespace WCFClient
             this.idFiliale = idFiliale;
         }
 
-        public int idContoCorrente { get; set; }
+        public int? idContoCorrente { get; set; }
         public string IBAN { get; set; }
         public string username { get; set; }
-        public decimal saldo { get; set; }
+        public decimal? saldo { get; set; }
         public string idFiliale { get; set; }
     }
 
-    public class Movimenti {
-        public Movimenti() {
+    public class Movimento {
+        public Movimento() {
+            this.idMovimenti = null;
+            this.IBANCommittente = string.Empty;
+            this.tipo = string.Empty;
+            this.importo = null;
+            this.IBANBeneficiario = string.Empty;
+            this.dataOra = null;
         }
 
-        public Movimenti(int idMovimenti, string IBANCommittente, string tipo, decimal importo, string IBANBeneficiario, DateTime dataOra) {
+        public Movimento(int? idMovimenti, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
             this.idMovimenti = idMovimenti;
             this.IBANCommittente = IBANCommittente;
             this.tipo = tipo;
@@ -249,12 +283,12 @@ namespace WCFClient
             this.dataOra = dataOra;
         }
 
-        public int idMovimenti { get; set; }
+        public int? idMovimenti { get; set; }
         public string IBANCommittente { get; set; }
         public string tipo { get; set; }
-        public decimal importo { get; set; }
+        public decimal? importo { get; set; }
         public string IBANBeneficiario { get; set; }
-        public DateTime dataOra { get; set; }
+        public DateTime? dataOra { get; set; }
     }
 
     //################################################################################################

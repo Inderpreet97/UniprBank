@@ -2,15 +2,29 @@ Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
 		WCFClient.getFiliale(string username);
-		bool ModificaDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....) string.empty, varIntero, null)
+		bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale) -> idFililae = id della filiale da modificare,
+										    filiale = oggetto filiale con i dati nuovi
 2)Amministrazione impiegati
-	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string usernameDirettore) -> fornisce la lista completa degli impiegati che lavorano nella filiale 				in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
+	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string username) -> fornisce la lista completa degli impiegati che lavorano nella filiale 					in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
+
 	2.1)Sospendi impiegato -> bool WCFCLient.SospendiImpiegato(string username); restituisce true se trova l'impiegato e lo sospende, false se non lo trova
+
 	2.2)Attiva impiegato -> bool WCFCLient.AttivaImpiegato(string username); stessa logica di sospendi impiegato
+
 	2.3)Elimina impiegato -> bool WCFCLient.EliminaImpiegato(string username); stessa logica di sospendi impiegato    
+
 	2.4)Aggiungi impiegato -> bool WCFClient.ControllaUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
 			       -> bool WCFClient.AggiungiPersona(Persona p, string password) -> True successo operazione, false il contrario
 	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona();
+
+
+	2.4)Aggiungi impiegato -> bool WCFClient.CheckUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
+			       -> bool WCFCLient.RegistraPersona(Persona p, string password) -> True successo operazione, false il contrario
+
+	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona(string identificativo, Persona persona)
+				Funzionamento: identificativo-> puoi metterci sia il codice fiscale che l'username della
+							persona da modificare, ci penserò io capire cosa stai usando.
+					       persona -> Contiene i dati da modificare della persona identificata
 3)Amministrazione clienti
 	3.0)Visualizza lista clienti
 	3.1)Registrare persona/account

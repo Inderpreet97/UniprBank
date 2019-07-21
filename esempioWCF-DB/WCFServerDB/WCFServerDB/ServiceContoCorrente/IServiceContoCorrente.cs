@@ -20,20 +20,25 @@ namespace WCFServerDB
     {
 
         [DataMember]
-        public int idContoCorrente { get; set; }
+        public int? idContoCorrente { get; set; }
         [DataMember]
         public string IBAN { get; set; }
         [DataMember]
         public string username { get; set; }
         [DataMember]
-        public decimal saldo { get; set; }
+        public decimal? saldo { get; set; }
         [DataMember]
         public string idFiliale { get; set; }
 
         public ContoCorrente() {
+            this.idContoCorrente = null;
+            this.IBAN = string.Empty;
+            this.username = string.Empty;
+            this.saldo = null;
+            this.idFiliale = string.Empty;
         }
 
-        public ContoCorrente(int idContoCorrente, string IBAN, string username, decimal saldo, string idFiliale) {
+        public ContoCorrente(int? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
             this.idContoCorrente = idContoCorrente;
             this.IBAN = IBAN;
             this.username = username;

@@ -12,7 +12,10 @@ namespace WCFServerDB
     public interface IServiceFiliale
     {
         [OperationContract]
-        void DoWork();
+        Filiale GetFiliale(string username);
+
+        [OperationContract]
+        bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale);
     }
     
     [DataContract]
@@ -27,7 +30,7 @@ namespace WCFServerDB
         [DataMember]
         public string indirizzo { get; set; }
         [DataMember]
-        public int CAP { get; set; }
+        public int? CAP { get; set; }
         [DataMember]
         public string citta { get; set; }
         [DataMember]
@@ -37,9 +40,18 @@ namespace WCFServerDB
         [DataMember]
         public string numeroDiTelefono { get; set; }
         public Filiale() {
+            this.idFiliale = string.Empty;
+            this.direttore = string.Empty;
+            this.nome = string.Empty;
+            this.indirizzo = string.Empty;
+            this.CAP = null;
+            this.citta = string.Empty;
+            this.provincia = string.Empty;
+            this.stato = string.Empty;
+            this.numeroDiTelefono = string.Empty;
         }
 
-        public Filiale(string idFiliale, string direttore, string nome, string indirizzo, int CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
+        public Filiale(string idFiliale, string direttore, string nome, string indirizzo, int? CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
             this.idFiliale = idFiliale;
             this.direttore = direttore;
             this.nome = nome;
