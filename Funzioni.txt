@@ -9,7 +9,7 @@ Menù direttore:
 	2.2)Attiva impiegato -> bool WCFCLient.AttivaImpiegato(string username); stessa logica di sospendi impiegato
 	2.3)Elimina impiegato -> bool WCFCLient.EliminaImpiegato(string username); stessa logica di sospendi impiegato    
 	2.4)Aggiungi impiegato -> bool WCFClient.ControllaUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
-			       -> bool WCFCLient.RegistraPersona(Persona p, string password) -> True successo operazione, false il contrario
+			       -> bool WCFClient.AggiungiPersona(Persona p, string password) -> True successo operazione, false il contrario
 	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona();
 3)Amministrazione clienti
 	3.0)Visualizza lista clienti
