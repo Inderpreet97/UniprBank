@@ -12,7 +12,10 @@ namespace WCFServerDB
     public interface IServiceFiliale
     {
         [OperationContract]
-        void DoWork();
+        Filiale GetFiliale(string username);
+
+        [OperationContract]
+        bool ModificaDatiFiliale(string idFiliale, string direttore, string nome, string indirizzo, int? CAP, string citta, string provincia, string stato, string numeroDiTelefono);
     }
     
     [DataContract]

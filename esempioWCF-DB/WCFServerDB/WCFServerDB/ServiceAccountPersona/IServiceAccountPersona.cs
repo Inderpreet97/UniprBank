@@ -16,6 +16,28 @@ namespace WCFServerDB
 
         [OperationContract]
         int GetPrivilegi(string username);
+
+        [OperationContract]
+        List<Persona> GetListaPersone(string tipoAccount, string idFiliale);
+
+        [OperationContract]
+        bool SospendiImpiegato(string username);
+
+        [OperationContract]
+        bool AttivaImpiegato(string username);
+
+        [OperationContract]
+        bool EliminaImpiegato(string username);
+
+        [OperationContract]
+        bool CheckUsername(string username);
+
+        [OperationContract]
+        bool RegistraPersona(Persona persona, string password);
+
+        [OperationContract]
+        bool ModificaPersona();
+
     }
 
     enum Privilegi { unknown, admin, impiegato, cliente }
