@@ -17,6 +17,127 @@ namespace WCFClient
         public static string nome;
     }
 
+    static class Funzioni 
+    {
+        public static bool checkUsername(string username) {
+            //return WCFCLient.checkUsername(string username);
+            return false;
+        }
+
+        public static void aggiungiPersona(string privilegio) {
+
+            DateTime defaultDate = new DateTime(1900, 1, 1);
+
+            string username = Input.ReadString("Digitare l'username: ");
+            while (!Funzioni.checkUsername(username)) {
+                Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
+                username = Input.ReadString("Digitare l'username: ");
+            }
+
+            string codiceFiscale = string.Empty;
+            string nome = string.Empty;
+            string cognome = string.Empty;
+            string sesso = string.Empty;
+            string indirizzo = string.Empty;
+            string numeroDiTelefono = string.Empty;
+            string filiale = string.Empty;
+            string citta = string.Empty;
+            string provincia = string.Empty;
+            string stato = string.Empty;
+            DateTime dataDiNascita = defaultDate;
+            int CAP = 0;
+            string temp = null;
+
+            while (codiceFiscale == string.Empty && nome == string.Empty && cognome == string.Empty &&
+                sesso == string.Empty && indirizzo == string.Empty &&
+                numeroDiTelefono == string.Empty && filiale == string.Empty &&
+                citta == string.Empty && provincia == string.Empty && stato == string.Empty &&
+                CAP == 0 && DateTime.Compare(dataDiNascita, defaultDate) <= 0){
+                //Nome
+                temp = Input.ReadString("Nome: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { nome = temp; }
+                temp = string.Empty;
+
+                //Cognome
+                temp = Input.ReadString("Cognome: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { cognome = temp; }
+                temp = string.Empty;
+
+                //Data di nascita
+                temp = Input.ReadString("Data di nascita: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { DateTime.TryParse(temp, out dataDiNascita); }
+                temp = string.Empty;
+
+                //Codice fiscale
+                temp = Input.ReadString("Codice fiscale: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { codiceFiscale = temp; }
+                temp = string.Empty;
+
+                //Sesso
+                temp = Input.ReadString("Sesso: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { sesso = temp; }
+                temp = string.Empty;
+
+                //Indirizzo
+                temp = Input.ReadString("Indirizzo: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { indirizzo = temp; }
+                temp = string.Empty;
+
+                //Citta
+                temp = Input.ReadString("Città: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { citta = temp; }
+                temp = string.Empty;
+
+                //Provincia
+                temp = Input.ReadString("Provincia: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { provincia = temp; }
+                temp = string.Empty;
+
+                //Stato
+                temp = Input.ReadString("Stato: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { stato = temp; }
+                temp = string.Empty;
+
+                //Numero di telefono
+                temp = Input.ReadString("Numero di telefono: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { numeroDiTelefono = temp; }
+                temp = string.Empty;
+
+                //Filiale
+                temp = Input.ReadString("Filiale: ");
+                if (!string.IsNullOrWhiteSpace(temp)) { filiale = temp; }
+                temp = string.Empty;
+
+                //CAP
+                temp = Input.ReadString("CAP: ");
+                if (!string.IsNullOrWhiteSpace(temp)) {
+                    int.TryParse(temp, out CAP); }
+                temp = string.Empty;
+            }
+
+            Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
+                indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale);
+
+            bool risultato = false;
+
+            string password1 = Input.ReadString("Password: ");
+            string password2 = Input.ReadString("Conferma password: ");
+
+
+            while(password1 != password2) {
+                Input.ReadString("Le password non coincidono, riprovare\n");
+                password1 = Input.ReadString("Password: ");
+                password2 = Input.ReadString("Conferma password: ");
+            }
+
+            Output.WriteLine("Le password coincidono...\n\n");
+
+            //risultato = WCFCLient.AggiungiPersona(persona, password)
+            if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
+
+        }
+    }
+
     //##################################### CLASSI TEMPORANEE ##############################################
 
     public class Persona 
@@ -25,7 +146,7 @@ namespace WCFClient
         }
 
         public Persona(string username, string privilegi, string codiceFiscale,
-            string nome, string cognome, DateTime dataDiNascita, string sesso, string indirizzo, string CAP,
+            string nome, string cognome, DateTime dataDiNascita, string sesso, string indirizzo, int CAP,
             string citta, string provincia, string stato, string numeroDiTelefono, string filiale) {
             this.username = username;
             this.privilegi = privilegi;
@@ -60,7 +181,7 @@ namespace WCFClient
         public DateTime dataDiNascita { get; set; }
         public string sesso { get; set; }
         public string indirizzo { get; set; }
-        public string CAP { get; set; }
+        public int CAP { get; set; }
         public string citta { get; set; }
         public string provincia { get; set; }
         public string stato { get; set; }
