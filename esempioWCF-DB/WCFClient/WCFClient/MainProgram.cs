@@ -19,20 +19,23 @@ namespace WCFClient
 
     static class Funzioni 
     {
-        public static bool checkUsername(string username) {
-            //return WCFCLient.checkUsername(string username);
-            return false;
-        }
-
-        public static void aggiungiPersona(string privilegio) {
-
-            DateTime defaultDate = new DateTime(1900, 1, 1);
-
+        public static string digitaUsername() {
             string username = Input.ReadString("Digitare l'username: ");
             while (!Funzioni.checkUsername(username)) {
                 Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
                 username = Input.ReadString("Digitare l'username: ");
             }
+            return username;
+        }
+        public static bool checkUsername(string username) {
+            //return WCFCLient.checkUsername(string username);
+            return false;
+        }
+        public static void aggiungiPersona(string privilegio) {
+
+            DateTime defaultDate = new DateTime(1900, 1, 1);
+
+            string username = digitaUsername();
 
             string codiceFiscale = string.Empty;
             string nome = string.Empty;
@@ -136,6 +139,7 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
+        
     }
 
     //##################################### CLASSI TEMPORANEE ##############################################

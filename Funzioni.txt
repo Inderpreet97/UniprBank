@@ -17,7 +17,6 @@ Menù direttore:
 			       -> bool WCFClient.AggiungiPersona(Persona p, string password) -> True successo operazione, false il contrario
 	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona();
 
-
 	2.4)Aggiungi impiegato -> bool WCFClient.CheckUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
 			       -> bool WCFCLient.RegistraPersona(Persona p, string password) -> True successo operazione, false il contrario
 
@@ -26,9 +25,11 @@ Menù direttore:
 							persona da modificare, ci penserò io capire cosa stai usando.
 					       persona -> Contiene i dati da modificare della persona identificata
 3)Amministrazione clienti
-	3.0)Visualizza lista clienti
-	3.1)Registrare persona/account
-	3.2)Creare un conto corrente
+	3.0)Visualizza lista clienti -> List <Persona> WCFClient.getListaClienti(); restituisce la lista dei clienti di tipo Persona
+	3.1)Registrare persona/account -> stessa funzione di aggiungiImpiegato solo che il paramatro passato come argomento è il privilegio "cliente"
+	3.2)Creare un conto corrente -> WCFClient.getLastContoCorrente(); -> per generare l'id del nuovo conto corrente
+				     -> WCFClient.getIdFiliale(string addetto) -> ottiene l'id della filiale dall'username del direttore o dell'impiegato che effettua la 				        registrazione del nuovo conto corrente	
+				     -> WCFCLient.aggiungiContoCorrente(ContoCorrente contoCorrente) -> aggiunge il conto corrente al db e restituisce true se operazione 				        riuscita, false il contrario	
 	3.3)Modifica persona/account
 	3.4)Modificare conto corrente (IBAN)
 	3.5)Visualizza lista clienti
