@@ -33,7 +33,7 @@ namespace WCFServerDB
         bool CheckUsername(string username);
 
         [OperationContract]
-        bool RegistraPersona(Persona persona, string password);
+        bool AggiungiPersona(Persona persona, string password);
 
         [OperationContract]
         bool ModificaPersona();
