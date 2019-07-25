@@ -15,7 +15,7 @@ namespace WCFServerDB
         bool Login(string username, string password);
 
         [OperationContract]
-        int GetPrivilegi(string username);
+        string GetPrivilegi(string username);
 
         [OperationContract]
         List<Persona> GetListaPersone(string tipoAccount, string idFiliale);
@@ -33,14 +33,15 @@ namespace WCFServerDB
         bool CheckUsername(string username);
 
         [OperationContract]
+        Persona GetPersona(string identificativo);
+
+        [OperationContract]
         bool AggiungiPersona(Persona persona, string password);
 
         [OperationContract]
         bool ModificaPersona();
 
     }
-
-    enum Privilegi { unknown, admin, impiegato, cliente }
 
     [DataContract]
     public class Persona
@@ -73,6 +74,11 @@ namespace WCFServerDB
         public string numeroDiTelefono { get; set; }
         [DataMember]
         public string filiale { get; set; }
+
+        // ESEMPIO <<<<<<<<<<<<<<<<<<
+        Persona P = new Persona();
+
+        wcfClient.ModificaPersona(P, )
 
         public Persona() {
             this.username = string.Empty;
