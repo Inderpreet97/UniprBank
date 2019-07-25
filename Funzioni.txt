@@ -7,16 +7,12 @@ Menù direttore:
 2)Amministrazione impiegati
 	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string username) -> fornisce la lista completa degli impiegati che lavorano nella filiale 					in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
 
-	2.1)Sospendi impiegato -> bool WCFCLient.SospendiImpiegato(string username); restituisce true se trova l'impiegato e lo sospende, false se non lo trova
+	2.1)Elimina impiegato -> bool WCFCLient.EliminaImpiegato(string username); stessa logica di sospendi impiegato    
 
-	2.2)Attiva impiegato -> bool WCFCLient.AttivaImpiegato(string username); stessa logica di sospendi impiegato
-
-	2.3)Elimina impiegato -> bool WCFCLient.EliminaImpiegato(string username); stessa logica di sospendi impiegato    
-
-	2.4)Aggiungi impiegato -> bool WCFClient.CheckUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
+	2.2)Aggiungi impiegato -> bool WCFClient.CheckUsername(string UsernameImpiegato) -> True se già utilizzato, false se disponibile
 			       -> bool WCFClient.AggiungiPersona(Persona p, string password) -> True successo operazione, false il contrario
 
-	2.5)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona(string identificativo, Persona persona)
+	2.3)Modifica Dati Impiegato -> bool WCFClient.EseguiModifichePersona(string identificativo, Persona persona)
 				Funzionamento: identificativo-> puoi metterci sia il codice fiscale che l'username della
 							persona da modificare, ci penserò io capire cosa stai usando.
 					       persona -> Contiene i dati da modificare della persona identificata
@@ -24,7 +20,7 @@ Menù direttore:
 	3.0)Visualizza lista clienti -> List <Persona> WCFClient.GetListaPersone(string tipoAccount, string idFiliale);
 					 restituisce la lista dei clienti di tipo Persona: tipoAccount = "cliente"
 	3.1)Registrare persona/account -> stessa funzione di aggiungiImpiegato solo che il paramatro passato come argomento è il privilegio "cliente"
-	3.2)Creare un conto corrente -> WCFClient.getLastContoCorrente(); -> per generare l'id del nuovo conto corrente
+	3.2)Creare un conto corrente -> Modificare codice SQL per aggiungere IDCONTOCORRENTE IN AUTOMATICO
 				     -> WCFClient.getIdFiliale(string addetto) -> ottiene l'id della filiale dall'username del direttore o dell'impiegato che effettua la 				        registrazione del nuovo conto corrente	
 				     -> WCFCLient.aggiungiContoCorrente(ContoCorrente contoCorrente) -> aggiunge il conto corrente al db e restituisce true se operazione 				        riuscita, false il contrario	
 	3.3)Modifica persona/account

@@ -60,7 +60,7 @@ namespace WCFServerDB
             }
         }
 
-        public int GetPrivilegi(string username)
+        public string GetPrivilegi(string username)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
@@ -84,19 +84,7 @@ namespace WCFServerDB
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
-                    switch (privilegiString.ToUpper()) {
-                        case "ADMIN":
-                            return (int)Privilegi.admin;
-
-                        case "IMPIEGATO":
-                            return (int)Privilegi.impiegato;
-
-                        case "CLIENTE":
-                            return (int)Privilegi.cliente;
-
-                        default:
-                            return (int)Privilegi.unknown;
-                    }
+                    return privilegiString;
                 }
                 catch (Exception ex) {
                     Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
@@ -113,7 +101,7 @@ namespace WCFServerDB
                         Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
-                    return (int)Privilegi.unknown;
+                    return String.Empty;
                 }
             }
         }
@@ -188,7 +176,7 @@ namespace WCFServerDB
         }
 
         public bool SospendiImpiegato(string username) {
-            throw new NotImplementedException();
+
         }
 
         public bool AttivaImpiegato(string username) {
