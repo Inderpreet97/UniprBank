@@ -9,7 +9,10 @@ namespace WCFClient.Pages
         public override void Display()
         {
             base.Display();
-            Output.WriteLine("Hello from Page 1Ai");
+
+            ContoCorrente contoCorrente = new ContoCorrente();
+
+            Funzioni
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

@@ -23,8 +23,9 @@ Menù direttore:
 	3.2)Creare un conto corrente -> Modificare codice SQL per aggiungere IDCONTOCORRENTE IN AUTOMATICO
 				     -> WCFClient.getIdFiliale(string addetto) -> ottiene l'id della filiale dall'username del direttore o dell'impiegato che effettua la 				        registrazione del nuovo conto corrente	
 				     -> WCFCLient.aggiungiContoCorrente(ContoCorrente contoCorrente) -> aggiunge il conto corrente al db e restituisce true se operazione 				        riuscita, false il contrario	
-	3.3)Modifica persona/account
-	3.4)Modificare conto corrente (IBAN)
+	3.3)Modifica persona/account -> bool WCFClient.ModificaPersona(string currentUsername, Persona p)
+	3.4)Modificare conto corrente (IBAN) -> bool WCFClient.checkContoCorrente(int idContoCorrente)
+					     -> ContoCorrente WCFCLient.getContoCorrente(int idContoCorrente)
 	3.5)Visualizza lista clienti
 	3.6)Visualizzare lista movimenti di un cliente
 	3.7)Effettuare movimento di un cliente

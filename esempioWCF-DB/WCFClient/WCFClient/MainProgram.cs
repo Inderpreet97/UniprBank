@@ -144,16 +144,52 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
-        public static void modificaPersona(Persona p) {
+        public static void modificaPersona(string privilegio) {
+
+            bool risultato = false;
+            string errorString = string.Empty;
+            string username = "";
+            Persona persona = new Persona();
+
+            do {
+                Output.WriteLine(System.ConsoleColor.Red, errorString);
+                errorString = string.Empty;
+
+                username = Input.ReadString("Username: ");
+                persona = Funzioni.checkUsername(username);
+                if (persona.username == string.Empty) {
+                    errorString = "Username non trovato, prego digitare un username valido";
+                }
+            } while (errorString != string.Empty);
+
+            //bool risultato = WCFCLient.ModificaPersona(impiegato);
+
+            if (risultato) { Output.WriteLine("Impiegato modificato correttamente"); } else { Output.WriteLine("Errore"); }
+
             Console.Clear();
 
-            p.Stampa();
+            persona.Stampa();
             Input.ReadString("PREMI INVIO PER MODIFICARE...");
 
-            string currentUsername = p.username;
+            string currentUsername = persona.username;
            
             //Modifiche
             //WCFClient.ModificaPersona(currentUsername, p);
+        }
+        public static bool checkContoCorrente(int idContoCorrente) {
+            bool risultato = false;
+            //risultato = WCFClient.checkUsernam(idContoCorrente)
+            return risultato;
+        }
+        public static void modificaContoCorrente() {
+            int idContoCorrente = Convert.ToInt32(Input.ReadString("ID conto corrente da modificare: "));
+            while (!checkContoCorrente(idContoCorrente)) {
+                Output.WriteLine("Conto corrente inesistente, digitare nuovamente");
+                idContoCorrente = Convert.ToInt32(Input.ReadString("ID conto corrente da modificare: "));
+            }
+
+            //ContoCorrente contoCorrente = WCFClient.getContoCorrente(idContoCorrente)
+            ContoCorrente contoCorrente = new ContoCorrente();
         }
     }
 
