@@ -8,36 +8,42 @@ using System.Configuration;
 
 namespace WCFClient
 {
-    // Messaggio di prova 
-    // Messaggio di prova 2
+    static class Globals 
+    {
+        public static DateTime defaultDate = new DateTime(1900, 1, 1);
+    }
     static class LoggedUser // Questa è una classe static, non possiamo creare oggi di questa classe, 
     {                       // "esiste un unico oggetto" visibile in tutto il namespace WCFClient
         public static string username = "default";
         public static string privilegi = "admin";
         public static string nome;
     }
-
     static class Funzioni 
     {
-        public static string digitaUsername() {
+        public static string digitaNuovoUsername() {
             string username = Input.ReadString("Digitare l'username: ");
-            while (!Funzioni.checkUsername(username)) {
+            while (Funzioni.checkUsername(username).username != string.Empty) {
                 Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
                 username = Input.ReadString("Digitare l'username: ");
             }
             return username;
         }
-        public static bool checkUsername(string username) {
-            //return WCFCLient.checkUsername(string username);
+        public static Persona checkUsername(string username) {
+            //Restituisce una persona vuota se l'username non è presente, restituisce una persona popolata in caso contrario
+            //return WCFCLient.CheckUsername(string username);
+            Persona p = new Persona();
+            return p;
+        }
+        public static bool checkEta(DateTime dataDiNascita) {
+            if (DateTime.Compare(DateTime.Now, dataDiNascita) >= 18 && DateTime.Compare(DateTime.Now, dataDiNascita) < 110) { return true; }
             return false;
         }
         public static void aggiungiPersona(string privilegio) {
 
-            DateTime defaultDate = new DateTime(1900, 1, 1);
 
-            string username = digitaUsername();
+            string username = digitaNuovoUsername();
 
-            string codiceFiscale = string.Empty;
+            string codiceFiscale= string.Empty;
             string nome = string.Empty;
             string cognome = string.Empty;
             string sesso = string.Empty;
@@ -47,15 +53,16 @@ namespace WCFClient
             string citta = string.Empty;
             string provincia = string.Empty;
             string stato = string.Empty;
-            DateTime dataDiNascita = defaultDate;
-            int CAP = 0;
+            DateTime dataDiNascita = Globals.defaultDate;
+            int? CAP = null;
             string temp = null;
+            int? tempInt = null;
 
-            while (codiceFiscale == string.Empty && nome == string.Empty && cognome == string.Empty &&
-                sesso == string.Empty && indirizzo == string.Empty &&
-                numeroDiTelefono == string.Empty && filiale == string.Empty &&
-                citta == string.Empty && provincia == string.Empty && stato == string.Empty &&
-                CAP == 0 && DateTime.Compare(dataDiNascita, defaultDate) <= 0){
+            while (codiceFiscale == string.Empty || nome == string.Empty || cognome == string.Empty ||
+                sesso == string.Empty || indirizzo == string.Empty ||
+                numeroDiTelefono == string.Empty || filiale == string.Empty ||
+                citta == string.Empty || provincia == string.Empty || stato == string.Empty ||
+                !CAP.HasValue || (!Funzioni.checkEta(dataDiNascita))){
                 //Nome
                 temp = Input.ReadString("Nome: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { nome = temp; }
@@ -112,10 +119,7 @@ namespace WCFClient
                 temp = string.Empty;
 
                 //CAP
-                temp = Input.ReadString("CAP: ");
-                if (!string.IsNullOrWhiteSpace(temp)) {
-                    int.TryParse(temp, out CAP); }
-                temp = string.Empty;
+                tempInt = (int?)Input.ReadInt("CAP: ", 0, 99999);
             }
 
             Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
@@ -128,7 +132,7 @@ namespace WCFClient
 
 
             while(password1 != password2) {
-                Input.ReadString("Le password non coincidono, riprovare\n");
+                Output.WriteLine(ConsoleColor.Red,"Le password non coincidono, riprovare\n");
                 password1 = Input.ReadString("Password: ");
                 password2 = Input.ReadString("Conferma password: ");
             }
@@ -139,7 +143,15 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
-        
+        public static void modificaPersona(Persona p) {
+            Console.Clear();
+            p.Stampa();
+
+            string currentUsername = p.username;
+            //Modifiche
+
+            //WCFClient.ModificaPersona(currentUsername, p);
+        }
     }
 
     //##################################### CLASSI TEMPORANEE ##############################################

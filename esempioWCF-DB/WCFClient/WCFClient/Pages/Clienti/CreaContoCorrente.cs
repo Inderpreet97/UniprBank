@@ -22,7 +22,7 @@ namespace WCFClient.Pages
             base.Display();
             Output.WriteLine("Hello from Page 1Ai");
 
-            string username = Funzioni.digitaUsername();
+            string username = Funzioni.digitaNuovoUsername();
 
             ContoCorrente contoCorrente = new ContoCorrente();
             contoCorrente.idContoCorrente = generaIdContoCorrente();

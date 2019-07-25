@@ -9,21 +9,26 @@ namespace WCFClient.Pages
         public override void Display()
         {
             base.Display();
-
-            string username = null;
             bool risultato = false;
-
-            while (!risultato) {
-                username = Input.ReadString("Inserire username impiegato da modificare: ");
-                //risultato = WCFClient.ControllaUsername(usernameImpiegato);"
-                if (!risultato) { Output.WriteLine("Impiegato non trovato, riprovare"); }
-            }
-
-            //Persona impiegato = WCFClient.GetPersona();
+            string errorString = string.Empty;
+            string username = "";
             Persona impiegato = new Persona();
 
-            //ModificaImpiegato();
-            //EseguiModifichePersona();
+            do {
+                Output.WriteLine(System.ConsoleColor.Red, errorString);
+                errorString = string.Empty;
+
+                username = Input.ReadString("Username: ");
+                impiegato = Funzioni.checkUsername(username);
+                if (impiegato.username == string.Empty) {
+                    errorString = "Username non trovato, prego digitare un username valido";
+                }
+            } while (errorString != string.Empty);
+
+
+
+            Funzioni.modificaPersona(impiegato);
+            //WCFCLient.ModificaPersona(impiegato);
 
             Output.WriteLine("Impiegato modificato");
 
