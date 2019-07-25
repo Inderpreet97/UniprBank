@@ -63,16 +63,7 @@ namespace WCFClient.Pages
             if (risultato) { Output.WriteLine("Modifica effettuata correttamente"); } else { Output.WriteLine("Errore"); }
         }
 
-        public void StampaFiliale(Filiale filiale) {
-            Output.WriteLine("Nome filiale: " + filiale.nome);
-            Output.WriteLine("Indirizzo: " + filiale.indirizzo);
-            Output.WriteLine("CAP: " + filiale.CAP);
-            Output.WriteLine("Città: " + filiale.citta);
-            Output.WriteLine("Provincia: " + filiale.provincia);
-            Output.WriteLine("Stato: " + filiale.stato);
-            Output.WriteLine("Numero di telefono: " + filiale.numeroDiTelefono);
-            Output.WriteLine("Direttore: " + filiale.direttore);
-        }
+        
 
         public override void Display(){
             base.Display();
@@ -81,7 +72,7 @@ namespace WCFClient.Pages
             Filiale filiale = new Filiale();
 
             //Stampa dati correnti della filiale            
-            StampaFiliale(filiale);
+            filiale.StampaFiliale();
 
             ModificaFiliale(filiale);
             //bool risultato = WCFClient.UpdateDatiFilialebool UpdateDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....)
@@ -95,7 +86,7 @@ namespace WCFClient.Pages
             }
 
             //Stampa nuovamente la filiale
-            StampaFiliale(filiale);
+            filiale.StampaFiliale();
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

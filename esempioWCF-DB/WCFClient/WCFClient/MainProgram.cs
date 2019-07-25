@@ -23,6 +23,7 @@ namespace WCFClient
         public static string digitaNuovoUsername() {
             string username = Input.ReadString("Digitare l'username: ");
             while (Funzioni.checkUsername(username).username != string.Empty) {
+                //La persona restituita deve essere vuota (non esiste = username disponibile)
                 Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
                 username = Input.ReadString("Digitare l'username: ");
             }
@@ -30,7 +31,7 @@ namespace WCFClient
         }
         public static Persona checkUsername(string username) {
             //Restituisce una persona vuota se l'username non è presente, restituisce una persona popolata in caso contrario
-            //return WCFCLient.CheckUsername(string username);
+            //Persona p = WCFCLient.CheckUsername(string username);
             Persona p = new Persona();
             return p;
         }
@@ -145,11 +146,13 @@ namespace WCFClient
         }
         public static void modificaPersona(Persona p) {
             Console.Clear();
+
             p.Stampa();
+            Input.ReadString("PREMI INVIO PER MODIFICARE...");
 
             string currentUsername = p.username;
+           
             //Modifiche
-
             //WCFClient.ModificaPersona(currentUsername, p);
         }
     }
@@ -220,6 +223,8 @@ namespace WCFClient
     }
 
     public class Filiale {
+
+        //Costruttori
         public Filiale() {
             this.idFiliale = string.Empty;
             this.direttore = string.Empty;
@@ -245,6 +250,19 @@ namespace WCFClient
             this.direttore = direttore;
         }
 
+        //Metodi
+        public void StampaFiliale() {
+            Output.WriteLine("Nome filiale: " + this.nome);
+            Output.WriteLine("Indirizzo: " + this.indirizzo);
+            Output.WriteLine("CAP: " + this.CAP);
+            Output.WriteLine("Città: " + this.citta);
+            Output.WriteLine("Provincia: " + this.provincia);
+            Output.WriteLine("Stato: " + this.stato);
+            Output.WriteLine("Numero di telefono: " + this.numeroDiTelefono);
+            Output.WriteLine("Direttore: " + this.direttore);
+        }
+
+        //Attributi
         public string idFiliale { get; set; }
         public string nome { get; set; }
         public string indirizzo { get; set; }

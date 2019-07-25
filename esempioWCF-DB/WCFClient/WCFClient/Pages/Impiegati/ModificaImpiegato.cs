@@ -9,6 +9,7 @@ namespace WCFClient.Pages
         public override void Display()
         {
             base.Display();
+
             bool risultato = false;
             string errorString = string.Empty;
             string username = "";
