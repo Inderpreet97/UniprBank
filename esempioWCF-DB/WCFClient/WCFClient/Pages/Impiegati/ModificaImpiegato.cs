@@ -25,12 +25,10 @@ namespace WCFClient.Pages
                 }
             } while (errorString != string.Empty);
 
-
-
             Funzioni.modificaPersona(impiegato);
-            //WCFCLient.ModificaPersona(impiegato);
+            //bool risultato = WCFCLient.ModificaPersona(impiegato);
 
-            Output.WriteLine("Impiegato modificato");
+            if (risultato) { Output.WriteLine("Impiegato modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();
