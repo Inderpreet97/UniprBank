@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -29,8 +30,12 @@ namespace WCFServerDB
 
                 try {
 
-                    command.CommandText = "SELECT count(username) FROM Account WHERE username = '" + username + "' AND password = '" + password + "';";
-
+                    command.CommandText = "SELECT count(username) FROM Account WHERE username = @username AND password = @password;";
+                    command.Parameters.Add("@username",SqlDbType.VarChar);
+                    command.Parameters.Add("@password", SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = username;
+                    command.Parameters["@password"].Value = password;
+                    
                     int? users = (Nullable<int>)command.ExecuteScalar();
 
                     // Attempt to commit the transaction.
