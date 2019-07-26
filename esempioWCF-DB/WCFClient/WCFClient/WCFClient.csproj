@@ -61,7 +61,6 @@
     <Compile Include="Pages\Clienti\ListaClienti.cs" />
     <Compile Include="Pages\Clienti\CreaContoCorrente.cs" />
     <Compile Include="Pages\Clienti\ModificaAccount.cs" />
-    <Compile Include="Pages\Clienti\ModificaContoCorrente.cs" />
     <Compile Include="Pages\Clienti\ListaMovimenti.cs" />
     <Compile Include="Pages\Clienti\EseguiMovimento.cs" />
     <Compile Include="Pages\Filiale\FilialeMenu.cs" />
@@ -87,6 +86,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="MainProgram.cs" />
+    <Compile Include="Pages\Profilo\ProfiloModifica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

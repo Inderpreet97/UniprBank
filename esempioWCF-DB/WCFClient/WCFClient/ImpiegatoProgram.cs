@@ -13,7 +13,6 @@ namespace WCFClient
             AddPage(new ListaClienti(this));
             AddPage(new CreaContoCorrente(this));
             AddPage(new ModificaAccount(this));
-            AddPage(new ModificaContoCorrente(this));
             AddPage(new ListaMovimenti(this));
             AddPage(new EseguiMovimento(this));
             AddPage(new ProfiloMenu(this));

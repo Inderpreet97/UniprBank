@@ -144,27 +144,39 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
-        public static void modificaPersona(string privilegio) {
+        public static void modificaPersona(string username) {
+
+            /*Questa funzione viene richiamata sia quando un impiegato o un direttore vogliono modificare un profilo di un cliente
+            sia quando un cliente vuole modificare il proprio profilo
+            Il parametro username se viene passato come stringa vuota, vuol dire che devo chiedere all'utente il profilo da modificare
+            e tramite checkUsername controllo l'esistenza del profilo nel database,
+            altrimenti se lo ho già, generalmente vuol dire che la funzione viene chiamata dal cliente/impiegato/direttore
+            per modificare il proprio profilo*/
 
             bool risultato = false;
-            string errorString = string.Empty;
-            string username = "";
             Persona persona = new Persona();
 
-            do {
-                Output.WriteLine(System.ConsoleColor.Red, errorString);
-                errorString = string.Empty;
+            if (username == string.Empty) {
+                string errorString = string.Empty;
 
-                username = Input.ReadString("Username: ");
+                do {
+                    Output.WriteLine(System.ConsoleColor.Red, errorString);
+                    errorString = string.Empty;
+
+                    username = Input.ReadString("Username: ");
+                    persona = Funzioni.checkUsername(username);
+
+                    if (persona.username == string.Empty) {
+                        errorString = "Username non trovato, prego digitare un username valido";
+                    }
+                } while (errorString != string.Empty);
+            } else {
                 persona = Funzioni.checkUsername(username);
-                if (persona.username == string.Empty) {
-                    errorString = "Username non trovato, prego digitare un username valido";
-                }
-            } while (errorString != string.Empty);
+            }
 
             //bool risultato = WCFCLient.ModificaPersona(impiegato);
 
-            if (risultato) { Output.WriteLine("Impiegato modificato correttamente"); } else { Output.WriteLine("Errore"); }
+            if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
             Console.Clear();
 
@@ -178,18 +190,8 @@ namespace WCFClient
         }
         public static bool checkContoCorrente(int idContoCorrente) {
             bool risultato = false;
-            //risultato = WCFClient.checkUsernam(idContoCorrente)
+            //risultato = WCFClient.checkContoCorrente(idContoCorrente)
             return risultato;
-        }
-        public static void modificaContoCorrente() {
-            int idContoCorrente = Convert.ToInt32(Input.ReadString("ID conto corrente da modificare: "));
-            while (!checkContoCorrente(idContoCorrente)) {
-                Output.WriteLine("Conto corrente inesistente, digitare nuovamente");
-                idContoCorrente = Convert.ToInt32(Input.ReadString("ID conto corrente da modificare: "));
-            }
-
-            //ContoCorrente contoCorrente = WCFClient.getContoCorrente(idContoCorrente)
-            ContoCorrente contoCorrente = new ContoCorrente();
         }
     }
 
@@ -336,7 +338,7 @@ namespace WCFClient
 
     public class Movimento {
         public Movimento() {
-            this.idMovimenti = null;
+            this.idMovimento = null;
             this.IBANCommittente = string.Empty;
             this.tipo = string.Empty;
             this.importo = null;
@@ -344,8 +346,8 @@ namespace WCFClient
             this.dataOra = null;
         }
 
-        public Movimento(int? idMovimenti, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
-            this.idMovimenti = idMovimenti;
+        public Movimento(int? idMovimento, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
+            this.idMovimento = idMovimento;
             this.IBANCommittente = IBANCommittente;
             this.tipo = tipo;
             this.importo = importo;
@@ -353,7 +355,19 @@ namespace WCFClient
             this.dataOra = dataOra;
         }
 
-        public int? idMovimenti { get; set; }
+        public void Stampa() {
+            Console.Clear();
+
+            Output.WriteLine("Id movimento: ", this.idMovimento);
+            Output.WriteLine("Tipo: ", this.tipo);
+            Output.WriteLine("Importo: ", this.importo);
+            Output.WriteLine("Data ora: ", this.dataOra);
+            if(this.tipo == "Bonifico" && importo > 0) { Output.WriteLine("Bonifico in entrata da: ", this.IBANCommittente); }
+            if(this.tipo == "Bonifico" && importo < 0) { Output.WriteLine("Bonifico in uscita a: ", this.IBANBeneficiario); }
+
+        }
+
+        public int? idMovimento { get; set; }
         public string IBANCommittente { get; set; }
         public string tipo { get; set; }
         public decimal? importo { get; set; }

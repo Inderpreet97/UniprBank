@@ -11,6 +11,8 @@ namespace WCFClient.Pages
             base.Display();
             Output.WriteLine("Hello from Page 1Ai");
 
+            Funzioni.modificaPersona(string.Empty);
+
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();
         }

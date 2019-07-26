@@ -1,7 +1,7 @@
 Menù direttore:
 1)Amministrazione filiale
 	1.1)Cambiare dati filiale (nome, indirizzo ecc...)
-		WCFClient.getFiliale(string username);
+		WCFClient.getFiliale(string username); -> getIdFilial
 		bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale) -> idFililae = id della filiale da modificare,
 										    filiale = oggetto filiale con i dati nuovi
 2)Amministrazione impiegati
@@ -24,10 +24,13 @@ Menù direttore:
 				     -> WCFClient.getIdFiliale(string addetto) -> ottiene l'id della filiale dall'username del direttore o dell'impiegato che effettua la 				        registrazione del nuovo conto corrente	
 				     -> WCFCLient.aggiungiContoCorrente(ContoCorrente contoCorrente) -> aggiunge il conto corrente al db e restituisce true se operazione 				        riuscita, false il contrario	
 	3.3)Modifica persona/account -> bool WCFClient.ModificaPersona(string currentUsername, Persona p)
-	3.4)Modificare conto corrente (IBAN) -> bool WCFClient.checkContoCorrente(int idContoCorrente)
-					     -> ContoCorrente WCFCLient.getContoCorrente(int idContoCorrente)
-	3.5)Visualizza lista clienti
-	3.6)Visualizzare lista movimenti di un cliente
+	3.4)Modificare conto corrente (Funzione non implementata) -> bool WCFClient.checkContoCorrente(int idContoCorrente)
+					     			  -> ContoCorrente WCFCLient.getContoCorrente(int idContoCorrente)
+	3.5)Visualizza lista clienti -> List<Persona> WCFCLient.GetListaClienti(
+					string WCFClient.GetIdFiliale(string username) -> Get id filiale sapendo l'username dell'impiegato/direttore che vuole
+											 ottenere la lista dei clienti
+	3.6)Visualizzare lista movimenti di un cliente -> List<Movimento> getListaMovimenti(int idContoCorrente); -> restituisce la lista dei movimenti del conto corrente
+							  con quel idContoCorrente
 	3.7)Effettuare movimento di un cliente
 4)Modifica profilo direttore
 	4.1)Cambia anagrafe direttore

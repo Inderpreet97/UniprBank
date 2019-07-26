@@ -1,4 +1,5 @@
 ﻿using EasyConsole;
+using System;
 
 namespace WCFClient.Pages
 {
@@ -12,8 +13,8 @@ namespace WCFClient.Pages
             return idLastConto+1;
         }
 
-        public string generaNuovoIBAN(string idFiliale) {
-            string iban = "Iban";
+        public string generaNuovoIBAN(string idFiliale, int? idContoCorrente) {
+            string iban = idFiliale + Convert.ToString(idContoCorrente);
             return iban;
         }
 
@@ -28,9 +29,9 @@ namespace WCFClient.Pages
             contoCorrente.idContoCorrente = generaIdContoCorrente();
             contoCorrente.saldo = 0;
             contoCorrente.idFiliale = "";
-            contoCorrente.IBAN = generaNuovoIBAN(contoCorrente.idFiliale);
-            //idFiliale = WCFClient.getIdFiliale(LoggedUser.username);
-
+            //idFiliale = WCFClient.getIdFiliale(LoggedUser.username); //Get filiale dall'username dell'addetto  che crea il conto corrente
+            contoCorrente.IBAN = generaNuovoIBAN(contoCorrente.idFiliale, contoCorrente.idContoCorrente);
+            
             //bool WCFClient.aggiungiContoCorrente(contoCorrente);
             bool risultato = false;
 

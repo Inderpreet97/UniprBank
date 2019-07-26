@@ -10,7 +10,7 @@ namespace WCFClient.Pages
         {
             base.Display();
 
-            Funzioni.modificaPersona("Impiegato");
+            Funzioni.modificaPersona(string.Empty);
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

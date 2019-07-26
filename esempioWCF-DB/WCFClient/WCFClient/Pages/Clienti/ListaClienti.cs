@@ -9,9 +9,12 @@ namespace WCFClient.Pages
 
         public void getListaClienti() {
             List<Persona> listaClienti = new List<Persona>();
+            string idFiliale = string.Empty;
+            //idFiliale = WCFClient.getIdFiliale(string idFiliale)
             //listaClienti = WCFClient.getListaClienti();
             foreach (Persona p in listaClienti) {
                 Output.WriteLine("################################################################");
+                //Tabella clienti
                 p.Stampa();
             }
         }
