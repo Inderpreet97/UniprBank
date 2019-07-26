@@ -82,7 +82,9 @@ namespace WCFServerDB
 
                 try {
 
-                    command.CommandText = "SELECT privilegi FROM Account WHERE username = '" + username + "';";
+                    command.CommandText = "SELECT privilegi FROM Account WHERE username = @username;";
+                    command.Parameters.Add("@username", SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = username;
 
                     var privilegiString = (string)command.ExecuteScalar();
 
@@ -131,8 +133,12 @@ namespace WCFServerDB
                     command.CommandText = "SELECT username, privilegi, Persona.codiceFiscale, nome, cognome, dataNascita, "
                          + "sesso, indirizzo, CAP, citta, provincia, stato, numTelefono, filiale FROM Persona, Account"
                          + "WHERE Persona.codiceFiscale = Account.codiceFiscale "
-                         + " AND privilegi = '" + tipoAccount + "'" 
-                         + " AND filiale = '" + idFiliale + "'";
+                         + " AND privilegi = @privilegi" 
+                         + " AND filiale = @idFiliale";
+                    command.Parameters.Add("@privilegi", SqlDbType.VarChar);
+                    command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
+                    command.Parameters["@privilegi"].Value = tipoAccount;
+                    command.Parameters["@idFiliale"].Value = idFiliale;
 
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
@@ -180,19 +186,11 @@ namespace WCFServerDB
             }
         }
 
-        public bool SospendiImpiegato(string username) {
-
-        }
-
-        public bool AttivaImpiegato(string username) {
-            throw new NotImplementedException();
-        }
-
         public bool EliminaImpiegato(string username) {
             throw new NotImplementedException();
         }
 
-        public bool CheckUsername(string username) {
+        public Persona CheckUsername(string username) {
             throw new NotImplementedException();
         }
 
@@ -200,7 +198,11 @@ namespace WCFServerDB
             throw new NotImplementedException();
         }
 
-        public bool ModificaPersona() {
+        public bool ModificaPersona(string identificativo, Persona persona) {
+            throw new NotImplementedException();
+        }
+
+        public Persona GetPersona(string identificativo) {
             throw new NotImplementedException();
         }
     }

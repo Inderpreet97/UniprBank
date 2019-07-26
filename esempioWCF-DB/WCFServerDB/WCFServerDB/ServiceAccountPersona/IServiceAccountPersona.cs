@@ -21,16 +21,10 @@ namespace WCFServerDB
         List<Persona> GetListaPersone(string tipoAccount, string idFiliale);
 
         [OperationContract]
-        bool SospendiImpiegato(string username);
-
-        [OperationContract]
-        bool AttivaImpiegato(string username);
-
-        [OperationContract]
         bool EliminaImpiegato(string username);
 
         [OperationContract]
-        bool CheckUsername(string username);
+        Persona CheckUsername(string username);
 
         [OperationContract]
         Persona GetPersona(string identificativo);
@@ -39,7 +33,7 @@ namespace WCFServerDB
         bool AggiungiPersona(Persona persona, string password);
 
         [OperationContract]
-        bool ModificaPersona();
+        bool ModificaPersona(string identificativo, Persona persona);
 
     }
 
