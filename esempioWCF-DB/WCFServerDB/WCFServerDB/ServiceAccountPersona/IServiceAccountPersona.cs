@@ -21,13 +21,13 @@ namespace WCFServerDB
         List<Persona> GetListaPersone(string tipoAccount, string idFiliale);
 
         [OperationContract]
-        bool EliminaImpiegato(string username);
+        bool EliminaAccount(string username);
 
         [OperationContract]
-        Persona CheckUsername(string username);
-
+        Persona CheckUsername(string username); // Restituisce i dati dell'account e i dati anagrafici 
+                                                // della persona che possiede l'account
         [OperationContract]
-        Persona GetPersona(string identificativo);
+        Persona GetPersona(string codiceFiscale); // Restituisce solo i dati anagrafici di una persona
 
         [OperationContract]
         bool AggiungiPersona(Persona persona, string password);
@@ -68,11 +68,6 @@ namespace WCFServerDB
         public string numeroDiTelefono { get; set; }
         [DataMember]
         public string filiale { get; set; }
-
-        // ESEMPIO <<<<<<<<<<<<<<<<<<
-        Persona P = new Persona();
-
-        wcfClient.ModificaPersona(P, )
 
         public Persona() {
             this.username = string.Empty;
