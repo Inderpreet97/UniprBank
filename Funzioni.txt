@@ -47,8 +47,10 @@ Menu impiegato:
 
 Menu cliente
 1)Visualizzare lista movimenti
-2)Movimenti
-	2.1)Bonifico
-	2.2)Prelievo
-	2.3)Deposito
+2)Movimenti -> WCFCLient.checkIBAN(string IBAN) -> true se l'iban esiste, false in caso contrario
+	       WCFClient.checkImporto(decimal Importo, string IBANCommittente) -> controlla se il saldo ricopre l'importo del bonifico
+	       WCFClient.checkIDConto(int idContoCorrente) -> controlla se esiste un conto Corrente con quell'ID
+	2.1)Bonifico -> WCFClient.EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal Importo); true (bonifico avvenuto) false (caso contrario);   
+	2.2)Prelievo -> WCFClient.EseguiPrelievoDenaro(int idContoCorrente, decimal importo) true (avvenuto), false (non avvenuto)
+	2.3)Deposito -> WCFClient.EseguiDeposito(idContoCorrente, importo); true (avvenuto), false (non avvenuto)
 3)Modifica profilo Cliente(anagrafe)

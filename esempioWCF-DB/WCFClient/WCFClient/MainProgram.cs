@@ -12,11 +12,12 @@ namespace WCFClient
     {
         public static DateTime defaultDate = new DateTime(1900, 1, 1);
     }
-    static class LoggedUser // Questa è una classe static, non possiamo creare oggi di questa classe, 
-    {                       // "esiste un unico oggetto" visibile in tutto il namespace WCFClient
+    static class LoggedUser
+    {
         public static string username = "default";
         public static string privilegi = "admin";
         public static string nome;
+        public static List<ContoCorrente> contoCorrenti = new List<ContoCorrente>();
     }
     static class Funzioni 
     {
