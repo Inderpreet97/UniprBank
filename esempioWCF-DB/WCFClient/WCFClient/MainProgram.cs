@@ -16,12 +16,19 @@ namespace WCFClient
     {
         public static string username = "default";
         public static string privilegi = "admin";
-        public static string nome;
+        public static string nome = "nomeDiProva";
         public static List<ContoCorrente> contoCorrenti = new List<ContoCorrente>();
     }
     static class Funzioni 
     {
         public static string digitaNuovoUsername() {
+
+            /*Questa funzione viene richiamata ogni qualvolta bisogna registrare un nuovo utente
+            Una volta inserito, viene richiamata la funzione checkUsername() per controllare se l'username non è già stato utilizzato
+            Se checkUsername() restituisce una persona vuota, allora l'username non è stato utilizzato e questa funzione restituisce il nuovo username.
+            In caso contrario verrà chiesto di digitare nuovamente l'username
+            */
+
             string username = Input.ReadString("Digitare l'username: ");
             while (Funzioni.checkUsername(username).username != string.Empty) {
                 //La persona restituita deve essere vuota (non esiste = username disponibile)
@@ -37,11 +44,12 @@ namespace WCFClient
             return p;
         }
         public static bool checkEta(DateTime dataDiNascita) {
-            if (DateTime.Compare(DateTime.Now, dataDiNascita) >= 18 && DateTime.Compare(DateTime.Now, dataDiNascita) < 110) { return true; }
+            //Controlla se l'utente è maggiorenne e se non ha più di limite max di età
+            short limiteMaxEta = 100;
+            if (DateTime.Compare(DateTime.Now, dataDiNascita) >= 18 && DateTime.Compare(DateTime.Now, dataDiNascita) < limiteMaxEta) { return true; }
             return false;
         }
         public static void aggiungiPersona(string privilegio) {
-
 
             string username = digitaNuovoUsername();
 
@@ -60,6 +68,7 @@ namespace WCFClient
             string temp = null;
             int? tempInt = null;
 
+            //Tutti gli attributi devono essere valorizzati, altrimenti esegue il ciclo while
             while (codiceFiscale == string.Empty || nome == string.Empty || cognome == string.Empty ||
                 sesso == string.Empty || indirizzo == string.Empty ||
                 numeroDiTelefono == string.Empty || filiale == string.Empty ||
@@ -129,16 +138,16 @@ namespace WCFClient
 
             bool risultato = false;
 
+            //La password non viene registrata nella classe Persona
             string password1 = Input.ReadString("Password: ");
             string password2 = Input.ReadString("Conferma password: ");
 
-
+            //Le password devono coincidere
             while(password1 != password2) {
                 Output.WriteLine(ConsoleColor.Red,"Le password non coincidono, riprovare\n");
                 password1 = Input.ReadString("Password: ");
                 password2 = Input.ReadString("Conferma password: ");
             }
-
             Output.WriteLine("Le password coincidono...\n\n");
 
             //risultato = WCFCLient.AggiungiPersona(persona, password)
@@ -148,10 +157,10 @@ namespace WCFClient
         public static void modificaPersona(string username) {
 
             /*Questa funzione viene richiamata sia quando un impiegato o un direttore vogliono modificare un profilo di un cliente
-            sia quando un cliente vuole modificare il proprio profilo
+            sia quando un cliente/impiegato/direttore vuole modificare il proprio profilo
             Il parametro username se viene passato come stringa vuota, vuol dire che devo chiedere all'utente il profilo da modificare
             e tramite checkUsername controllo l'esistenza del profilo nel database,
-            altrimenti se lo ho già, generalmente vuol dire che la funzione viene chiamata dal cliente/impiegato/direttore
+            altrimenti se lo ho già, vuol dire che la funzione viene chiamata dal cliente/impiegato/direttore
             per modificare il proprio profilo*/
 
             bool risultato = false;
@@ -335,6 +344,13 @@ namespace WCFClient
         public string username { get; set; }
         public decimal? saldo { get; set; }
         public string idFiliale { get; set; }
+
+        public void stampa() {
+            Console.Clear();
+            Output.WriteLine("IBAN", this.IBAN);
+            Output.WriteLine("Saldo: ", this.saldo);
+            Output.WriteLine("Filiale di appartenza", this.idFiliale);
+        }
     }
 
     public class Movimento {
@@ -439,6 +455,7 @@ namespace WCFClient
                     Console.ReadLine();
                     break;
             }*/
+
             DirettoreProgram program = new DirettoreProgram();
             program.Run();
         }
