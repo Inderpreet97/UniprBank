@@ -54,3 +54,6 @@ Menu cliente
 	2.2)Prelievo -> WCFClient.EseguiPrelievoDenaro(int idContoCorrente, decimal importo) true (avvenuto), false (non avvenuto)
 	2.3)Deposito -> WCFClient.EseguiDeposito(idContoCorrente, importo); true (avvenuto), false (non avvenuto)
 3)Modifica profilo Cliente(anagrafe)
+
+
+Altre funzioni: string WCFClient.GetNameFiliale(string idFiliale) -> restituisce il nome della filiale che ha quel determinato IDFiliale

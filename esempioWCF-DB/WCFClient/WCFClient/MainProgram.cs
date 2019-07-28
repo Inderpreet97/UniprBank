@@ -331,6 +331,12 @@ namespace WCFClient
             this.idFiliale = string.Empty;
         }
 
+        public string getNomeFiliale() { //Ottiene il nome della filiale con quell'ID Filiale
+            //string nomeFiliale = WCFClient.getNomeFiliale(this.idFiliale);
+            string nomeFiliale = string.Empty;
+            return nomeFiliale;
+        }
+
         public ContoCorrente(int? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
             this.idContoCorrente = idContoCorrente;
             this.IBAN = IBAN;
@@ -349,7 +355,7 @@ namespace WCFClient
             Console.Clear();
             Output.WriteLine("IBAN", this.IBAN);
             Output.WriteLine("Saldo: ", this.saldo);
-            Output.WriteLine("Filiale di appartenza", this.idFiliale);
+            Output.WriteLine("Filiale di appartenza", getNomeFiliale());
         }
     }
 
