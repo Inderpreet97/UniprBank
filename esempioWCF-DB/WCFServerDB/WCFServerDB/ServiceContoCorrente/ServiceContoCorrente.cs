@@ -37,7 +37,7 @@ namespace WCFServerDB
                             int id = reader.GetInt32(2);
                             decimal saldo = reader.GetDecimal(3);
 
-                            returnConto = new ContoCorrente(nome, cognome, id, (double)saldo);
+                            returnConto = new ContoCorrente();
 
                         }
                     } // Close DataReader

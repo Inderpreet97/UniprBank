@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="61c1ce9b-29de-4f9d-8fb0-74cb09cb6999" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ServiceContoCorrente.wsdl" MetadataType="Wsdl" ID="6e93deb7-e3cb-4762-ba0b-9fe5be62c6b5" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="4b64cce0-7632-49de-9e5a-f97cc6476532" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/?xsd=xsd1" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="dc2c811e-643f-4754-9466-f9aef4b2eb6f" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/?xsd=xsd2" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="7a1da41f-7cf1-46fb-a157-ef3de487d276" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/?xsd=xsd0" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="1ff3c68e-0c54-47c3-bb98-7ef6c8a8eb32" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerDB/ServiceContoCorrente/?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

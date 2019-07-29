@@ -37,7 +37,7 @@ namespace WCFServerDB {
             }
             catch (Exception ex) {
                 Console.WriteLine("Errore: " + ex.ToString());
-
+                Console.ReadLine();
             }
         }
     }

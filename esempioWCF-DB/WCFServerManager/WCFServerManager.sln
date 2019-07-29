@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServerManager", "WCFServerManager\WCFServerManager.csproj", "{9980DD6F-84B5-46AD-8009-A4603901175F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFServerDB", "..\WCFServerDB\WCFServerDB\WCFServerDB.csproj", "{681B0539-98C6-440B-9901-70C54050D5B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WCFClient", "..\WCFClient\WCFClient\WCFClient.csproj", "{46A94ED2-51C7-459C-B974-476C75E4B658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9980DD6F-84B5-46AD-8009-A4603901175F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9980DD6F-84B5-46AD-8009-A4603901175F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9980DD6F-84B5-46AD-8009-A4603901175F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{681B0539-98C6-440B-9901-70C54050D5B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{681B0539-98C6-440B-9901-70C54050D5B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{681B0539-98C6-440B-9901-70C54050D5B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{681B0539-98C6-440B-9901-70C54050D5B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46A94ED2-51C7-459C-B974-476C75E4B658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46A94ED2-51C7-459C-B974-476C75E4B658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46A94ED2-51C7-459C-B974-476C75E4B658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46A94ED2-51C7-459C-B974-476C75E4B658}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
