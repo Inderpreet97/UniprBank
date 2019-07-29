@@ -2,14 +2,14 @@ CREATE TABLE Persona(
     codiceFiscale VARCHAR(16) NOT NULL,
     nome varchar(255) NOT NULL,
     cognome varchar(255) NOT NULL,
-    dataNascita date NOT NULL,
+    dataDiNascita date NOT NULL,
     sesso varchar(25) NOT NULL,
     indirizzo varchar(255) NOT NULL,
     CAP NUMERIC(5) NOT NULL,
     citta varchar(255) NOT NULL,
     provincia varchar(2) NOT NULL,
     stato varchar(255) NOT NULL,
-    numTelefono varchar(20) NOT NULL,
+    numeroDiTelefono varchar(20) NOT NULL,
     CONSTRAINT PK_persona PRIMARY KEY (codiceFiscale)
 );
 

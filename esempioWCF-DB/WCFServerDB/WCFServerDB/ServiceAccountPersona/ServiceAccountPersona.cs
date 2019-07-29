@@ -13,8 +13,7 @@ namespace WCFServerDB
     // NOTA: è possibile utilizzare il comando "Rinomina" del menu "Refactoring" per modificare il nome di classe "ServiceAccountPersona" nel codice e nel file di configurazione contemporaneamente.
     public class ServiceAccountPersona : IServiceAccountPersona
     {
-        public bool Login(string username, string password)
-        {
+        public bool Login(string username, string password) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -31,11 +30,11 @@ namespace WCFServerDB
                 try {
 
                     command.CommandText = "SELECT count(username) FROM Account WHERE username = @username AND password = @password;";
-                    command.Parameters.Add("@username",SqlDbType.VarChar);
+                    command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters.Add("@password", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
                     command.Parameters["@password"].Value = password;
-                    
+
                     int? users = (Nullable<int>)command.ExecuteScalar();
 
                     // Attempt to commit the transaction.
@@ -65,8 +64,7 @@ namespace WCFServerDB
             }
         }
 
-        public string GetPrivilegi(string username)
-        {
+        public string GetPrivilegi(string username) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -133,7 +131,7 @@ namespace WCFServerDB
                     command.CommandText = "SELECT username, privilegi, Persona.codiceFiscale, nome, cognome, dataNascita, "
                          + "sesso, indirizzo, CAP, citta, provincia, stato, numTelefono, filiale FROM Persona, Account"
                          + "WHERE Persona.codiceFiscale = Account.codiceFiscale "
-                         + " AND privilegi = @privilegi" 
+                         + " AND privilegi = @privilegi"
                          + " AND filiale = @idFiliale";
                     command.Parameters.Add("@privilegi", SqlDbType.VarChar);
                     command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
@@ -158,7 +156,7 @@ namespace WCFServerDB
                             var numeroDiTelefono = reader.GetString(11);
                             var filiale = reader.GetString(12);
 
-                            listaPersone.Add(new Persona(username,privilegi,codiceFiscale,nome,cognome,dataDiNascita,sesso,indirizzo,CAP,citta,provincia,stato,numeroDiTelefono,filiale));
+                            listaPersone.Add(new Persona(username, privilegi, codiceFiscale, nome, cognome, dataDiNascita, sesso, indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale));
                         }
                     }
 
@@ -348,10 +346,10 @@ namespace WCFServerDB
                         command.Parameters["@numeroDiTelefono"].Value = persona.numeroDiTelefono;
 
                         result = command.ExecuteNonQuery();
-                                                
+
                         if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiungere una Persona nel DB");
                     }
-                    
+
                     command.CommandText = "INSERT INTO Persona VALUES ( @username, @password, @privilegi, @codicefiscale)";
 
                     command.Parameters.Add("@username", SqlDbType.VarChar);
@@ -400,7 +398,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool ModificaPersona(string identificativo, Persona persona) {
+        public bool ModificaPersona(string username, Persona persona) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -414,15 +412,99 @@ namespace WCFServerDB
                 command.Connection = connection;
                 command.Transaction = transaction;
 
+                int result;
+
                 try {
+
+                    List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
+
+                    List<System.Reflection.PropertyInfo> accountProperties = new List<System.Reflection.PropertyInfo>() { };
+                    List<string> accountPropertiesNames = new List<string>() { "username", "privilegi", "filiale" };
+
+                    for (int index = 0; index < personaProperties.Count; index++) {
+                        if (accountPropertiesNames.Contains(personaProperties[index].Name)) {
+                            accountProperties.Add(personaProperties[index]);
+                            personaProperties.RemoveAt(index);
+                        } else if (personaProperties[index].Name == "codiceFiscale") {
+                            accountProperties.Add(personaProperties[index]);
+                        }
+                    }
+
                     // Prima modifica Persona e poi modifico Account
+                    // Non possiamo usare una Query Parametrizza perchè non sappiamo esattamente quali saranno i parametri
                     command.CommandText = "UPDATE Persona SET ";
 
-                    List<System.Reflection.PropertyInfo> propreties = persona.GetType().GetProperties().ToList();
-                    // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< WORKING HERE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+                    bool propertyAddedToQuery;
+
+                    for (int index = 0; index < personaProperties.Count; index++) {
+                        propertyAddedToQuery = false;
+
+                        if (personaProperties[index].GetValue(persona).GetType() == typeof(int?)) {
+                            if (((int?)personaProperties[index].GetValue(persona)).HasValue) {
+                                command.CommandText += personaProperties[index].Name + " = " + (int?)personaProperties[index].GetValue(persona);
+                                propertyAddedToQuery = true;
+                            }
+                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(DateTime?)) {
+                            if (((DateTime?)personaProperties[index].GetValue(persona)).HasValue) {
+                                command.CommandText += personaProperties[index].Name + " = " + (DateTime?)personaProperties[index].GetValue(persona);
+                                propertyAddedToQuery = true;
+                            }
+
+                        } else {
+                            if (personaProperties[index].GetValue(persona).ToString() != string.Empty) {
+                                command.CommandText += personaProperties[index].Name + " = '" + personaProperties[index].GetValue(persona).ToString() + "' ";
+                                propertyAddedToQuery = true;
+                            }
+                        }
+
+                        if (propertyAddedToQuery) {
+                            for (int tempIndex = index; tempIndex < personaProperties.Count; tempIndex++) {
+
+                                if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(string)) {
+                                    if (personaProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
+                                        command.CommandText += ",";
+                                    }
+
+                                } else if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(int?)) {
+                                    if (((int?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
+                                        command.CommandText += ",";
+                                    }
+                                } else {
+                                    if (((DateTime?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
+                                        command.CommandText += ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    command.CommandText += " WHERE codiceFiscale in ( SELECT codiceFiscale FROM Account WHERE username = @username";
+                    command.Parameters.Add("@username", SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = username;
+
+                    result = command.ExecuteNonQuery();
+                    if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
 
 
-                    int result = command.ExecuteNonQuery();
+
+                    // ------------------- Aggiorno le info nell'account -------------------
+                    command.CommandText = "UPDATE Account SET ";
+
+                    for (int index = 0; index < accountProperties.Count; index++) {
+
+                        if (accountProperties[index].GetValue(persona).ToString() != string.Empty) {
+
+                            command.CommandText += accountProperties[index].Name + " = '" + accountProperties[index].GetValue(persona).ToString() + "' ";
+
+                            for (int tempIndex = index; tempIndex < accountProperties.Count; tempIndex++) {
+                                if (accountProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
+                                    command.CommandText += ",";
+                                }
+                            }
+                        }
+                    }
+
+                    command.CommandText = " WHERE username = @username";
+                    command.Parameters["@username"].Value = username;
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
