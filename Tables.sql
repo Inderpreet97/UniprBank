@@ -52,11 +52,15 @@ CREATE TABLE ContoCorrente(
 );
 -- AGGIUNGERE IL TRIGGER PER AGGIORNARE L'IBAN SE VIENE AGGIORNATO QUALCHE ATTRIBUTO DEL CONTO CORRENTE
 -- QUESTO TRIGGER DA DEI PROBLEMI PERCHE' IN SQL SERVER NON ESISTE il NEW
-create trigger IBAN_ContoCorrente
-on ContoCorrente
-after INSERT
-for each row
-set new.IBAN = new.idFiliale + new.idContoCorrente;
+CREATE TRIGGER UpdateIBAN
+ON ContoCorrente
+after UPDATE, INSERT
+BEGIN
+SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
+   UPDATE ContoCorrente
+   SET IBAN = (SELECT IBAN FROM INSERTED)
+   WHERE idContoCorrente = (SELECT idContoCorrente FROM DELETED)
+END
 
 CREATE TABLE Movimenti(
     idMovimenti NUMERIC(12) NOT NULL,
