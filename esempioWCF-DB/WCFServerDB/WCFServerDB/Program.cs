@@ -8,6 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace WCFServerDB {
+
+    static class Globals {
+        public static bool debugMode = true;
+    }
+
     class Program {
         static void Main(string[] args) {
 
