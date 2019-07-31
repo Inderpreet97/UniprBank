@@ -398,7 +398,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool ModificaPersona(string username, Persona persona) {
+        public bool ModificaPersona(string usernameOld, Persona persona) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -412,7 +412,7 @@ namespace WCFServerDB
                 command.Connection = connection;
                 command.Transaction = transaction;
 
-                int result;
+                int result; // Il numero di righe modificate dall'update
 
                 try {
 
@@ -479,7 +479,7 @@ namespace WCFServerDB
                     }
                     command.CommandText += " WHERE codiceFiscale in ( SELECT codiceFiscale FROM Account WHERE username = @username";
                     command.Parameters.Add("@username", SqlDbType.VarChar);
-                    command.Parameters["@username"].Value = username;
+                    command.Parameters["@username"].Value = usernameOld;
 
                     result = command.ExecuteNonQuery();
                     if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
@@ -504,7 +504,7 @@ namespace WCFServerDB
                     }
 
                     command.CommandText = " WHERE username = @username";
-                    command.Parameters["@username"].Value = username;
+                    command.Parameters["@username"].Value = usernameOld;
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
