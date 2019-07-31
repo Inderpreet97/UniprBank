@@ -24,8 +24,6 @@ namespace WCFServerDB
         [DataMember]
         public string idFiliale { get; set; }
         [DataMember]
-        public string direttore { get; set; }
-        [DataMember]
         public string nome { get; set; }
         [DataMember]
         public string indirizzo { get; set; }
@@ -41,7 +39,6 @@ namespace WCFServerDB
         public string numeroDiTelefono { get; set; }
         public Filiale() {
             this.idFiliale = string.Empty;
-            this.direttore = string.Empty;
             this.nome = string.Empty;
             this.indirizzo = string.Empty;
             this.CAP = null;
@@ -51,9 +48,8 @@ namespace WCFServerDB
             this.numeroDiTelefono = string.Empty;
         }
 
-        public Filiale(string idFiliale, string direttore, string nome, string indirizzo, int? CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
+        public Filiale(string idFiliale, string nome, string indirizzo, int? CAP, string citta, string provincia, string stato, string numeroDiTelefono) {
             this.idFiliale = idFiliale;
-            this.direttore = direttore;
             this.nome = nome;
             this.indirizzo = indirizzo;
             this.CAP = CAP;

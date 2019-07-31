@@ -448,6 +448,10 @@ namespace WCFServerDB
                             if (((DateTime?)personaProperties[index].GetValue(persona)).HasValue) {
                                 command.CommandText += personaProperties[index].Name + " = " + (DateTime?)personaProperties[index].GetValue(persona);
                                 propertyAddedToQuery = true;
+
+                                var x = (DateTime?)personaProperties[index].GetValue(persona);
+
+                                personaProperties[index].SetValue(persona, 50);
                             }
 
                         } else {
