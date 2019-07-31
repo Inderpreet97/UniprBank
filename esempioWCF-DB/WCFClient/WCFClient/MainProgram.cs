@@ -21,9 +21,42 @@ namespace WCFClient
     }
     static class Funzioni 
     {
+        public static void algoritmoModificaPersona(Persona persona) {
+            
+            //Lista delle properties dell' oggetto
+            List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
+            
+            //Lista delle properties non modificabili
+            List<string> BlackList = new List<string>() { "privilegi", "filiale" };
+
+            string temp = string.Empty;
+            
+            //Itero tutte le properties dell'oggetto
+            for (int index = 0; index < personaProperties.Count; index++) {
+
+                //Se la property si può modificare (non è contenuta nella blacklist)
+                if (!BlackList.Contains(personaProperties[index].Name)) {
+
+                    temp = string.Empty;
+                    temp = Input.ReadString("Nuovo " + personaProperties[index].Name);
+
+                    if (!string.IsNullOrWhiteSpace(temp)) {
+                        if (personaProperties[index].GetValue(persona).GetType() == typeof(int?)) { //Int
+                            personaProperties[index].SetValue(persona, Convert.ToInt32(temp));
+                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(DateTime?)) { //Date time
+                            personaProperties[index].SetValue(persona, Convert.ToDateTime(temp));
+                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(decimal)){
+                            personaProperties[index].SetValue(persona, Convert.ToDecimal(temp));
+                        } else { //string
+                            personaProperties[index].SetValue(persona, temp);
+                        }
+                    } 
+                }
+            }
+        }
         public static string digitaNuovoUsername() {
 
-            /*Questa funzione viene richiamata ogni qualvolta bisogna registrare un nuovo utente
+            /*Questa funzione viene richiamata ogni qualvolta bisogna registrare un NUOVO utente
             Una volta inserito, viene richiamata la funzione checkUsername() per controllare se l'username non è già stato utilizzato
             Se checkUsername() restituisce una persona vuota, allora l'username non è stato utilizzato e questa funzione restituisce il nuovo username.
             In caso contrario verrà chiesto di digitare nuovamente l'username
@@ -36,6 +69,20 @@ namespace WCFClient
                 username = Input.ReadString("Digitare l'username: ");
             }
             return username;
+        }
+        public static string digitaUsername() {
+            //Questa funzione viene chiamata ogni volta che occorre digitare l'username e lo controlla
+            //Attenzione! Questa funzione non viene richiamata per registrare una nuova persona, per questo utilizzare digitaNuoboUsername()
+
+            string username = Input.ReadString("Digitare l'username: ");
+            while(Funzioni.checkUsername(username).username == string.Empty) {
+                //Utente non trovato
+                Output.WriteLine("Username non trovato, riprovare\n");
+                Output.WriteLine("Digitare l'username");
+            }
+            return username;
+
+
         }
         public static Persona checkUsername(string username) {
             //Restituisce una persona vuota se l'username non è presente, restituisce una persona popolata in caso contrario
@@ -154,10 +201,11 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
-        public static void modificaPersona(string username) {
+        public static void modificaPersona(string usernamePersona) {
 
             /*Questa funzione viene richiamata sia quando un impiegato o un direttore vogliono modificare un profilo di un cliente
-            sia quando un cliente/impiegato/direttore vuole modificare il proprio profilo
+            sia quando un cliente/impiegato/direttore vuole modificare il proprio profilo.
+            (Con LoggedUser so con certezza chi richiama la funzione)
             Il parametro username se viene passato come stringa vuota, vuol dire che devo chiedere all'utente il profilo da modificare
             e tramite checkUsername controllo l'esistenza del profilo nel database,
             altrimenti se lo ho già, vuol dire che la funzione viene chiamata dal cliente/impiegato/direttore
@@ -166,37 +214,20 @@ namespace WCFClient
             bool risultato = false;
             Persona persona = new Persona();
 
-            if (username == string.Empty) {
-                string errorString = string.Empty;
+            //persona.username = digitaUsername();
+            //string currentUsername = persona.username;
 
-                do {
-                    Output.WriteLine(System.ConsoleColor.Red, errorString);
-                    errorString = string.Empty;
+            Console.Clear();
+            persona.Stampa();
 
-                    username = Input.ReadString("Username: ");
-                    persona = Funzioni.checkUsername(username);
+            Input.ReadString("PREMI INVIO PER NON MODIFICARE...");
 
-                    if (persona.username == string.Empty) {
-                        errorString = "Username non trovato, prego digitare un username valido";
-                    }
-                } while (errorString != string.Empty);
-            } else {
-                persona = Funzioni.checkUsername(username);
-            }
-
-            //bool risultato = WCFCLient.ModificaPersona(impiegato);
+            algoritmoModificaPersona(persona); //Occorre passare l'oggetto per riferimento o basta il valore?
+            
+            //WCFClient.ModificaPersona(currentUsername, p);
 
             if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
-            Console.Clear();
-
-            persona.Stampa();
-            Input.ReadString("PREMI INVIO PER MODIFICARE...");
-
-            string currentUsername = persona.username;
-           
-            //Modifiche
-            //WCFClient.ModificaPersona(currentUsername, p);
         }
         public static bool checkContoCorrente(int idContoCorrente) {
             bool risultato = false;

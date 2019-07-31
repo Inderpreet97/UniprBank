@@ -25,7 +25,7 @@ namespace WCFClient.Pages
             string IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             while (!FunzioniMovimento.checkIBAN(IBANBeneficiario)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
-                IBAN = Input.ReadString("IBAN Beneficiario: ");
+                IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             }
 
             //SELEZIONARE CONTO CORRENTE

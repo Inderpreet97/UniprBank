@@ -416,11 +416,15 @@ namespace WCFServerDB
 
                 try {
 
+                    //Lista delle propietà della persona 
                     List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
 
+                    //Lista vuota di properties legata alla tabella Account
                     List<System.Reflection.PropertyInfo> accountProperties = new List<System.Reflection.PropertyInfo>() { };
                     List<string> accountPropertiesNames = new List<string>() { "username", "privilegi", "filiale" };
 
+                    //Itero tutte le properties della persona rimuovendo quelle in comune con account e le aggiungo a quest' ultimo
+                    //!!!Non viene modificata la classe ma solo una lista che contiene i nomi delle propietà della classe
                     for (int index = 0; index < personaProperties.Count; index++) {
                         if (accountPropertiesNames.Contains(personaProperties[index].Name)) {
                             accountProperties.Add(personaProperties[index]);
@@ -439,8 +443,11 @@ namespace WCFServerDB
                     for (int index = 0; index < personaProperties.Count; index++) {
                         propertyAddedToQuery = false;
 
+                        // Guardo il tipo di dato (int, string, ...)
+                        //Se ha valore -> aggiungere la parte di codice SQL per aggiornarlo
+
                         if (personaProperties[index].GetValue(persona).GetType() == typeof(int?)) {
-                            if (((int?)personaProperties[index].GetValue(persona)).HasValue) {
+                            if (((int?)personaProperties[index].GetValue(persona)).HasValue) { 
                                 command.CommandText += personaProperties[index].Name + " = " + (int?)personaProperties[index].GetValue(persona);
                                 propertyAddedToQuery = true;
                             }
@@ -453,7 +460,6 @@ namespace WCFServerDB
 
                                 personaProperties[index].SetValue(persona, 50);
                             }
-
                         } else {
                             if (personaProperties[index].GetValue(persona).ToString() != string.Empty) {
                                 command.CommandText += personaProperties[index].Name + " = '" + personaProperties[index].GetValue(persona).ToString() + "' ";
@@ -461,40 +467,48 @@ namespace WCFServerDB
                             }
                         }
 
+                        bool commaNeeded = false;
                         if (propertyAddedToQuery) {
                             for (int tempIndex = index; tempIndex < personaProperties.Count; tempIndex++) {
 
                                 if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(string)) {
                                     if (personaProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
-                                        command.CommandText += ",";
+                                        commaNeeded = true;
                                     }
 
                                 } else if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(int?)) {
                                     if (((int?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
-                                        command.CommandText += ",";
+                                        commaNeeded = true;
                                     }
                                 } else {
                                     if (((DateTime?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
-                                        command.CommandText += ",";
+                                        commaNeeded = true;
                                     }
                                 }
                             }
+                            if (commaNeeded) {
+                                command.CommandText += ",";
+                            }
                         }
+                                            
+
                     }
                     command.CommandText += " WHERE codiceFiscale in ( SELECT codiceFiscale FROM Account WHERE username = @username";
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = usernameOld;
 
+                    if (Globals.debugMode) { Console.WriteLine(command.CommandText); }
+
                     result = command.ExecuteNonQuery();
                     if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
-
-
+                    
 
                     // ------------------- Aggiorno le info nell'account -------------------
                     command.CommandText = "UPDATE Account SET ";
 
                     for (int index = 0; index < accountProperties.Count; index++) {
 
+                        //Non c'è controllo sul tipo perchè le properties dell'account sono tutte di tipo string
                         if (accountProperties[index].GetValue(persona).ToString() != string.Empty) {
 
                             command.CommandText += accountProperties[index].Name + " = '" + accountProperties[index].GetValue(persona).ToString() + "' ";

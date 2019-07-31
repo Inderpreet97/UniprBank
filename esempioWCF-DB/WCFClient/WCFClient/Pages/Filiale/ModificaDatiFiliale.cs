@@ -13,8 +13,10 @@ namespace WCFClient.Pages
             Output.WriteLine("Per modificare digitare il nuovo valore da assegnare, altrimenti premere INVIO\n\n");
 
             string nomeFiliale, indirizzo, citta, provincia, stato, numeroDiTelefono, direttore = string.Empty;
-            int CAP;
+            int? CAP;
+
             string temp = null;
+            int tempInt;
 
             //Nome filiale
             temp = Input.ReadString("Nuovo nome filiale: ");
@@ -33,7 +35,7 @@ namespace WCFClient.Pages
 
             //CAP
             temp = Input.ReadString("Nuova CAP filiale: ");
-            if (!string.IsNullOrWhiteSpace(temp)) { int.TryParse(temp, out CAP); }
+            if (!string.IsNullOrWhiteSpace(temp)) { int.TryParse(temp, out tempInt); CAP = tempInt; }
             temp = string.Empty;
 
             //Provincia
@@ -57,13 +59,11 @@ namespace WCFClient.Pages
             if (!string.IsNullOrWhiteSpace(temp)) { direttore = temp; }
             temp = string.Empty;
 
-            //bool risultato = WCFClient.ModificaFiliale(nomeFiliale, indirizzo, citta, provincia, stato, numeroDiTelefono, direttore, CAP);
+            //bool risultato = WCFClient.ModificaFiliale(filiale);
             bool risultato = false;
 
             if (risultato) { Output.WriteLine("Modifica effettuata correttamente"); } else { Output.WriteLine("Errore"); }
         }
-
-        
 
         public override void Display(){
             base.Display();
