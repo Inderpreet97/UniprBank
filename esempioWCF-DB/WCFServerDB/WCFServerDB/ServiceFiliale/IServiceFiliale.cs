@@ -16,6 +16,9 @@ namespace WCFServerDB
 
         [OperationContract]
         bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale);
+
+        [OperationContract]
+        string GetNameFiliale(string idFiliale); //restituisce il nome della filiale che ha quel determinato IDFiliale
     }
     
     [DataContract]

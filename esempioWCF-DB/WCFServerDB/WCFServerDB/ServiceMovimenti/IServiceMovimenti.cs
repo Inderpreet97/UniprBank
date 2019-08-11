@@ -12,7 +12,27 @@ namespace WCFServerDB
     public interface IServiceMovimenti
     {
         [OperationContract]
-        void DoWork();
+        List<Movimento> GetListaMovimenti(int idContoCorrente);
+
+        [OperationContract]
+        bool CheckIBAN(string IBAN); //true se l'iban esiste, false in caso contrario
+
+        [OperationContract]
+        bool CheckImporto(decimal importo, string IBANCommittente); // controlla se il saldo ricopre l'importo del bonifico
+
+        [OperationContract]
+        bool CheckIDConto(int idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
+        
+        [OperationContract]
+	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal Importo); // true (bonifico avvenuto) false (caso contrario)
+
+        [OperationContract]
+        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
+
+        [OperationContract]
+	    bool EseguiDeposito(int idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
+
+
     }
 
     [DataContract]
