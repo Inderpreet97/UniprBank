@@ -455,10 +455,6 @@ namespace WCFServerDB
                             if (((DateTime?)personaProperties[index].GetValue(persona)).HasValue) {
                                 command.CommandText += personaProperties[index].Name + " = " + (DateTime?)personaProperties[index].GetValue(persona);
                                 propertyAddedToQuery = true;
-
-                                var x = (DateTime?)personaProperties[index].GetValue(persona);
-
-                                personaProperties[index].SetValue(persona, 50);
                             }
                         } else {
                             if (personaProperties[index].GetValue(persona).ToString() != string.Empty) {
@@ -523,6 +519,7 @@ namespace WCFServerDB
 
                     command.CommandText = " WHERE username = @username";
                     command.Parameters["@username"].Value = usernameOld;
+                    result = command.ExecuteNonQuery();
 
                     // Attempt to commit the transaction.
                     transaction.Commit();

@@ -120,93 +120,101 @@ namespace WCFServerDB
         }
 
         public bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale) {
-            throw new NotImplementedException();
-            /*
-                using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
-                    connection.Open();
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
+                connection.Open();
 
-                    // Start a local transaction.
-                    SqlTransaction transaction = connection.BeginTransaction();
+                // Start a local transaction.
+                SqlTransaction transaction = connection.BeginTransaction();
 
-                    SqlCommand command = connection.CreateCommand();
+                SqlCommand command = connection.CreateCommand();
 
-                    // Must assign both transaction object and connection
-                    // to Command object for a pending local transaction
-                    command.Connection = connection;
-                    command.Transaction = transaction;
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
 
-                    try {
-                        command.CommandText = "UPDATE Filiale SET ";
+                try {
 
-                        if (nome != string.Empty) {
-                            command.CommandText += " nome_prodotti = '" + nome + "'";
-                            if (tipologia != string.Empty || prezzo.HasValue || quantita.HasValue) {
+                    //Lista delle propietà della classe Filiale 
+                    List<System.Reflection.PropertyInfo> filialeProperties = nuovaFiliale.GetType().GetProperties().ToList();
+
+                    // Non possiamo usare una Query Parametrizza perchè non sappiamo esattamente quali saranno i parametri
+                    command.CommandText = "UPDATE Filiale SET ";
+
+                    bool propertyAddedToQuery;
+
+                    for (int index = 0; index < filialeProperties.Count; index++) {
+                        propertyAddedToQuery = false;
+
+                        // Guardo il tipo di dato (int, string, ...)
+                        //Se ha valore -> aggiungere la parte di codice SQL per aggiornarlo
+
+                        if (filialeProperties[index].GetValue(nuovaFiliale).GetType() == typeof(int?)) {
+                            if (((int?)filialeProperties[index].GetValue(nuovaFiliale)).HasValue) {
+                                command.CommandText += filialeProperties[index].Name + " = " + (int?)filialeProperties[index].GetValue(nuovaFiliale);
+                                propertyAddedToQuery = true;
+                            }
+                        } else {
+                            if (filialeProperties[index].GetValue(nuovaFiliale).ToString() != string.Empty) {
+                                command.CommandText += filialeProperties[index].Name + " = '" + filialeProperties[index].GetValue(nuovaFiliale).ToString() + "' ";
+                                propertyAddedToQuery = true;
+                            }
+                        }
+
+                        bool commaNeeded = false;
+                        if (propertyAddedToQuery) {
+                            for (int tempIndex = index; tempIndex < filialeProperties.Count; tempIndex++) {
+
+                                if (filialeProperties[tempIndex].GetValue(nuovaFiliale).GetType() == typeof(string)) {
+                                    if (filialeProperties[tempIndex].GetValue(nuovaFiliale).ToString() != string.Empty) {
+                                        commaNeeded = true;
+                                    }
+
+                                } else {
+                                    if (((int?)filialeProperties[tempIndex].GetValue(nuovaFiliale)).HasValue) {
+                                        commaNeeded = true;
+                                    }
+                                }
+                            }
+                            if (commaNeeded) {
                                 command.CommandText += ",";
                             }
                         }
 
-                        if (nuovoIdProdotto.HasValue) {
-                            command.CommandText += " id_prodotti = " + nuovoIdProdotto;
-                            if (nome != string.Empty || tipologia != string.Empty || prezzo.HasValue || quantita.HasValue) {
-                                command.CommandText += ",";
-                            }
-                        }
 
-                        if (nome != string.Empty) {
-                            command.CommandText += " nome_prodotti = '" + nome + "'";
-                            if (tipologia != string.Empty || prezzo.HasValue || quantita.HasValue) {
-                                command.CommandText += ",";
-                            }
-                        }
-
-                        if (tipologia != string.Empty) {
-                            command.CommandText += " tipologia_prodotti = '" + tipologia + "'";
-                            if (prezzo.HasValue || quantita.HasValue) {
-                                command.CommandText += ",";
-                            }
-                        }
-
-                        if (prezzo.HasValue) {
-                            command.CommandText += " prezzo_prodotti = " + prezzo;
-                            if (quantita.HasValue) {
-                                command.CommandText += ",";
-                            }
-                        }
-
-                        if (quantita.HasValue) {
-                            command.CommandText += " quantita_prodotti = " + quantita;
-                        }
-
-
-                        command.CommandText += " WHERE id_prodotti = " + idProdotto;
-
-                        int result = command.ExecuteNonQuery();
-
-                        // Attempt to commit the transaction.
-                        transaction.Commit();
-
-                        if (result > 0) return true;
-                        else return false;
                     }
-                    catch (Exception ex) {
-                        Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
-                        Console.WriteLine("  Message: {0}", ex.Message);
+                    command.CommandText += " WHERE idFiliale = @idFiliale";
+                    command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
+                    command.Parameters["@idFiliale"].Value = idFiliale;
 
-                        // Attempt to roll back the transaction.
-                        try {
-                            transaction.Rollback();
-                        }
-                        catch (Exception ex2) {
-                            // This catch block will handle any errors that may have occurred
-                            // on the server that would cause the rollback to fail, such as
-                            // a closed connection.
-                            Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
-                            Console.WriteLine("  Message: {0}", ex2.Message);
-                        }
-                        return false;
-                    }
+                    if (Globals.debugMode) { Console.WriteLine(command.CommandText); }
+
+                    int result = command.ExecuteNonQuery();
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+
+                    if (result > 0) return true;
+                    else return false;
                 }
-            */
+                catch (Exception ex) {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2) {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return false;
+                }
+            }
         }
     }
 }
