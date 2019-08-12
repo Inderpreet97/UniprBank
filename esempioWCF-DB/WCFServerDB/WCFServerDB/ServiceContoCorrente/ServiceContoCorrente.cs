@@ -68,5 +68,104 @@ namespace WCFServerDB
                 }
             }
         }
+
+        public bool CheckIBAN(string IBAN) {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
+                connection.Open();
+
+                // Start a local transaction.
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                SqlCommand command = connection.CreateCommand();
+
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try {
+
+                    command.CommandText = "SELECT count(idContoCorrente) FROM ContoCorrente WHERE IBAN = @IBAN;";
+                    command.Parameters.Add("@IBAN", SqlDbType.VarChar);
+                    command.Parameters["@IBAN"].Value = IBAN; ;
+
+                    int? conti = (Nullable<int>)command.ExecuteScalar();
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+
+                    if (conti == 1) return true;
+                    else return false;
+
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2) {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return false;
+                }
+            }
+        }
+
+        public bool CheckIDConto(int idContoCorrente) {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
+                connection.Open();
+
+                // Start a local transaction.
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                SqlCommand command = connection.CreateCommand();
+
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try {
+
+                    command.CommandText = "SELECT count(idContoCorrente) FROM ContoCorrente WHERE idContoCorrente = @idContoCorrente;";
+                    command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
+                    command.Parameters["@idContoCorrente"].Value = idContoCorrente; ;
+
+                    int? conti = (Nullable<int>)command.ExecuteScalar();
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+
+                    if (conti == 1) return true;
+                    else return false;
+
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2) {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return false;
+                }
+            }
+        }
+
     }
 }

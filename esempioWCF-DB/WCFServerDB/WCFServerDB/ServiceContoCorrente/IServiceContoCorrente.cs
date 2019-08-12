@@ -13,6 +13,12 @@ namespace WCFServerDB
     {
         [OperationContract]
         ContoCorrente SelectContoCorrente(int idContoCorrente);
+
+        [OperationContract]
+        bool CheckIBAN(string IBAN); //true se l'iban esiste, false in caso contrario
+
+        [OperationContract]
+        bool CheckIDConto(int idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
     }
 
     [DataContract]
