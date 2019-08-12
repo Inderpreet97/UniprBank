@@ -18,13 +18,13 @@ namespace WCFServerDB
         bool CheckImporto(decimal importo, string IBANCommittente); // controlla se il saldo ricopre l'importo del bonifico
         
         [OperationContract]
-	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal Importo); // true (bonifico avvenuto) false (caso contrario)
+	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo); // true (bonifico avvenuto) false (caso contrario)
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
+        bool EseguiPrelievoDenaro(int IBANCommittente, decimal importo); // true (avvenuto), false (non avvenuto)
 
         [OperationContract]
-	    bool EseguiDeposito(int idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
+	    bool EseguiDeposito(int IBANCommittente, decimal importo);  // true (avvenuto), false (non avvenuto)
 
 
     }
