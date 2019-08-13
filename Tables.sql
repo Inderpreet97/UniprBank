@@ -13,7 +13,6 @@ CREATE TABLE Persona(
     CONSTRAINT PK_persona PRIMARY KEY (codiceFiscale)
 );
 
-
 CREATE TABLE Filiale(
     idFiliale varchar(10) NOT NULL,
     nome varchar(255),
@@ -27,8 +26,8 @@ CREATE TABLE Filiale(
 );
 
 CREATE TABLE Account (
-    username varchar(255) NOT NULL,
-    password varchar(255) NOT NULL,
+    username varchar(255) NOT NULL COLLATE SQL_Latin1_General_CP1_CS_AS,
+    password varchar(255) NOT NULL COLLATE SQL_Latin1_General_CP1_CS_AS,
     privilegi varchar(255) NOT NULL,
     codiceFiscale VARCHAR(16) NOT NULL,
     filiale VARCHAR(10) NOT NULL,
@@ -36,6 +35,16 @@ CREATE TABLE Account (
     CONSTRAINT FK_codiceFiscale FOREIGN KEY (codiceFiscale) REFERENCES Persona(codiceFiscale) ON UPDATE CASCADE,
     CONSTRAINT FK_filiale FOREIGN KEY (filiale) REFERENCES Filiale(idFiliale) ON UPDATE CASCADE
 );
+
+-- usare questo codice SOLO SE le colonne password e username non sono già CASESENSITIVE
+ALTER TABLE Account
+ALTER COLUMN username varchar(255)
+COLLATE SQL_Latin1_General_CP1_CS_AS
+
+ALTER TABLE Account
+ALTER COLUMN password varchar(255)
+COLLATE SQL_Latin1_General_CP1_CS_AS
+-- =====================================================================================
 
 CREATE TABLE ContoCorrente(
     idContoCorrente NUMERIC(10) IDENTITY(1000000000,1) NOT NULL,
