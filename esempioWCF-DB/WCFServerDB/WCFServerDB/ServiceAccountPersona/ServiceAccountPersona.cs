@@ -37,6 +37,12 @@ namespace WCFServerDB
 
                     int? users = (Nullable<int>)command.ExecuteScalar();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo Login ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("Risultato: {0}", users);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
@@ -86,6 +92,12 @@ namespace WCFServerDB
 
                     var privilegiString = (string)command.ExecuteScalar();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetPrivilegi ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("Risultato: {0}", privilegiString);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
@@ -128,11 +140,11 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
-                    command.CommandText = "SELECT username, privilegi, Persona.codiceFiscale, nome, cognome, dataNascita, "
-                         + "sesso, indirizzo, CAP, citta, provincia, stato, numTelefono, filiale FROM Persona, Account"
+                    command.CommandText = "SELECT username, privilegi, Persona.codiceFiscale, nome, cognome, dataDiNascita, "
+                         + "sesso, indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale FROM Persona, Account "
                          + "WHERE Persona.codiceFiscale = Account.codiceFiscale "
-                         + " AND privilegi = @privilegi"
-                         + " AND filiale = @idFiliale";
+                         + "AND privilegi = @privilegi "
+                         + "AND filiale = @idFiliale";
                     command.Parameters.Add("@privilegi", SqlDbType.VarChar);
                     command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
                     command.Parameters["@privilegi"].Value = tipoAccount;
@@ -149,15 +161,20 @@ namespace WCFServerDB
                             var dataDiNascita = reader.GetDateTime(5);
                             var sesso = reader.GetString(6);
                             var indirizzo = reader.GetString(7);
-                            var CAP = (Nullable<int>)reader.GetValue(0);
-                            var citta = reader.GetString(8);
-                            var provincia = reader.GetString(9);
-                            var stato = reader.GetString(10);
-                            var numeroDiTelefono = reader.GetString(11);
-                            var filiale = reader.GetString(12);
-
-                            listaPersone.Add(new Persona(username, privilegi, codiceFiscale, nome, cognome, dataDiNascita, sesso, indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale));
+                            var CAP = (int)reader.GetDecimal(8);
+                            var citta = reader.GetString(9);
+                            var provincia = reader.GetString(10);
+                            var stato = reader.GetString(11);
+                            var numeroDiTelefono = reader.GetString(12);
+                            var filiale = reader.GetString(13);
+                            
+                            listaPersone.Add(new Persona(username, privilegi, codiceFiscale, nome, cognome, dataDiNascita.Date, sesso, indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale));
                         }
+                    }
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetListaPersone ============");
+                        Console.WriteLine("Query: {0}", command.CommandText); 
                     }
 
                     // Attempt to commit the transaction.
