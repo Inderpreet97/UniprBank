@@ -223,6 +223,11 @@ namespace WCFServerDB
 
                     int result = command.ExecuteNonQuery();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EliminaAccount ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
@@ -282,13 +287,18 @@ namespace WCFServerDB
                             persona.dataDiNascita = reader.GetDateTime(4);
                             persona.sesso = reader.GetString(5);
                             persona.indirizzo = reader.GetString(6);
-                            persona.CAP = (Nullable<int>)reader.GetValue(7);
+                            persona.CAP = (int)reader.GetDecimal(7);
                             persona.citta = reader.GetString(8);
-                            persona.provincia = reader.GetString(8);
-                            persona.stato = reader.GetString(9);
-                            persona.numeroDiTelefono = reader.GetString(10);
-                            persona.filiale = reader.GetString(11);
+                            persona.provincia = reader.GetString(9);
+                            persona.stato = reader.GetString(10);
+                            persona.numeroDiTelefono = reader.GetString(11);
+                            persona.filiale = reader.GetString(12);
                         }
+                    }
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo CheckUsername ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
                     }
 
                     // Attempt to commit the transaction.
@@ -364,20 +374,28 @@ namespace WCFServerDB
 
                         result = command.ExecuteNonQuery();
 
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo AggiungiPersona: persona ============");
+                            Console.WriteLine("Query: {0}", command.CommandText);
+                        }
+
                         if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiungere una Persona nel DB");
+                        command.Parameters.Clear();
                     }
 
-                    command.CommandText = "INSERT INTO Persona VALUES ( @username, @password, @privilegi, @codicefiscale)";
+                    command.CommandText = "INSERT INTO Account VALUES ( @username, @password, @privilegi, @codicefiscale, @filiale)";
 
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters.Add("@password", SqlDbType.VarChar);
                     command.Parameters.Add("@privilegi", SqlDbType.VarChar);
                     command.Parameters.Add("@codicefiscale", SqlDbType.VarChar);
+                    command.Parameters.Add("@filiale", SqlDbType.VarChar);
 
                     command.Parameters["@username"].Value = persona.username;
                     command.Parameters["@password"].Value = password;
                     command.Parameters["@privilegi"].Value = persona.privilegi;
                     command.Parameters["@codicefiscale"].Value = persona.codiceFiscale;
+                    command.Parameters["@filiale"].Value = persona.filiale;
 
                     /*  PROVARE A CRIPTARE LE PASSWORD CON QUESTI METODI
                      *  
@@ -387,6 +405,11 @@ namespace WCFServerDB
                      *  
                      */
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo AggiungiPersona: account ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -510,9 +533,13 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = usernameOld;
 
-                    if (Globals.debugMode) { Console.WriteLine(command.CommandText); }
-
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo ModificaPersona: persona ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
+
                     if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
                     
 
@@ -537,6 +564,11 @@ namespace WCFServerDB
                     command.CommandText = " WHERE username = @username";
                     command.Parameters["@username"].Value = usernameOld;
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -578,8 +610,8 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
-                    command.CommandText = "SELECT nome, cognome, dataNascita, sesso, indirizzo, "
-                         + "CAP, citta, provincia, stato, numTelefono FROM Persona "
+                    command.CommandText = "SELECT nome, cognome, dataDiNascita, sesso, indirizzo, "
+                         + "CAP, citta, provincia, stato, numeroDiTelefono FROM Persona "
                          + "WHERE codiceFiscale = @codiceFiscale ";
 
                     command.Parameters.Add("@codiceFiscale", SqlDbType.VarChar);
@@ -595,12 +627,17 @@ namespace WCFServerDB
                             persona.dataDiNascita = reader.GetDateTime(2);
                             persona.sesso = reader.GetString(3);
                             persona.indirizzo = reader.GetString(4);
-                            persona.CAP = (Nullable<int>)reader.GetValue(5);
+                            persona.CAP = (int)reader.GetDecimal(5);
                             persona.citta = reader.GetString(6);
                             persona.provincia = reader.GetString(7);
                             persona.stato = reader.GetString(8);
                             persona.numeroDiTelefono = reader.GetString(9);
                         }
+                    }
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetPersona ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
                     }
 
                     // Attempt to commit the transaction.

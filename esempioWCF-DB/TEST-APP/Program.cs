@@ -11,7 +11,7 @@ namespace TEST_APP
     class Program
     {
         // DA MODIFICARE IL DB e VEDERE SE LA QUERY DIVENTA CASE SENSITIVE
-        static void TestLogin(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        static void TestLogin(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST Login -------------- <<<<<<<<
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" --= bool Login(string username, string password) =--\n");
@@ -25,8 +25,11 @@ namespace TEST_APP
             Console.WriteLine("Valori di input Corretti, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            risultato = serviceAccountPersonaClient.Login(username, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -37,8 +40,11 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            risultato = serviceAccountPersonaClient.Login(username, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -49,8 +55,11 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            risultato = serviceAccountPersonaClient.Login(username, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -61,13 +70,16 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            risultato = serviceAccountPersonaClient.Login(username, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
-        static void TestGetPrivilegi(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        static void TestGetPrivilegi(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST GetPrivilegi -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -75,14 +87,17 @@ namespace TEST_APP
             Console.ResetColor();
 
             // ---- Valore Input Corretto, Risultato Corretto Admin
-            string username = "indi";
+            string username = "indi97";
             string risultatoStr;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\nValore di input Corretto, risultato atteso Admin");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultatoStr = ServiceAccountPersonaClient.GetPrivilegi(username);
+            risultatoStr = serviceAccountPersonaClient.GetPrivilegi(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -92,8 +107,11 @@ namespace TEST_APP
             Console.WriteLine("\nValore di input Sbagliato, risultato atteso string.Empty");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultatoStr = ServiceAccountPersonaClient.GetPrivilegi(username);
+            risultatoStr = serviceAccountPersonaClient.GetPrivilegi(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -103,13 +121,16 @@ namespace TEST_APP
             Console.WriteLine("\nValore di input Sbagliato, risultato atteso string.Empty");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultatoStr = ServiceAccountPersonaClient.GetPrivilegi(username);
+            risultatoStr = serviceAccountPersonaClient.GetPrivilegi(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
-        static void TestGetListaPersona(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        static void TestGetListaPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST GetListaPersone -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -121,10 +142,11 @@ namespace TEST_APP
             string idFiliale = "PR12FID001";
             List<Persona> resultList = new List<Persona>() { };
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di clienti appartenenti alla filiale con id =");
+            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di clienti appartenenti alla filiale con id = PR12FID001");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
-            resultList = ServiceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
             Console.WriteLine("OUTPUT:");
 
             var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
@@ -149,10 +171,11 @@ namespace TEST_APP
             idFiliale = "CR12CRM001";
             resultList = new List<Persona>() { };
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di Impiegati appartenenti alla filiale con id =");
+            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di Impiegati appartenenti alla filiale con id = CR12CRM001");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
-            resultList = ServiceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
             Console.WriteLine("OUTPUT:");
 
             table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
@@ -180,7 +203,8 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Sbagliati, Risultato atteso è una lista vuota di persone");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
-            resultList = ServiceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
             Console.WriteLine("OUTPUT:");
 
             table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
@@ -201,21 +225,40 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
-        static void TestEliminaAccount(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        // DA TESTARE
+        static void TestEliminaAccount(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST EliminaAccount -------------- <<<<<<<<
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" --= bool EliminaAccount(string username) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato Corretto True
-            string username = "tempUser";
+            string username = "tempUser1";
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.EliminaAccount(username);
+            risultato = serviceAccountPersonaClient.EliminaAccount(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valore Input CORRETTO, Risultato Corretto True
+            username = "tempUser2";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valore di input Corretto, risultato atteso True");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            risultato = serviceAccountPersonaClient.EliminaAccount(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -225,8 +268,11 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.EliminaAccount(username);
+            risultato = serviceAccountPersonaClient.EliminaAccount(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -236,14 +282,19 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.EliminaAccount(username);
+            risultato = serviceAccountPersonaClient.EliminaAccount(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
-        static void TestCheckUsername(ServiceAccountPersonaClient ServiceAccountPersonaClient){
+        // DA TESTARE
+        static void TestCheckUsername(ServiceAccountPersonaClient serviceAccountPersonaClient){
             // >>>> -------------- TEST CheckUsername -------------- <<<<<<<<
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" --= Persona CheckUsername(string username) =--\n");
             Console.ResetColor();
@@ -255,9 +306,12 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto Persona con dati validi");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.CheckUsername(username);
+            risultato = serviceAccountPersonaClient.CheckUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -267,9 +321,12 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.CheckUsername(username);
+            risultato = serviceAccountPersonaClient.CheckUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -279,39 +336,46 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            risultato = ServiceAccountPersonaClient.CheckUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            risultato = serviceAccountPersonaClient.CheckUsername(username);
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
         static void StampaPersona(Persona p) {
-            Console.WriteLine("#########################################");
-            Console.WriteLine("Tipo di utenza: ", p.privilegi);
-            Console.WriteLine("\nUsername: ", p.username + "\nNome: ", p.nome + "\nCognome: ", p.cognome);
-            Console.WriteLine("\nCodice Fiscale: ", p.codiceFiscale + "\nSesso: ", p.sesso + "\nData di nascita", p.dataDiNascita);
-            Console.WriteLine("\nCittà: ", p.citta + "\nProvincia: ", p.provincia + "\nStato: ", p.stato);
-            Console.WriteLine("\nNumero di telefono: ", p.numeroDiTelefono);
+            Console.WriteLine("------------->> DATI PERSONA <<-------------");
+            Console.WriteLine("Tipo di utenza: {0}", p.privilegi);
+            Console.WriteLine("Username: {0}\nNome: {1}\nCognome: {2}", p.username, p.nome, p.cognome);
+            Console.WriteLine("Codice Fiscale: {0}\nSesso: {1}\nData di nascita: {2}", p.codiceFiscale, p.sesso , p.dataDiNascita);
+            Console.WriteLine("Città: {0}\nProvincia: {1}\nStato: {2}", p.citta, p.provincia, p.stato);
+            Console.WriteLine("Numero di telefono: {0}", p.numeroDiTelefono);
         }
 
-        // DA INSERIRE UN CODICE FISCALE VALIDO
-        static void TestGetPersona(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        // DA TESTARE
+        static void TestGetPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST GetPersona -------------- <<<<<<<<
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" --= Persona GetPersona(string codiceFiscale) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso un oggetto Persona con dati validi
-            string codiceFiscale = "asasdadadasdsdssa"; // <<<<<<<<<<<<<<<<<<<<---------------------------==
+            string codiceFiscale = "FRNLVC80M55H889B";
             Persona risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto Persona con dati validi");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = ServiceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -321,9 +385,12 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = ServiceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
@@ -333,88 +400,235 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = ServiceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
-        // DA FARE
-        static void TestAggiungiPersona(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
-            // >>>> -------------- TEST Login -------------- <<<<<<<<
+        static void TestAggiungiPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
+            // >>>> -------------- TEST AggiungiPersona -------------- <<<<<<<<
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= bool Login(string username, string password) =--\n");
+            Console.WriteLine(" --= bool AggiungiPersona(Persona persona, string password) =--\n");
             Console.ResetColor();
 
             // ---- Valori Input CORRETTI, Risultato Corretto True
-            string username = "indi97";
-            string password = "indi123";
+            Persona persona = new Persona();
+            persona.username = "tempUser";
+            persona.privilegi = "cliente";
+            persona.codiceFiscale = "FRNLVC80M55H889B";
+            persona.nome = "Lodovica";
+            persona.cognome = "Fiorentino";
+            persona.dataDiNascita = new DateTime(1980, 8, 15);
+            persona.sesso = "femmina";
+            persona.indirizzo = "Via Giulio Camuzzoni, 69";
+            persona.CAP = 89017;
+            persona.citta = "San Giorgio Morgeto";
+            persona.provincia = "RC";
+            persona.stato = "Italia";
+            persona.numeroDiTelefono = "385 3673585";
+            persona.filiale = "PR12FID001";
+            string password = "tempUser123";
             bool risultato;
+
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valori di input Corretti, risultato atteso True");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            Console.WriteLine("INPUT >\tPassword: {0}", password);
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.AggiungiPersona(persona, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
-            // ---- Valori Input SBAGLIATI, Risultato Corretto False
-            username = "indi97";
-            password = "ndi123"; // Manca la i nella password
+            // ---- Valori Input SBAGLIATI, Persona già registrata, Risultato Corretto False
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
+            Console.WriteLine("\nValori Input SBAGLIATI, Persona già registrata, Risultato atteso False");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            Console.WriteLine("INPUT >\tPassword: {0}", password);
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.AggiungiPersona(persona, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
-            // ---- Valori Input SBAGLIATI, Risultato Corretto False
-            username = "indi97";
-            password = "Indi123"; // La I deve essere minuscola
+            // ---- Valori Input Corretti in parte, Persona Registrata ma Account nuovo, Risultato True
+            persona.username = "tempUser1";
+            persona.privilegi = "impiegato";
+            persona.codiceFiscale = "FRNLVC80M55H889B";
+            persona.nome = "Lodovica";
+            persona.cognome = "Fiorentino";
+            persona.dataDiNascita = new DateTime(1980, 8, 15);
+            persona.sesso = "femmina";
+            persona.indirizzo = "Via Giulio Camuzzoni, 69";
+            persona.CAP = 89017;
+            persona.citta = "San Giorgio Morgeto";
+            persona.provincia = "RC";
+            persona.stato = "Italia";
+            persona.numeroDiTelefono = "385 3673585";
+            persona.filiale = "PR12FID001";
+            password = "tempUser123";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
+            Console.WriteLine("Valori di input Corretti, Persona già registrata ma Account nuovo, risultato atteso True");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            Console.WriteLine("INPUT >\tPassword: {0}", password);
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.AggiungiPersona(persona, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
-            // ---- Valori Input SBAGLIATI, Risultato Corretto False
-            username = string.Empty; // username vuoto
-            password = string.Empty; // password vuota
+            // ---- Valori Input SBAGLIATI, Mancano dei dati, Risultato Corretto False
+            persona.username = "tempUser3";
+            persona.privilegi = "cliente";
+            persona.codiceFiscale = "GRSBDT04T57F839E";
+            persona.nome = "Benedetta";
+            persona.cognome = "Grossi";
+            persona.dataDiNascita = null;   // <<<<<  Campo vuoto
+            persona.sesso = string.Empty;   // <<<<<  Campo vuoto
+            persona.indirizzo = "Via dei mille, 154";
+            persona.CAP = 80121;
+            persona.citta = "Napoli";
+            persona.provincia = "NA";
+            persona.stato = "Italia";
+            persona.numeroDiTelefono = "3274115990";
+            persona.filiale = "PR12FID001";
+            password = "tempUser123";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
+            Console.WriteLine("\nValori Input SBAGLIATI, Mancano dei dati, Risultato atteso False");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tUsername: {0}\tPassword: {1}", username, password);
-            risultato = ServiceAccountPersonaClient.Login(username, password);
+            Console.WriteLine("INPUT >\tPassword: {0}", password);
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.AggiungiPersona(persona, password);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
         }
 
-        // DA FARE
-        static void TestModificaPersona(ServiceAccountPersonaClient ServiceAccountPersonaClient) {
+        // DA TESTARE
+        static void TestModificaPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
+            // >>>> -------------- TEST ModificaPersona -------------- <<<<<<<<
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" --= bool ModificaPersona(string username, Persona persona) =--\n");
+            Console.ResetColor();
 
+            // ---- Valori Input CORRETTI, Modifico dati relativi all'indirizzo, Risultato Corretto True
+            Persona persona = new Persona();
+            persona.username = "tempUser";
+            persona.privilegi = "cliente";
+            persona.codiceFiscale = "FRNLVC80M55H889B";
+            persona.nome = "Lodovica";
+            persona.cognome = "Fiorentino";
+            persona.dataDiNascita = new DateTime(1980, 8, 15);
+            persona.sesso = "femmina";
+            persona.indirizzo = "Via Dordone, 12";
+            persona.CAP = 43014;
+            persona.citta = "Felegara";
+            persona.provincia = "PR";
+            persona.stato = "Italia";
+            persona.numeroDiTelefono = "3853673585";
+            persona.filiale = "PR12FID001";
+            string username = "tempUser";
+            bool risultato;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valori di input Corretti, Modifico dati relativi all'indirizzo, risultato atteso True");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            Console.WriteLine("\tDATI PERSONA: ");
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valori Input SBAGLIATI, Nessun dato da aggiornare, Risultato Corretto False
+            persona = new Persona();
+            username = "tempUser";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValori Input SBAGLIATI, Nessun dato da aggiornare, Risultato atteso False");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            Console.WriteLine("\tDATI PERSONA: ");
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valori Input CORRETTI, Cambio username e privilegi account, Risultato True
+            persona.username = "tempUser2";
+            persona.privilegi = "impiegato";
+
+            username = "tempUser";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valori di input Corretti, Cambio username e privilegi account, risultato atteso True");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            Console.WriteLine("\tDATI PERSONA: ");
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valori Input CORRETTI, Cambio Filiale, Risultato True
+            persona.filiale =  "CR12CRM001";
+            username = "tempUser2";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valori di input Corretti, Cambio Filiale, risultato atteso True");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            Console.WriteLine("\tDATI PERSONA: ");
+            StampaPersona(persona);
+            risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
         }
 
 
         static void Main(string[] args) {
 
-            ServiceAccountPersonaClient ServiceAccountPersonaClient = new ServiceAccountPersonaClient();
+            ServiceAccountPersonaClient serviceAccountPersonaClient = new ServiceAccountPersonaClient();
 
-            TestLogin(ServiceAccountPersonaClient);
-            TestGetPrivilegi(ServiceAccountPersonaClient);
-            TestGetListaPersona(ServiceAccountPersonaClient);
-            TestAggiungiPersona(ServiceAccountPersonaClient);
-            TestModificaPersona(ServiceAccountPersonaClient);
-            TestGetPersona(ServiceAccountPersonaClient);
-            TestEliminaAccount(ServiceAccountPersonaClient);
-            TestCheckUsername(ServiceAccountPersonaClient);
+            TestLogin(serviceAccountPersonaClient);
+            TestGetPrivilegi(serviceAccountPersonaClient);
+            TestGetListaPersona(serviceAccountPersonaClient);
+            TestAggiungiPersona(serviceAccountPersonaClient);
+            TestModificaPersona(serviceAccountPersonaClient);
+            TestGetPersona(serviceAccountPersonaClient);
+            TestEliminaAccount(serviceAccountPersonaClient);
+            TestCheckUsername(serviceAccountPersonaClient);
         }
     }
 }
