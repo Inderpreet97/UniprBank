@@ -431,7 +431,7 @@ namespace TEST_APP
             persona.citta = "San Giorgio Morgeto";
             persona.provincia = "RC";
             persona.stato = "Italia";
-            persona.numeroDiTelefono = "385 3673585";
+            persona.numeroDiTelefono = "3853673585";
             persona.filiale = "PR12FID001";
             string password = "tempUser123";
             bool risultato;
@@ -476,7 +476,7 @@ namespace TEST_APP
             persona.citta = "San Giorgio Morgeto";
             persona.provincia = "RC";
             persona.stato = "Italia";
-            persona.numeroDiTelefono = "385 3673585";
+            persona.numeroDiTelefono = "3853673585";
             persona.filiale = "PR12FID001";
             password = "tempUser123";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -532,20 +532,20 @@ namespace TEST_APP
 
             // ---- Valori Input CORRETTI, Modifico dati relativi all'indirizzo, Risultato Corretto True
             Persona persona = new Persona();
-            persona.username = "tempUser";
-            persona.privilegi = "cliente";
-            persona.codiceFiscale = "FRNLVC80M55H889B";
-            persona.nome = "Lodovica";
-            persona.cognome = "Fiorentino";
-            persona.dataDiNascita = new DateTime(1980, 8, 15);
-            persona.sesso = "femmina";
+            persona.username = string.Empty;
+            persona.privilegi = string.Empty;
+            persona.codiceFiscale = string.Empty;
+            persona.nome = string.Empty;
+            persona.cognome = string.Empty;
+            persona.dataDiNascita = null;
+            persona.sesso = string.Empty;
             persona.indirizzo = "Via Dordone, 12";
             persona.CAP = 43014;
             persona.citta = "Felegara";
             persona.provincia = "PR";
             persona.stato = "Italia";
-            persona.numeroDiTelefono = "3853673585";
-            persona.filiale = "PR12FID001";
+            persona.numeroDiTelefono = string.Empty;
+            persona.filiale = string.Empty;
             string username = "tempUser";
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -563,7 +563,11 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valori Input SBAGLIATI, Nessun dato da aggiornare, Risultato Corretto False
-            persona = new Persona();
+            persona.indirizzo = string.Empty;
+            persona.CAP = null;
+            persona.citta = string.Empty;
+            persona.provincia = string.Empty;
+            persona.stato = string.Empty;
             username = "tempUser";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\nValori Input SBAGLIATI, Nessun dato da aggiornare, Risultato atteso False");
@@ -599,6 +603,8 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valori Input CORRETTI, Cambio Filiale, Risultato True
+            persona.username = string.Empty;
+            persona.privilegi = string.Empty;
             persona.filiale =  "CR12CRM001";
             username = "tempUser2";
             Console.ForegroundColor = ConsoleColor.DarkGreen;

@@ -452,7 +452,7 @@ namespace WCFServerDB
                 command.Connection = connection;
                 command.Transaction = transaction;
 
-                int result; // Il numero di righe modificate dall'update
+                int result = -1; // Il numero di righe modificate dall'update
 
                 try {
 
@@ -469,6 +469,7 @@ namespace WCFServerDB
                         if (accountPropertiesNames.Contains(personaProperties[index].Name)) {
                             accountProperties.Add(personaProperties[index]);
                             personaProperties.RemoveAt(index);
+                            index--;
                         } else if (personaProperties[index].Name == "codiceFiscale") {
                             accountProperties.Add(personaProperties[index]);
                         }
@@ -479,6 +480,7 @@ namespace WCFServerDB
                     command.CommandText = "UPDATE Persona SET ";
 
                     bool propertyAddedToQuery;
+                    bool queryDaEseguire = false;
 
                     for (int index = 0; index < personaProperties.Count; index++) {
                         propertyAddedToQuery = false;
@@ -486,14 +488,14 @@ namespace WCFServerDB
                         // Guardo il tipo di dato (int, string, ...)
                         //Se ha valore -> aggiungere la parte di codice SQL per aggiornarlo
 
-                        if (personaProperties[index].GetValue(persona).GetType() == typeof(int?)) {
+                        if (personaProperties[index].PropertyType == typeof(int?)) {
                             if (((int?)personaProperties[index].GetValue(persona)).HasValue) { 
                                 command.CommandText += personaProperties[index].Name + " = " + (int?)personaProperties[index].GetValue(persona);
                                 propertyAddedToQuery = true;
                             }
-                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(DateTime?)) {
+                        } else if (personaProperties[index].PropertyType == typeof(DateTime?)) {
                             if (((DateTime?)personaProperties[index].GetValue(persona)).HasValue) {
-                                command.CommandText += personaProperties[index].Name + " = " + (DateTime?)personaProperties[index].GetValue(persona);
+                                command.CommandText += personaProperties[index].Name + " = '" + personaProperties[index].GetValue(persona).ToString().Remove(10, 9) + "' ";
                                 propertyAddedToQuery = true;
                             }
                         } else {
@@ -503,78 +505,107 @@ namespace WCFServerDB
                             }
                         }
 
-                        bool commaNeeded = false;
                         if (propertyAddedToQuery) {
-                            for (int tempIndex = index; tempIndex < personaProperties.Count; tempIndex++) {
 
-                                if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(string)) {
+                            queryDaEseguire = true;
+
+                            for (int tempIndex = index + 1; tempIndex < personaProperties.Count; tempIndex++) {
+                               
+                                if (personaProperties[tempIndex].PropertyType == typeof(string)) {
                                     if (personaProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
-                                        commaNeeded = true;
+                                        command.CommandText += " , ";
+                                        tempIndex = personaProperties.Count;
                                     }
 
-                                } else if (personaProperties[tempIndex].GetValue(persona).GetType() == typeof(int?)) {
-                                    if (((int?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
-                                        commaNeeded = true;
-                                    }
-                                } else {
+                                } else if (personaProperties[tempIndex].PropertyType == typeof(DateTime?)) {
                                     if (((DateTime?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
-                                        commaNeeded = true;
+                                        command.CommandText += " , ";
+                                        tempIndex = personaProperties.Count;
+                                    }
+                                } else {                                    
+                                    if (((int?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
+                                        command.CommandText += " , ";
+                                        tempIndex = personaProperties.Count;
                                     }
                                 }
-                            }
-                            if (commaNeeded) {
-                                command.CommandText += ",";
-                            }
+                            }                            
+                        }                                         
+                    }
+
+                    if (queryDaEseguire) {
+                        command.CommandText += " WHERE codiceFiscale in ( SELECT codiceFiscale FROM Account WHERE username = @username )";
+                        command.Parameters.Add("@username", SqlDbType.VarChar);
+                        command.Parameters["@username"].Value = usernameOld;
+
+                        result = command.ExecuteNonQuery();
+
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo ModificaPersona: persona ============");
+                            Console.WriteLine("Query: {0}", command.CommandText);
                         }
-                                            
 
+                        if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
+
+                    } else {
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
+                            Console.WriteLine("Nessun dato in persona da aggiornare\n");
+                        }
                     }
-                    command.CommandText += " WHERE codiceFiscale in ( SELECT codiceFiscale FROM Account WHERE username = @username";
-                    command.Parameters.Add("@username", SqlDbType.VarChar);
-                    command.Parameters["@username"].Value = usernameOld;
-
-                    result = command.ExecuteNonQuery();
-
-                    if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo ModificaPersona: persona ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
-                    }
-
-                    if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
-                    
 
                     // ------------------- Aggiorno le info nell'account -------------------
+                    command.Parameters.Clear();
                     command.CommandText = "UPDATE Account SET ";
 
+                    queryDaEseguire = false;
                     for (int index = 0; index < accountProperties.Count; index++) {
 
                         //Non c'è controllo sul tipo perchè le properties dell'account sono tutte di tipo string
                         if (accountProperties[index].GetValue(persona).ToString() != string.Empty) {
 
+                            queryDaEseguire = true;
+
                             command.CommandText += accountProperties[index].Name + " = '" + accountProperties[index].GetValue(persona).ToString() + "' ";
 
-                            for (int tempIndex = index; tempIndex < accountProperties.Count; tempIndex++) {
+                            for (int tempIndex = index + 1; tempIndex < accountProperties.Count; tempIndex++) {
                                 if (accountProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
-                                    command.CommandText += ",";
+                                    command.CommandText += " , ";
+                                    tempIndex = accountProperties.Count;
                                 }
                             }
                         }
                     }
 
-                    command.CommandText = " WHERE username = @username";
-                    command.Parameters["@username"].Value = usernameOld;
-                    result = command.ExecuteNonQuery();
+                    if (queryDaEseguire) {
+                        command.CommandText += " WHERE username = @username";
+                        command.Parameters.Add("@username", SqlDbType.VarChar);
+                        command.Parameters["@username"].Value = usernameOld;
+                        result = command.ExecuteNonQuery();
 
-                    if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
+                            Console.WriteLine("Query: {0}", command.CommandText);
+                        }
+
+                        // Attempt to commit the transaction.
+                        transaction.Commit();
+
+                        if (result > 0) return true;
+                        else return false;
+
+                    } else {
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
+                            Console.WriteLine("Nessun dato in account da aggiornare\n");
+                        }
+
+                        // Potrei aver aggiornato dati relativi solo alla tabella Persona, quindi result contiene il numero 
+                        // di righe aggiornate della query (se eseguita) update su Persona.
+                        // Se anche la query su Persona non è stata eseguita allora result contiente -1, 
+                        // quindi non ho aggiornato nessun dato, perciò return False.
+                        if (result > 0) return true;
+                        else return false;
                     }
-
-                    // Attempt to commit the transaction.
-                    transaction.Commit();
-
-                    if (result > 0) return true;
-                    else return false;
                 }
                 catch (Exception ex) {
                     Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
