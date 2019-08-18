@@ -225,7 +225,6 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
-        // DA TESTARE
         static void TestEliminaAccount(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST EliminaAccount -------------- <<<<<<<<
             Console.Clear();
@@ -291,7 +290,6 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
-        // DA TESTARE
         static void TestCheckUsername(ServiceAccountPersonaClient serviceAccountPersonaClient){
             // >>>> -------------- TEST CheckUsername -------------- <<<<<<<<
             Console.Clear();
@@ -355,7 +353,6 @@ namespace TEST_APP
             Console.WriteLine("Numero di telefono: {0}", p.numeroDiTelefono);
         }
 
-        // DA TESTARE
         static void TestGetPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST GetPersona -------------- <<<<<<<<
             Console.Clear();
@@ -370,7 +367,7 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto Persona con dati validi");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.GetPersona(codiceFiscale);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
@@ -385,7 +382,7 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.GetPersona(codiceFiscale);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
@@ -400,7 +397,7 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", codiceFiscale);
-            risultato = serviceAccountPersonaClient.CheckUsername(codiceFiscale);
+            risultato = serviceAccountPersonaClient.GetPersona(codiceFiscale);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT>");
@@ -522,7 +519,6 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
-        // DA TESTARE
         static void TestModificaPersona(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST ModificaPersona -------------- <<<<<<<<
             Console.Clear();
@@ -589,7 +585,7 @@ namespace TEST_APP
 
             username = "tempUser";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Valori di input Corretti, Cambio username e privilegi account, risultato atteso True");
+            Console.WriteLine("\nValori di input Corretti, Cambio username e privilegi account, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
             Console.WriteLine("\tDATI PERSONA: ");
@@ -608,7 +604,7 @@ namespace TEST_APP
             persona.filiale =  "CR12CRM001";
             username = "tempUser2";
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Valori di input Corretti, Cambio Filiale, risultato atteso True");
+            Console.WriteLine("\nValori di input Corretti, Cambio Filiale, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
             Console.WriteLine("\tDATI PERSONA: ");

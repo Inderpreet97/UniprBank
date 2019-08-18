@@ -201,6 +201,9 @@ namespace WCFServerDB
             }
         }
 
+        // Elimina solo Account, la Persona rimane registrata
+        // Potrei creare un metodo EliminaPersona che elimina la persona quando
+        // viene eliminato l'ultimo account collegato alla persona
         public bool EliminaAccount(string username) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
@@ -268,10 +271,10 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
-                    command.CommandText = "SELECT privilegi, Persona.codiceFiscale, nome, cognome, dataNascita, "
-                         + "sesso, indirizzo, CAP, citta, provincia, stato, numTelefono, filiale FROM Persona, Account"
+                    command.CommandText = "SELECT privilegi, Persona.codiceFiscale, nome, cognome, dataDiNascita, "
+                         + "sesso, indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale FROM Persona, Account "
                          + "WHERE Persona.codiceFiscale = Account.codiceFiscale "
-                         + " AND Account.username = @username";
+                         + "AND Account.username = @username";
 
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
@@ -603,8 +606,16 @@ namespace WCFServerDB
                         // di righe aggiornate della query (se eseguita) update su Persona.
                         // Se anche la query su Persona non è stata eseguita allora result contiente -1, 
                         // quindi non ho aggiornato nessun dato, perciò return False.
-                        if (result > 0) return true;
-                        else return false;
+                        if (result > 0) {
+
+                            transaction.Commit();
+                            return true;
+
+                        } else {
+
+                            return false;
+
+                        }
                     }
                 }
                 catch (Exception ex) {
@@ -641,6 +652,7 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
+
                     command.CommandText = "SELECT nome, cognome, dataDiNascita, sesso, indirizzo, "
                          + "CAP, citta, provincia, stato, numeroDiTelefono FROM Persona "
                          + "WHERE codiceFiscale = @codiceFiscale ";
