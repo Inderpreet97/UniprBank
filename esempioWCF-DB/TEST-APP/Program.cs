@@ -548,7 +548,6 @@ namespace TEST_APP
             Console.WriteLine("Valori di input Corretti, Modifico dati relativi all'indirizzo, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            Console.WriteLine("\tDATI PERSONA: ");
             StampaPersona(persona);
             risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
 
@@ -569,7 +568,6 @@ namespace TEST_APP
             Console.WriteLine("\nValori Input SBAGLIATI, Nessun dato da aggiornare, Risultato atteso False");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            Console.WriteLine("\tDATI PERSONA: ");
             StampaPersona(persona);
             risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
 
@@ -588,7 +586,6 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Corretti, Cambio username e privilegi account, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            Console.WriteLine("\tDATI PERSONA: ");
             StampaPersona(persona);
             risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
 
@@ -607,7 +604,6 @@ namespace TEST_APP
             Console.WriteLine("\nValori di input Corretti, Cambio Filiale, risultato atteso True");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
-            Console.WriteLine("\tDATI PERSONA: ");
             StampaPersona(persona);
             risultato = serviceAccountPersonaClient.ModificaPersona(username, persona);
 

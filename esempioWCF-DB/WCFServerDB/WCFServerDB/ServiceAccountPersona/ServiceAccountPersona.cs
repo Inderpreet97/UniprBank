@@ -219,7 +219,34 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
+                    // Conta quanti Account sono rimasti legati ad una persona
+                    command.CommandText = "SELECT COUNT(username) FROM Account WHERE codicefiscale in (SELECT codicefiscale FROM Account WHERE username = @username);";
+                    command.Parameters.Add("@username", SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = username;
 
+                    int numAccountPersona = (int)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EliminaAccount: Count Accounts ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
+
+                    var codiceFiscale = string.Empty;
+                    if (numAccountPersona <= 1) {
+                        command.Parameters.Clear();
+                        command.CommandText = "SELECT codicefiscale FROM Account WHERE username = @username;";
+                        command.Parameters.Add("@username", SqlDbType.VarChar);
+                        command.Parameters["@username"].Value = username;
+
+                        codiceFiscale = (string)command.ExecuteScalar();
+
+                        if (Globals.debugMode) {
+                            Console.WriteLine("\n============ Metodo EliminaAccount: Select CodiceFiscale Account ============");
+                            Console.WriteLine("Query: {0}", command.CommandText);
+                        }
+                    }
+
+                    command.Parameters.Clear();
                     command.CommandText = "DELETE FROM Account WHERE username = @username;";
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
@@ -228,6 +255,61 @@ namespace WCFServerDB
 
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaAccount ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                    }
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+
+                    if (numAccountPersona <= 1) {
+                        EliminaPersona(codiceFiscale);
+                    }
+
+                    if (result > 0) return true;
+                    else return false;
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2) {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return false;
+                }
+            }
+        }
+
+        public bool EliminaPersona(string codiceFiscale) {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
+                connection.Open();
+
+                // Start a local transaction.
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                SqlCommand command = connection.CreateCommand();
+
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try {
+                    command.CommandText = "DELETE FROM Persona WHERE codiceFiscale = @codiceFiscale;";
+                    command.Parameters.Add("@codiceFiscale", SqlDbType.VarChar);
+                    command.Parameters["@codiceFiscale"].Value = codiceFiscale;
+
+                    int result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EliminaPersona ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                     }
 
