@@ -791,5 +791,58 @@ namespace WCFServerDB
                 }
             }
         }
+
+        public string GetIdFilialeByUsername(string username) {
+            using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
+                connection.Open();
+
+                // Start a local transaction.
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                SqlCommand command = connection.CreateCommand();
+
+                // Must assign both transaction object and connection
+                // to Command object for a pending local transaction
+                command.Connection = connection;
+                command.Transaction = transaction;
+
+                try {
+
+                    command.CommandText = "SELECT filiale FROM Account WHERE username = @username;";
+                    command.Parameters.Add("@username", SqlDbType.VarChar);
+                    command.Parameters["@username"].Value = username;
+
+                    var filiale = (string)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetIdFilialeByUsername ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("Risultato: {0}", filiale);
+                    }
+
+                    // Attempt to commit the transaction.
+                    transaction.Commit();
+
+                    return filiale;
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
+                    Console.WriteLine("  Message: {0}", ex.Message);
+
+                    // Attempt to roll back the transaction.
+                    try {
+                        transaction.Rollback();
+                    }
+                    catch (Exception ex2) {
+                        // This catch block will handle any errors that may have occurred
+                        // on the server that would cause the rollback to fail, such as
+                        // a closed connection.
+                        Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
+                        Console.WriteLine("  Message: {0}", ex2.Message);
+                    }
+                    return String.Empty;
+                }
+            }
+        }
     }
 }

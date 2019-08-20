@@ -35,6 +35,9 @@ namespace WCFServerDB
         [OperationContract]
         bool ModificaPersona(string username, Persona persona);
 
+        [OperationContract]
+        string GetIdFilialeByUsername(string username);
+
     }
 
     [DataContract]

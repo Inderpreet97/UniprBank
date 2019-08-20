@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 
 namespace WCFServerDB
@@ -7,6 +8,9 @@ namespace WCFServerDB
     [ServiceContract]
     public interface IServiceContoCorrente
     {
+        [OperationContract]
+        List<ContoCorrente> GetListaContoCorrente(string username);
+
         [OperationContract]
         ContoCorrente SelectContoCorrente(int idContoCorrente);
 

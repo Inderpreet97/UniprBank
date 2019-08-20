@@ -9,10 +9,9 @@ using TEST_APP.ServiceReferenceMovimenti;
 
 namespace TEST_APP
 {
-    class Program
-    {
+    class Program {
         // Questo metodo contiene l'errore di cui parlo
-        static void Errore (ServiceAccountPersonaClient serviceAccountPersonaClient){
+        static void Errore(ServiceAccountPersonaClient serviceAccountPersonaClient) {
 
             // L'errore è che Persona non contiene costruttori che accettano argomenti
             // anche se nella dichiarazione della classe esiste il costruttore con argomenti.
@@ -24,6 +23,7 @@ namespace TEST_APP
             // Il costruttore vuoto che posso usare non è quello dichiarato da me, ma quello generato di default
             Persona persona1 = new Persona();
         }
+
         static void TestLogin(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST Login -------------- <<<<<<<<
             Console.ForegroundColor = ConsoleColor.Green;
@@ -99,11 +99,11 @@ namespace TEST_APP
             Console.WriteLine(" --= string GetPrivilegi(string username) =--\n");
             Console.ResetColor();
 
-            // ---- Valore Input Corretto, Risultato Corretto Admin
-            string username = "indi97";
+            // ---- Valore Input Corretto, Risultato Corretto impiegato
+            string username = "tempUser2";
             string risultatoStr;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValore di input Corretto, risultato atteso Admin");
+            Console.WriteLine("\nValore di input Corretto, risultato atteso impiegato");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
             risultatoStr = serviceAccountPersonaClient.GetPrivilegi(username);
@@ -303,7 +303,7 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
-        static void TestCheckUsername(ServiceAccountPersonaClient serviceAccountPersonaClient){
+        static void TestCheckUsername(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST CheckUsername -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -352,6 +352,57 @@ namespace TEST_APP
             risultato = serviceAccountPersonaClient.CheckUsername(username);
             Console.WriteLine("OUTPUT>");
             StampaPersona(risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+        }
+
+        static void TestGetIdFilialeByUsername(ServiceAccountPersonaClient serviceAccountPersonaClient) {
+            // >>>> -------------- TEST GetIdFilialeByUsername -------------- <<<<<<<<
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" --= string GetIdFilialeByUsername(string username) =--\n");
+            Console.ResetColor();
+
+            // ---- Valore Input Corretto, Risultato Corretto CR12CRM001
+            string username = "tempUser2";
+            string risultatoStr;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValore di input Corretto, risultato atteso CR12CRM001");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            risultatoStr = serviceAccountPersonaClient.GetIdFilialeByUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valore Input Sbagliato, Risultato Corretto string.Empty
+            username = "inesistente";
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValore di input Sbagliato, risultato atteso string.Empty");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            risultatoStr = serviceAccountPersonaClient.GetIdFilialeByUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valore Input Sbagliato, Risultato Corretto string.Empty
+            username = string.Empty;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValore di input Sbagliato, risultato atteso string.Empty");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tUsername: {0}", username);
+            risultatoStr = serviceAccountPersonaClient.GetIdFilialeByUsername(username);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultatoStr);
             Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
@@ -628,6 +679,101 @@ namespace TEST_APP
         }
 
         // DA QUI IN POI I TEST SONO ANCORA DA FARE
+        static void TestGetListaContoCorrente(ServiceContoCorrenteClient serviceContoCorrenteClient) {
+            // >>>> -------------- TEST GetListaPersone -------------- <<<<<<<<
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" --= List<Persona> GetListaPersone(string tipoAccount, string idFiliale) =--\n");
+            Console.ResetColor();
+
+            // ---- Valori Input Corretti, Risultato atteso è una lista di Clienti appartenenti alla filiale con id = PR12FID001
+            string tipoAccount = "cliente";
+            string idFiliale = "PR12FID001";
+            List<Persona> resultList = new List<Persona>() { };
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di clienti appartenenti alla filiale con id = PR12FID001");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
+            Console.WriteLine("OUTPUT:");
+
+            var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
+                "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
+
+            resultList.ForEach(persona => {
+                // Prima di poter inserire la data di nascita nella tabella va sistemata in questo modo
+                var tempDataNascita = persona.dataDiNascita.ToString().Remove(10, 9);
+
+                table.AddRow(persona.filiale, persona.privilegi, persona.codiceFiscale, persona.nome,
+                    persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
+                    persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
+            });
+
+            table.Write();
+
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valori Input Corretti, Risultato atteso è una lista di Impiegati appartenenti alla filiale con id = CR12CRM001
+            tipoAccount = "impiegato";
+            idFiliale = "CR12CRM001";
+            resultList = new List<Persona>() { };
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValori di input Corretti, Risultato atteso è una lista di Impiegati appartenenti alla filiale con id = CR12CRM001");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
+            Console.WriteLine("OUTPUT:");
+
+            table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
+                "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
+
+            resultList.ForEach(persona => {
+                // Prima di poter inserire la data di nascita nella tabella va sistemata in questo modo
+                var tempDataNascita = persona.dataDiNascita.ToString().Remove(10, 9);
+
+                table.AddRow(persona.filiale, persona.privilegi, persona.codiceFiscale, persona.nome,
+                    persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
+                    persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
+            });
+
+            table.Write();
+
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valori Input Sbagliati, Risultato atteso è una lista vuota di persone 
+            tipoAccount = string.Empty;
+            idFiliale = string.Empty;
+            resultList = new List<Persona>() { };
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("\nValori di input Sbagliati, Risultato atteso è una lista vuota di persone");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tTipo account: {0}\tidFiliale: {1}", tipoAccount, idFiliale);
+            resultList = serviceAccountPersonaClient.GetListaPersone(tipoAccount, idFiliale).ToList();
+
+            Console.WriteLine("OUTPUT:");
+
+            table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
+                "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
+
+            resultList.ForEach(persona => {
+                // Prima di poter inserire la data di nascita nella tabella va sistemata in questo modo
+                var tempDataNascita = persona.dataDiNascita.ToString().Remove(10, 9);
+
+                table.AddRow(persona.filiale, persona.privilegi, persona.codiceFiscale, persona.nome,
+                    persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
+                    persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
+            });
+
+            table.Write();
+
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+        }
+
         static void TestSelectContoCorrente(ServiceContoCorrenteClient serviceContoCorrenteClient) {
             // >>>> -------------- TEST SelectContoCorrente -------------- <<<<<<<<
             Console.Clear();
@@ -642,26 +788,24 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto ContoCorrente con dati validi");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", idContoCorrente);
-            risultato = serviceAccountPersonaClient.GetPersona(idContoCorrente);
+            risultato = serviceContoCorrenteClient.SelectContoCorrente(idContoCorrente);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("OUTPUT>");
-            StampaPersona(risultato);
+            Console.WriteLine("OUTPUT> idContoCorrente: {0}\tIBAN: {1}\tUsername: {2}\tSaldo: {3}\tFiliale: {4}", risultato.idContoCorrente, risultato.IBAN, risultato.username, risultato.saldo, risultato.idFiliale);
             Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
             // ---- Valore Input SBAGLIATO, Risultato atteso un oggetto ContoCorrente con attributi settati a default
-            idContoCorrente = 1120;
+            idContoCorrente = 0;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto ContoCorrente con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", idContoCorrente);
-            risultato = serviceAccountPersonaClient.GetPersona(idContoCorrente);
+            risultato = serviceContoCorrenteClient.SelectContoCorrente(idContoCorrente);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("OUTPUT>");
-            StampaPersona(risultato);
+            Console.WriteLine("OUTPUT> idContoCorrente: {0}\tIBAN: {1}\tUsername: {2}\tSaldo: {3}\tFiliale: {4}", risultato.idContoCorrente, risultato.IBAN, risultato.username, risultato.saldo, risultato.idFiliale);
             Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
@@ -672,11 +816,10 @@ namespace TEST_APP
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso un oggetto Persona con attributi settati a default");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tCodice Fiscale: {0}", idContoCorrente);
-            risultato = serviceAccountPersonaClient.GetPersona(idContoCorrente);
+            risultato = serviceContoCorrenteClient.SelectContoCorrente(idContoCorrente);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("OUTPUT>");
-            StampaPersona(risultato);
+            Console.WriteLine("OUTPUT> idContoCorrente: {0}\tIBAN: {1}\tUsername: {2}\tSaldo: {3}\tFiliale: {4}", risultato.idContoCorrente, risultato.IBAN, risultato.username, risultato.saldo, risultato.idFiliale);
             Console.ResetColor();
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
@@ -733,14 +876,32 @@ namespace TEST_APP
             ServiceMovimentiClient serviceMovimentiClient = new ServiceMovimentiClient();
             ServiceFilialeClient serviceFilialeClient = new ServiceFilialeClient();
 
-            TestLogin(serviceAccountPersonaClient);
-            TestGetPrivilegi(serviceAccountPersonaClient);
-            TestGetListaPersona(serviceAccountPersonaClient);
             TestAggiungiPersona(serviceAccountPersonaClient);
+            TestLogin(serviceAccountPersonaClient);
+            TestGetListaPersona(serviceAccountPersonaClient);
             TestModificaPersona(serviceAccountPersonaClient);
+            TestGetIdFilialeByUsername(serviceAccountPersonaClient);
+            TestGetPrivilegi(serviceAccountPersonaClient);
             TestGetPersona(serviceAccountPersonaClient);
+           
+            TestGetNameFiliale(serviceFilialeClient);
+            TestModificaDatiFiliale(serviceFilialeClient);
+            TestGetFiliale(serviceFilialeClient);
+
+            TestAggiungiContoCorrente(serviceContoCorrenteClient);
+            TestSelectContoCorrente(serviceContoCorrenteClient);
+            TestCheckIBAN(serviceContoCorrenteClient);
+            TestCheckIDConto(serviceContoCorrenteClient);
+                        
+            TestEseguiBonifico(serviceMovimentiClient);
+            TestEseguiPrelievoDenaro(serviceMovimentiClient);
+            TestEseguiDeposito(serviceMovimentiClient);
+            TestCheckImporto(serviceMovimentiClient);
+            TestGetListaMovimenti(serviceMovimentiClient);
+
             TestEliminaAccount(serviceAccountPersonaClient);
             TestCheckUsername(serviceAccountPersonaClient);
+
         }
     }
 }
