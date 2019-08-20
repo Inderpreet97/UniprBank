@@ -14,9 +14,12 @@ namespace WCFClient
             AddPage(new CreaContoCorrente(this));
             AddPage(new ModificaAccount(this));
             AddPage(new ListaMovimenti(this));
-            AddPage(new EseguiMovimento(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
+            AddPage(new MovimentiMenu(this));
+            AddPage(new Bonifico(this));
+            AddPage(new Deposito(this));
+            AddPage(new Prelievo(this));
 
             SetPage<MainMenuImpiegato>();
         }

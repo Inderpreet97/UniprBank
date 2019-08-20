@@ -37,13 +37,13 @@ CREATE TABLE Account (
 );
 
 -- usare questo codice SOLO SE le colonne password e username non sono già CASESENSITIVE
-ALTER TABLE Account
-ALTER COLUMN username varchar(255)
-COLLATE SQL_Latin1_General_CP1_CS_AS
+--ALTER TABLE Account
+--ALTER COLUMN username varchar(255)
+--COLLATE SQL_Latin1_General_CP1_CS_AS
 
-ALTER TABLE Account
-ALTER COLUMN password varchar(255)
-COLLATE SQL_Latin1_General_CP1_CS_AS
+--ALTER TABLE Account
+--ALTER COLUMN password varchar(255)
+--COLLATE SQL_Latin1_General_CP1_CS_AS
 -- =====================================================================================
 
 CREATE TABLE ContoCorrente(

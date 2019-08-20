@@ -19,8 +19,7 @@ namespace WCFClient.Pages
             base.Display();
 
             string tipoMovimento = "Bonifico";
-
-
+            
             //IBAN
             string IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             while (!FunzioniMovimento.checkIBAN(IBANBeneficiario)) {

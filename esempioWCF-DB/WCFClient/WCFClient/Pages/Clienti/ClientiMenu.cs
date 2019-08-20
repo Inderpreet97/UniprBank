@@ -11,7 +11,7 @@ namespace WCFClient.Pages
                     new Option("Modifica Persona/Account", () => program.NavigateTo<ModificaAccount>()),
                     new Option("Visualizza Lista Clienti", () => program.NavigateTo<ListaClienti>()),
                     new Option("Visualizza Lista Movimenti Cliente", () => program.NavigateTo<ListaMovimenti>()),
-                    new Option("Effetua un Movimento", () => program.NavigateTo<EseguiMovimento>()))
+                    new Option("Effetua un Movimento", () => program.NavigateTo<MovimentiMenu>()))
         {
         }
     }
