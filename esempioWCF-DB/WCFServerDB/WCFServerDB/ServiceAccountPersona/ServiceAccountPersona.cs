@@ -29,7 +29,10 @@ namespace WCFServerDB
 
                 try {
 
-                    command.CommandText = "SELECT count(username) FROM Account WHERE username = @username  COLLATE SQL_Latin1_General_CP1_CS_AS AND password = @password;";
+                    command.CommandText = "SELECT count(username) FROM Account " +
+                        "WHERE username = @username COLLATE SQL_Latin1_General_CP1_CS_AS " + //Collate serve per rendere la query Case Sensitive
+                        "AND password = @password COLLATE SQL_Latin1_General_CP1_CS_AS;";
+
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters.Add("@password", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;

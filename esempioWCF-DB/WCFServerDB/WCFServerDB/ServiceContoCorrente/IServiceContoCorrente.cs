@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace WCFServerDB
 {
@@ -19,6 +15,9 @@ namespace WCFServerDB
 
         [OperationContract]
         bool CheckIDConto(int idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
+
+        [OperationContract]
+        bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
     }
 
     [DataContract]
