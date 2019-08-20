@@ -72,6 +72,8 @@ CREATE TABLE Movimenti(
 -- ##################################################################################
 -- ################ AGGIUNGERE I TRIGGER DOPO AVER CREATO LE TABELLE ################
 -- ##################################################################################
+
+--Quando viene fatto un update su filiale, cascade fa l'update su account. Il trigger su account fa aggiornare la filiale anche in conto corrente
 CREATE TRIGGER UpdateIdFiliale
 ON Account
 AFTER UPDATE
@@ -81,9 +83,9 @@ SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
    SET idFiliale = (SELECT filiale FROM INSERTED)
    WHERE username = (SELECT username FROM INSERTED)
 
+
 -- IL TRIGGER PER AGGIORNARE L'IBAN SE VIENE AGGIORNATO QUALCHE ATTRIBUTO DEL CONTO CORRENTE
 -- E CREARE AUTOMATICAMENTE IL NUOVO IBAN DOPO UN INSERT
-
 CREATE TRIGGER UpdateContoCorrente
 ON ContoCorrente
 after INSERT, UPDATE

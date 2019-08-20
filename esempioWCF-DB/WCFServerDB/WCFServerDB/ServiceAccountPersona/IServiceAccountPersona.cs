@@ -104,5 +104,6 @@ namespace WCFServerDB
             this.numeroDiTelefono = numeroDiTelefono;
             this.filiale = filiale;
         }
+
     }
 }
