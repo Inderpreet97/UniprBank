@@ -36,6 +36,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ConsoleTables, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\WCFServerDB\packages\ConsoleTables.2.3.0\lib\net40\ConsoleTables.dll</HintPath>
+    </Reference>
     <Reference Include="EasyConsole, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\WCFServerDB\packages\EasyConsole.1.1.0\lib\net452\EasyConsole.dll</HintPath>
     </Reference>
@@ -62,7 +65,6 @@
     <Compile Include="Pages\Clienti\CreaContoCorrente.cs" />
     <Compile Include="Pages\Clienti\ModificaAccount.cs" />
     <Compile Include="Pages\Clienti\ListaMovimenti.cs" />
-    <Compile Include="Pages\Clienti\EseguiMovimento.cs" />
     <Compile Include="Pages\Filiale\FilialeMenu.cs" />
     <Compile Include="Pages\Filiale\ModificaDatiFiliale.cs" />
     <Compile Include="Pages\Impiegati\ImpiegatiMenu.cs" />

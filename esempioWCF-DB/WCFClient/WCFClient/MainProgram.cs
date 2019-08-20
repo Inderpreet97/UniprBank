@@ -17,6 +17,7 @@ namespace WCFClient
         public static string username = "default";
         public static string privilegi = "admin";
         public static string nome = "nomeDiProva";
+        public static string idFiliale = "";
         public static List<ContoCorrente> contoCorrenti = new List<ContoCorrente>();
     }
     static class Funzioni 
@@ -278,10 +279,10 @@ namespace WCFClient
 
         public void Stampa() {
             Output.WriteLine("#########################################");
-            Output.WriteLine("Tipo di utenza: ", this.privilegi);
-            Output.WriteLine("\nUsername: ", this.username + "\nNome: ", this.nome + "\nCognome: ", this.cognome);
-            Output.WriteLine("\nCodice Fiscale: ", this.codiceFiscale + "\nSesso: ", this.sesso + "\nData di nascita", this.dataDiNascita);
-            Output.WriteLine("\nCittà: ", this.citta + "\nProvincia: ", this.provincia + "\nStato: ", this.stato);
+            Output.WriteLine("Tipo di utenza: " + this.privilegi);
+            Output.WriteLine("\nUsername: " + this.username + "\nNome: " + this.nome + "\nCognome: " + this.cognome);
+            Output.WriteLine("\nCodice Fiscale: " + this.codiceFiscale + "\nSesso: " + this.sesso + "\nData di nascita" + this.dataDiNascita);
+            Output.WriteLine("\nCittà: " + this.citta + "\nProvincia: " + this.provincia + "\nStato: " + this.stato);
             Output.WriteLine("\nNumero di telefono: ", numeroDiTelefono);
         }
 
@@ -436,7 +437,7 @@ namespace WCFClient
     {
         static void Main(string[] args) {
 
-            /*ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
+            ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
 
             string logo = ConfigurationManager.AppSettings["logo"].Replace("\\n", "\n");
 
@@ -469,6 +470,8 @@ namespace WCFClient
                 }
             } while (!checkDati);
 
+            //LoggedUser.idFiliale = WCFClient.getIdFilialeByUsername(LoggedUser.username);
+
             //Login eseguito correttamente
             Console.Clear();
 
@@ -491,7 +494,7 @@ namespace WCFClient
                     Output.WriteLine(ConsoleColor.DarkRed, errorString);
                     Console.ReadLine();
                     break;
-            }*/
+            }
 
             DirettoreProgram program = new DirettoreProgram();
             program.Run();

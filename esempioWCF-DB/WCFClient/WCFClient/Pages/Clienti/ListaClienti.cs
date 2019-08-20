@@ -1,4 +1,5 @@
 ﻿using EasyConsole;
+using ConsoleTables;
 using System.Collections.Generic;
 
 namespace WCFClient.Pages
@@ -9,14 +10,23 @@ namespace WCFClient.Pages
 
         public void getListaClienti() {
             List<Persona> listaClienti = new List<Persona>();
-            string idFiliale = string.Empty;
-            //idFiliale = WCFClient.getIdFiliale(string idFiliale)
-            //listaClienti = WCFClient.getListaClienti();
-            foreach (Persona p in listaClienti) {
-                Output.WriteLine("################################################################");
-                //Tabella clienti
-                p.Stampa();
-            }
+            string idFiliale = LoggedUser.idFiliale; //L'id filiale del direttore/impiegato che sta richiedendo la lista dei clienti
+
+            //listaClienti = WCFClient.GetListaPersone("cliente", string idFiliale);
+
+            var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
+                "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
+
+            listaClienti.ForEach(persona => {
+                // Prima di poter inserire la data di nascita nella tabella va sistemata in questo modo
+                var tempDataNascita = persona.dataDiNascita.ToString().Remove(10, 9);
+
+                table.AddRow(persona.filiale, persona.privilegi, persona.codiceFiscale, persona.nome,
+                    persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
+                    persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
+            });
+
+            
         }
 
         public override void Display()

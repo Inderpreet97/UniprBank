@@ -4,6 +4,7 @@ Menù direttore:
 		WCFClient.getFiliale(string username); -> getIdFilial
 		bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale) -> idFililae = id della filiale da modificare,
 										    filiale = oggetto filiale con i dati nuovi
+	1.2)string WCFClient.getIdFilialeByUsername(username) -> restuisce la filiale dell'username
 2)Amministrazione impiegati
 	2.0)Lista impiegati -> List<Persona> WCFClient.getListaClienti(string username) -> fornisce la lista completa degli impiegati che lavorano nella filiale 					in cui lavora il direttore (occore anche per impiegati avere un associazione con la tabella Filiale)
 

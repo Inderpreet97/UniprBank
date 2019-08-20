@@ -1,4 +1,6 @@
 ﻿using EasyConsole;
+using ConsoleTables;
+using System.Collections.Generic;
 
 namespace WCFClient.Pages
 {
@@ -10,12 +12,21 @@ namespace WCFClient.Pages
         {
             base.Display();
 
-            System.Collections.Generic.List<Persona> listaClienti = new System.Collections.Generic.List<Persona>();
+            List<Persona> listaImpiegati = new List<Persona>();
+            string idFiliale = LoggedUser.idFiliale;    //L'id filiale del direttore/impiegato che sta richiedendo la lista
 
-            //listaClienti = WCFClient.getListaClienti(usernameDirettore);
+            //listaClienti = WCFClient.GetListaPersone("impiegato", string idFiliale);
 
-            listaClienti.ForEach(delegate (Persona cliente) {
-                cliente.Stampa();
+            var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
+                "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
+
+            listaImpiegati.ForEach(persona => {
+                // Prima di poter inserire la data di nascita nella tabella va sistemata in questo modo
+                var tempDataNascita = persona.dataDiNascita.ToString().Remove(10, 9);
+
+                table.AddRow(persona.filiale, persona.privilegi, persona.codiceFiscale, persona.nome,
+                    persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
+                    persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
             });
 
             Input.ReadString("Press [Enter] to navigate home");

@@ -15,7 +15,6 @@ namespace WCFClient
             AddPage(new CreaContoCorrente(this));
             AddPage(new ModificaAccount(this));
             AddPage(new ListaMovimenti(this));
-            AddPage(new EseguiMovimento(this));
             AddPage(new FilialeMenu(this));
             AddPage(new ModificaDatiFiliale(this));
             AddPage(new ImpiegatiMenu(this));
@@ -27,6 +26,12 @@ namespace WCFClient
             AddPage(new ModificaImpiegato(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
+            AddPage(new MovimentiMenu(this));
+            AddPage(new Bonifico(this));
+            AddPage(new Prelievo(this));
+            AddPage(new Deposito(this));
+
+
 
             SetPage<MainMenuDirettore>();
         }
