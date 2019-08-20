@@ -26,8 +26,8 @@ CREATE TABLE Filiale(
 );
 
 CREATE TABLE Account (
-    username varchar(255) NOT NULL COLLATE SQL_Latin1_General_CP1_CS_AS,
-    password varchar(255) NOT NULL COLLATE SQL_Latin1_General_CP1_CS_AS,
+    username varchar(255) NOT NULL,
+    password varchar(255) NOT NULL, 
     privilegi varchar(255) NOT NULL,
     codiceFiscale VARCHAR(16) NOT NULL,
     filiale VARCHAR(10) NOT NULL,
