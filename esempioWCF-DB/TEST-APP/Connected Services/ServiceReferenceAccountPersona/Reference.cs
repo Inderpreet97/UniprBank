@@ -317,6 +317,12 @@ namespace TEST_APP.ServiceReferenceAccountPersona {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceAccountPersona/ModificaPersona", ReplyAction="http://tempuri.org/IServiceAccountPersona/ModificaPersonaResponse")]
         System.Threading.Tasks.Task<bool> ModificaPersonaAsync(string username, TEST_APP.ServiceReferenceAccountPersona.Persona persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceAccountPersona/GetIdFilialeByUsername", ReplyAction="http://tempuri.org/IServiceAccountPersona/GetIdFilialeByUsernameResponse")]
+        string GetIdFilialeByUsername(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceAccountPersona/GetIdFilialeByUsername", ReplyAction="http://tempuri.org/IServiceAccountPersona/GetIdFilialeByUsernameResponse")]
+        System.Threading.Tasks.Task<string> GetIdFilialeByUsernameAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -408,6 +414,14 @@ namespace TEST_APP.ServiceReferenceAccountPersona {
         
         public System.Threading.Tasks.Task<bool> ModificaPersonaAsync(string username, TEST_APP.ServiceReferenceAccountPersona.Persona persona) {
             return base.Channel.ModificaPersonaAsync(username, persona);
+        }
+        
+        public string GetIdFilialeByUsername(string username) {
+            return base.Channel.GetIdFilialeByUsername(username);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetIdFilialeByUsernameAsync(string username) {
+            return base.Channel.GetIdFilialeByUsernameAsync(username);
         }
     }
 }

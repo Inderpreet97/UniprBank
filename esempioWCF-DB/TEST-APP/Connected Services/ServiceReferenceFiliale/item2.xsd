@@ -4,7 +4,6 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="CAP" nillable="true" type="xs:int" />
       <xs:element minOccurs="0" name="citta" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="direttore" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="idFiliale" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="indirizzo" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />

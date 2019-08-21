@@ -27,7 +27,7 @@ CREATE TABLE Filiale(
 
 CREATE TABLE Account (
     username varchar(255) NOT NULL,
-    password varchar(255) NOT NULL, 
+    password varchar(255) NOT NULL,
     privilegi varchar(255) NOT NULL,
     codiceFiscale VARCHAR(16) NOT NULL,
     filiale VARCHAR(10) NOT NULL,
@@ -127,13 +127,17 @@ SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
 -- ##################### Query per inserire alcuni dati di prova ####################
 -- ##################################################################################
 
-INSERT INTO Persona VALUES ('INDI28091997','Inderpreet','Singh','28-09-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia',3279199829);
-INSERT INTO Persona VALUES ('ADIN12121997','Adin','Piergaru','12-12-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia',3329199829);
-INSERT INTO Persona VALUES ('BEPPE15031998','Giuseppe','Urbano','15-03-1998','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia',3279188829);
-INSERT INTO Persona VALUES ('LUCA28071999','Luca','Inzaghi','28-07-1999','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia',3449199829);
+INSERT INTO Persona VALUES ('INDI28091997','Inderpreet','Singh','28-09-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3279199829');
+INSERT INTO Persona VALUES ('ADIN12121997','Adin','Piergaru','12-12-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3329199829');
+INSERT INTO Persona VALUES ('BEPPE15031998','Giuseppe','Urbano','15-03-1998','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3279188829');
+INSERT INTO Persona VALUES ('LUCA28071999','Luca','Inzaghi','28-07-1999','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3449199829');
 
-INSERT INTO Filiale VALUES ('PR12FID001','UniPR Bank Fidenza','Via Gramsci,71',43036,'Fidenza','PR','Italia',0524123564);
-INSERT INTO Filiale VALUES ('CR12CRM001','UniPR Bank Cremona','Via Pascoli,1',45015,'Cremona','CR','Italia',0524123333);
+INSERT INTO Filiale VALUES ('PR12FID001','UniPR Bank Fidenza','Via Gramsci,71',43036,'Fidenza','PR','Italia','0524123564');
+INSERT INTO Filiale VALUES ('CR12CRM001','UniPR Bank Cremona','Via Pascoli,1',45015,'Cremona','CR','Italia','0524123333');
+
+-- FILIALI USATE PER TEST
+INSERT INTO Filiale VALUES ('PR00TST000','UniPR Bank Test1','Via Dordone, 12',43036,'Fidenza','PR','Italia','0524000001');
+INSERT INTO Filiale VALUES ('PR00TST001','UniPR Bank Test2','Via Gramsci, 12',43100,'Parma','PR','Italia','0524000000');
 
 INSERT INTO Account VALUES ('indi97','indi123','cliente','INDI28091997','PR12FID001');
 INSERT INTO Account VALUES ('indi97Dir','indi123','admin','INDI28091997','PR12FID001');

@@ -150,7 +150,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiDeposito(int IBANCommittente, decimal importo) {
+        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -222,7 +222,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiPrelievoDenaro(int IBANCommittente, decimal importo) {
+        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 

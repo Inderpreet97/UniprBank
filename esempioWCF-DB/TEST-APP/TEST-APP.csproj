@@ -115,7 +115,16 @@
     <None Include="Connected Services\ServiceReferenceMovimenti\item.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ServiceReferenceMovimenti\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReferenceMovimenti\item11.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ServiceReferenceMovimenti\ServiceMovimenti.wsdl" />
+    <None Include="Connected Services\ServiceReferenceMovimenti\TEST_APP.ServiceReferenceMovimenti.Movimento.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

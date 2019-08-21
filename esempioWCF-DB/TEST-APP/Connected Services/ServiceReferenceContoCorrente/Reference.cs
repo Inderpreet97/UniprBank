@@ -126,11 +126,35 @@ namespace TEST_APP.ServiceReferenceContoCorrente {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReferenceContoCorrente.IServiceContoCorrente")]
     public interface IServiceContoCorrente {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/GetListaContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/GetListaContoCorrenteResponse")]
+        TEST_APP.ServiceReferenceContoCorrente.ContoCorrente[] GetListaContoCorrente(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/GetListaContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/GetListaContoCorrenteResponse")]
+        System.Threading.Tasks.Task<TEST_APP.ServiceReferenceContoCorrente.ContoCorrente[]> GetListaContoCorrenteAsync(string username);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/SelectContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/SelectContoCorrenteResponse")]
         TEST_APP.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(int idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/SelectContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/SelectContoCorrenteResponse")]
         System.Threading.Tasks.Task<TEST_APP.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIBAN", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIBANResponse")]
+        bool CheckIBAN(string IBAN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIBAN", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIBANResponse")]
+        System.Threading.Tasks.Task<bool> CheckIBANAsync(string IBAN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIDConto", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIDContoResponse")]
+        bool CheckIDConto(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIDConto", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIDContoResponse")]
+        System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrenteResponse")]
+        bool AggiungiContoCorrente(string username, string idFiliale, System.Nullable<decimal> saldo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrenteResponse")]
+        System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -160,12 +184,44 @@ namespace TEST_APP.ServiceReferenceContoCorrente {
                 base(binding, remoteAddress) {
         }
         
+        public TEST_APP.ServiceReferenceContoCorrente.ContoCorrente[] GetListaContoCorrente(string username) {
+            return base.Channel.GetListaContoCorrente(username);
+        }
+        
+        public System.Threading.Tasks.Task<TEST_APP.ServiceReferenceContoCorrente.ContoCorrente[]> GetListaContoCorrenteAsync(string username) {
+            return base.Channel.GetListaContoCorrenteAsync(username);
+        }
+        
         public TEST_APP.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(int idContoCorrente) {
             return base.Channel.SelectContoCorrente(idContoCorrente);
         }
         
         public System.Threading.Tasks.Task<TEST_APP.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente) {
             return base.Channel.SelectContoCorrenteAsync(idContoCorrente);
+        }
+        
+        public bool CheckIBAN(string IBAN) {
+            return base.Channel.CheckIBAN(IBAN);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckIBANAsync(string IBAN) {
+            return base.Channel.CheckIBANAsync(IBAN);
+        }
+        
+        public bool CheckIDConto(int idContoCorrente) {
+            return base.Channel.CheckIDConto(idContoCorrente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente) {
+            return base.Channel.CheckIDContoAsync(idContoCorrente);
+        }
+        
+        public bool AggiungiContoCorrente(string username, string idFiliale, System.Nullable<decimal> saldo) {
+            return base.Channel.AggiungiContoCorrente(username, idFiliale, saldo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo) {
+            return base.Channel.AggiungiContoCorrenteAsync(username, idFiliale, saldo);
         }
     }
 }

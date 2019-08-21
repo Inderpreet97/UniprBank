@@ -29,9 +29,6 @@ namespace TEST_APP.ServiceReferenceFiliale {
         private string cittaField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string direttoreField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string idFilialeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -81,19 +78,6 @@ namespace TEST_APP.ServiceReferenceFiliale {
                 if ((object.ReferenceEquals(this.cittaField, value) != true)) {
                     this.cittaField = value;
                     this.RaisePropertyChanged("citta");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string direttore {
-            get {
-                return this.direttoreField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.direttoreField, value) != true)) {
-                    this.direttoreField = value;
-                    this.RaisePropertyChanged("direttore");
                 }
             }
         }
@@ -201,6 +185,12 @@ namespace TEST_APP.ServiceReferenceFiliale {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceFiliale/ModificaDatiFiliale", ReplyAction="http://tempuri.org/IServiceFiliale/ModificaDatiFilialeResponse")]
         System.Threading.Tasks.Task<bool> ModificaDatiFilialeAsync(string idFiliale, TEST_APP.ServiceReferenceFiliale.Filiale nuovaFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceFiliale/GetNameFiliale", ReplyAction="http://tempuri.org/IServiceFiliale/GetNameFilialeResponse")]
+        string GetNameFiliale(string idFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceFiliale/GetNameFiliale", ReplyAction="http://tempuri.org/IServiceFiliale/GetNameFilialeResponse")]
+        System.Threading.Tasks.Task<string> GetNameFilialeAsync(string idFiliale);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -244,6 +234,14 @@ namespace TEST_APP.ServiceReferenceFiliale {
         
         public System.Threading.Tasks.Task<bool> ModificaDatiFilialeAsync(string idFiliale, TEST_APP.ServiceReferenceFiliale.Filiale nuovaFiliale) {
             return base.Channel.ModificaDatiFilialeAsync(idFiliale, nuovaFiliale);
+        }
+        
+        public string GetNameFiliale(string idFiliale) {
+            return base.Channel.GetNameFiliale(idFiliale);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetNameFilialeAsync(string idFiliale) {
+            return base.Channel.GetNameFilialeAsync(idFiliale);
         }
     }
 }

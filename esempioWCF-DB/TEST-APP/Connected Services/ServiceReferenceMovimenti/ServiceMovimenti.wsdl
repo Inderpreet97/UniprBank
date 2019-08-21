@@ -3,24 +3,102 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/WCFServerDB.ServiceMovimenti/ServiceMovimenti/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/WCFServerDB.ServiceMovimenti/ServiceMovimenti/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8733/Design_Time_Addresses/WCFServerDB.ServiceMovimenti/ServiceMovimenti/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/WCFServerDB" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IServiceMovimenti_DoWork_InputMessage">
-    <wsdl:part name="parameters" element="tns:DoWork" />
+  <wsdl:message name="IServiceMovimenti_GetListaMovimenti_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaMovimenti" />
   </wsdl:message>
-  <wsdl:message name="IServiceMovimenti_DoWork_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  <wsdl:message name="IServiceMovimenti_GetListaMovimenti_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListaMovimentiResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_CheckImporto_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckImporto" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_CheckImporto_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckImportoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiBonifico_InputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiBonifico" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiBonifico_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiBonificoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiPrelievoDenaro_InputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiPrelievoDenaro" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiPrelievoDenaro_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiPrelievoDenaroResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiDeposito_InputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiDeposito" />
+  </wsdl:message>
+  <wsdl:message name="IServiceMovimenti_EseguiDeposito_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EseguiDepositoResponse" />
   </wsdl:message>
   <wsdl:portType name="IServiceMovimenti">
-    <wsdl:operation name="DoWork">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/DoWork" message="tns:IServiceMovimenti_DoWork_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/DoWorkResponse" message="tns:IServiceMovimenti_DoWork_OutputMessage" />
+    <wsdl:operation name="GetListaMovimenti">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/GetListaMovimenti" message="tns:IServiceMovimenti_GetListaMovimenti_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/GetListaMovimentiResponse" message="tns:IServiceMovimenti_GetListaMovimenti_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckImporto">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/CheckImporto" message="tns:IServiceMovimenti_CheckImporto_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/CheckImportoResponse" message="tns:IServiceMovimenti_CheckImporto_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EseguiBonifico">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiBonifico" message="tns:IServiceMovimenti_EseguiBonifico_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiBonificoResponse" message="tns:IServiceMovimenti_EseguiBonifico_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EseguiPrelievoDenaro">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro" message="tns:IServiceMovimenti_EseguiPrelievoDenaro_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaroResponse" message="tns:IServiceMovimenti_EseguiPrelievoDenaro_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EseguiDeposito">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiDeposito" message="tns:IServiceMovimenti_EseguiDeposito_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceMovimenti/EseguiDepositoResponse" message="tns:IServiceMovimenti_EseguiDeposito_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServiceMovimenti" type="tns:IServiceMovimenti">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="DoWork">
-      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/DoWork" style="document" />
+    <wsdl:operation name="GetListaMovimenti">
+      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/GetListaMovimenti" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckImporto">
+      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/CheckImporto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EseguiBonifico">
+      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/EseguiBonifico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EseguiPrelievoDenaro">
+      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EseguiDeposito">
+      <soap:operation soapAction="http://tempuri.org/IServiceMovimenti/EseguiDeposito" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
