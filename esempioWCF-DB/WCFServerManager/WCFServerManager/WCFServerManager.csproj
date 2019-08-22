@@ -98,5 +98,6 @@
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\item1.disco" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
