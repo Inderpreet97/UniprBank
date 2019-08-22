@@ -32,7 +32,7 @@ namespace TEST_APP.ServiceReferenceMovimenti {
         private System.Nullable<System.DateTime> dataOraField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> idMovimentiField;
+        private string idMovimentiField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Nullable<decimal> importoField;
@@ -90,12 +90,12 @@ namespace TEST_APP.ServiceReferenceMovimenti {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> idMovimenti {
+        public string idMovimenti {
             get {
                 return this.idMovimentiField;
             }
             set {
-                if ((this.idMovimentiField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.idMovimentiField, value) != true)) {
                     this.idMovimentiField = value;
                     this.RaisePropertyChanged("idMovimenti");
                 }

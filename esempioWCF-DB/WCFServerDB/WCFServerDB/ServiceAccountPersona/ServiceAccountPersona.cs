@@ -540,7 +540,7 @@ namespace WCFServerDB
                 command.Connection = connection;
                 command.Transaction = transaction;
 
-                int result = -1; // Il numero di righe modificate dall'update
+                int result = -1; // Il numero di righe modificate dall'update 
 
                 try {
 

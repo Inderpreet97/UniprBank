@@ -12,13 +12,14 @@ namespace TEST_APP
     class Program {
         static void TestLogin(ServiceAccountPersonaClient serviceAccountPersonaClient) {
             // >>>> -------------- TEST Login -------------- <<<<<<<<
+            Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(" --= bool Login(string username, string password) =--\n");
             Console.ResetColor();
 
             // ---- Valori Input CORRETTI, Risultato Corretto True
-            string username = "indi97";
-            string password = "indi123";
+            string username = "tempUser";
+            string password = "tempUser123";
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valori di input Corretti, risultato atteso True");
@@ -33,8 +34,8 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valori Input SBAGLIATI, Risultato Corretto False
-            username = "indi97";
-            password = "ndi123"; // Manca la i nella password
+            username = "tempUser";
+            password = "empUser123"; // Manca la t nella password
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
             Console.ResetColor();
@@ -48,8 +49,8 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valori Input SBAGLIATI, Risultato Corretto False
-            username = "indi97";
-            password = "Indi123"; // La I deve essere minuscola
+            username = "tempUser";
+            password = "TempUser123"; // La T deve essere minuscola
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("\nValori di input Sbagliati, risultato atteso False");
             Console.ResetColor();
@@ -297,7 +298,7 @@ namespace TEST_APP
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso un oggetto Persona con dati validi
-            string username = "indi97";
+            string username = "tempUser1";
             Persona risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto Persona con dati validi");
@@ -680,12 +681,12 @@ namespace TEST_APP
             Console.WriteLine(" --= List<ContoCorrente> GetListaContoCorrente(string username) =--\n");
             Console.ResetColor();
 
-            // ---- Valore Input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser
+            // ---- Valore Input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempUser1
             string username = "tempUser1";
 
             List<ContoCorrente> resultList = new List<ContoCorrente>() { };
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValore di input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser");
+            Console.WriteLine("\nValore di input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempUser1");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
             resultList = serviceContoCorrenteClient.GetListaContoCorrente(username).ToList();
@@ -703,11 +704,11 @@ namespace TEST_APP
             Console.Write("\nPremere un tasto per continuare...");
             Console.ReadLine();
 
-            // ---- Valore Input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser1
+            // ---- Valore Input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser2
             username = "tempuser2";
             resultList = new List<ContoCorrente>() { };
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("\nValore di input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser1");
+            Console.WriteLine("\nValore di input Corretto, Risultato atteso è una lista di Conti appartenenti all'account con username = tempuser2");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tUsername: {0}", username);
             resultList = serviceContoCorrenteClient.GetListaContoCorrente(username).ToList();
@@ -1036,7 +1037,7 @@ namespace TEST_APP
             Filiale filiale = new Filiale();
             filiale.idFiliale = string.Empty;
             filiale.nome = string.Empty;
-            filiale.indirizzo = "Via Dordone, 12";
+            filiale.indirizzo = "Via I maggio, 24";
             filiale.CAP = null;
             filiale.citta = string.Empty;
             filiale.provincia = string.Empty;
@@ -1227,7 +1228,7 @@ namespace TEST_APP
             importo = 950;
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("Valore di input Corretto, Risultato atteso True, Importo supera il saldo");
+            Console.WriteLine("Valore di input Corretto, Risultato atteso False, Importo supera il saldo");
             Console.ResetColor();
             Console.WriteLine("INPUT >\tImporto: {0}\tIBAN: {1}", importo, IBAN);
             risultato = serviceMovimentiClient.CheckImporto(importo, IBAN);
@@ -1441,9 +1442,55 @@ namespace TEST_APP
             TestCheckImporto(serviceMovimentiClient, serviceContoCorrenteClient);
             TestGetListaMovimenti(serviceMovimentiClient, serviceContoCorrenteClient);
 
-            TestEliminaAccount(serviceAccountPersonaClient);
-            TestCheckUsername(serviceAccountPersonaClient);
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("ATTENZIONE!!!  --  ATTENZIONE!!! -- ATTENZIONE!!!  -- ATTENZIONE!!!");
+            Console.ResetColor();
+            Console.WriteLine("\nPrima di proseguire eliminare manualmente dal DB i movimenti e i ContiCorrenti usati per i test.\n");
+            Console.WriteLine("Premere un tasto per continuare...");
+            Console.ReadLine();
+            Console.WriteLine("\nSEI SICURO DI AVER ELIMINATO I MOVIMENTI E I CONTICORRENTI ???\n");
+            Console.WriteLine("Premere un tasto per continuare...");
+            Console.ReadLine();
 
+            TestCheckUsername(serviceAccountPersonaClient);
+            TestEliminaAccount(serviceAccountPersonaClient);
+
+            // >>>> -------------- RESET DEI DATI DELLA FILIALE DI TEST -------------- <<<<<<<<
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" --= RESET FILIALE DI TEST =--\n");
+            Console.ResetColor();
+
+            // ---- Valori Input CORRETTI, Modifico dati relativi all'indirizzo, Risultato Corretto True
+            Filiale filiale = new Filiale();
+            filiale.idFiliale = "PR00TST000";
+            filiale.nome = string.Empty;
+            filiale.indirizzo = "Via Dordone, 12";
+            filiale.CAP = null;
+            filiale.citta = string.Empty;
+            filiale.provincia = string.Empty;
+            filiale.stato = string.Empty;
+            filiale.numeroDiTelefono = string.Empty;
+            string idFiliale = "PR10TST000";
+            bool risultato;
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valori di input Corretti, Modifico dati relativi all'indirizzo, risultato atteso True");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tidFiliale: {0}", idFiliale);
+            StampaFiliale(filiale);
+            risultato = serviceFilialeClient.ModificaDatiFiliale(idFiliale, filiale);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT>\tRisultato: {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            Console.Clear();
+            Console.WriteLine("TEST CONCLUSO.\n\nPremere un tasto per chiudere la finestra...");
+            Console.ReadLine();
         }
     }
 }
