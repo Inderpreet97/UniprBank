@@ -11,7 +11,8 @@ namespace WCFClient.Pages
                   new Option("Modifica Persona/Account", () => program.NavigateTo<CreaContoCorrente>()),
                   new Option("Modifica ContoCorrente", () => program.NavigateTo<ModificaAccount>()),
                   new Option("Visualizza Lista Movimenti Cliente", () => program.NavigateTo<ListaMovimenti>()),
-                  new Option("Effetua un Movimento", () => program.NavigateTo<EseguiMovimento>()),
+                  new Option("Viualizza conti di un cliente", () => program.NavigateTo<VisualizzaConto>()),
+                  new Option("Effetua un Movimento", () => program.NavigateTo<MovimentiMenu>()),
                   new Option("Modifica Profilo Impiegato", () => program.NavigateTo<ProfiloMenu>())
                   )
         {

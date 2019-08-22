@@ -16,6 +16,8 @@ namespace WCFClient
             AddPage(new Deposito(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
+            AddPage(new ContoMenu(this));
+            AddPage(new VisualizzaConto(this));
 
             SetPage<MainMenuCliente>();
         }

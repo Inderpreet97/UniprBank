@@ -7,7 +7,8 @@ namespace WCFClient.Pages
         public MainMenuCliente(Program program)
             : base("Menu Principale", program,
                   new Option("Visualizza Lista Movimenti Cliente", () => program.NavigateTo<ListaMovimenti>()),
-                  new Option("Effetua un Movimento", () => program.NavigateTo<MovimentiMenu>()),
+                  new Option("Effettua un Movimento", () => program.NavigateTo<MovimentiMenu>()),
+                  new Option("Visualizza saldo e dati conto", () => program.NavigateTo<ContoMenu>()),
                   new Option("Modifica Profilo Cliente", () => program.NavigateTo<ProfiloMenu>()))
         {
         }

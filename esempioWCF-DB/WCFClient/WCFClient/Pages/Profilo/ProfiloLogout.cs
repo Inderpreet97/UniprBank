@@ -9,9 +9,15 @@ namespace WCFClient.Pages
         public override void Display()
         {
             base.Display();
-            string scelta = Input.ReadString("Sei sicuro di voler uscire? (si/no) : ");
 
-            if(scelta.ToUpper() == "NO")
+            string scelta = string.Empty;
+            scelta = Input.ReadString("Sei sicuro di voler uscire? (si/no) : ");
+
+            while (scelta.ToUpper() != "SI" && scelta.ToUpper() != "NO") {
+                scelta = Input.ReadString("Sei sicuro di voler uscire? (si/no) : ");
+            }
+
+            if (scelta.ToUpper() == "NO")
             {
                 Program.NavigateHome();
             }

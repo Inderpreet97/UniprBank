@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ClienteProgram.cs" />
     <Compile Include="ImpiegatoProgram.cs" />
+    <Compile Include="Pages\ContoMenu\ContoMenu.cs" />
     <Compile Include="Pages\MainMenuCliente.cs" />
     <Compile Include="Pages\MainMenuImpiegato.cs" />
     <Compile Include="Pages\Clienti\ClientiMenu.cs" />
@@ -102,6 +103,7 @@
     </None>
     <None Include="Connected Services\ServiceReference1\Service1.wsdl" />
     <None Include="packages.config" />
+    <Compile Include="Pages\ContoMenu\VisualizzaConto.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

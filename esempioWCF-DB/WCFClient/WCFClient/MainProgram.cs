@@ -74,6 +74,7 @@ namespace WCFClient
         public static string digitaUsername() {
             //Questa funzione viene chiamata ogni volta che occorre digitare l'username e lo controlla
             //Attenzione! Questa funzione non viene richiamata per registrare una nuova persona, per questo utilizzare digitaNuoboUsername()
+            //Restituisce l'username come stringa
 
             string username = Input.ReadString("Digitare l'username: ");
             while(Funzioni.checkUsername(username).username == string.Empty) {
@@ -393,7 +394,7 @@ namespace WCFClient
 
     public class Movimento {
         public Movimento() {
-            this.idMovimento = null;
+            this.idMovimento = string.Empty;
             this.IBANCommittente = string.Empty;
             this.tipo = string.Empty;
             this.importo = null;
@@ -401,7 +402,7 @@ namespace WCFClient
             this.dataOra = null;
         }
 
-        public Movimento(int? idMovimento, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
+        public Movimento(string idMovimento, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
             this.idMovimento = idMovimento;
             this.IBANCommittente = IBANCommittente;
             this.tipo = tipo;
@@ -422,7 +423,7 @@ namespace WCFClient
 
         }
 
-        public int? idMovimento { get; set; }
+        public string idMovimento { get; set; }
         public string IBANCommittente { get; set; }
         public string tipo { get; set; }
         public decimal? importo { get; set; }
@@ -437,7 +438,7 @@ namespace WCFClient
     {
         static void Main(string[] args) {
 
-            ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
+            /*ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
 
             string logo = ConfigurationManager.AppSettings["logo"].Replace("\\n", "\n");
 
@@ -494,7 +495,7 @@ namespace WCFClient
                     Output.WriteLine(ConsoleColor.DarkRed, errorString);
                     Console.ReadLine();
                     break;
-            }
+            }*/
 
             DirettoreProgram program = new DirettoreProgram();
             program.Run();

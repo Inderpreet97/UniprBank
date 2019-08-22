@@ -20,6 +20,8 @@ namespace WCFClient
             AddPage(new Bonifico(this));
             AddPage(new Deposito(this));
             AddPage(new Prelievo(this));
+            AddPage(new ContoMenu(this));
+            AddPage(new VisualizzaConto(this));
 
             SetPage<MainMenuImpiegato>();
         }
