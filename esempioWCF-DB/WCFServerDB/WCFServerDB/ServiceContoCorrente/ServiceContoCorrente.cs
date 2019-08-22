@@ -45,6 +45,11 @@ namespace WCFServerDB
                         }
                     }
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo SelectContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     return contoCorrente;
@@ -90,6 +95,11 @@ namespace WCFServerDB
                     command.Parameters["@IBAN"].Value = IBAN; ;
 
                     int? conti = (Nullable<int>)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo CheckIBAN ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -140,6 +150,11 @@ namespace WCFServerDB
 
                     int? conti = (Nullable<int>)command.ExecuteScalar();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo CheckIDConto ============");
+                        Console.WriteLine(command.CommandText);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
@@ -181,7 +196,7 @@ namespace WCFServerDB
                 command.Transaction = transaction;
 
                 try {
-                    command.CommandText = "INSERT INTO ContoCorrente VALUES (@username,@saldo,@idFiliale)";
+                    command.CommandText = "INSERT INTO ContoCorrente VALUES ('tempValue', @username, @saldo, @idFiliale)";
 
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters.Add("@idFiliale", SqlDbType.VarChar);

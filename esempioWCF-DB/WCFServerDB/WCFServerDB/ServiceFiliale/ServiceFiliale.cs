@@ -41,7 +41,7 @@ namespace WCFServerDB
                             filiale.idFiliale = reader.GetString(0);
                             filiale.nome = reader.GetString(1);
                             filiale.indirizzo = reader.GetString(2);
-                            filiale.CAP = reader.GetInt32(3);
+                            filiale.CAP = (int)reader.GetDecimal(3);
                             filiale.citta = reader.GetString(4);
                             filiale.provincia = reader.GetString(5);
                             filiale.stato = reader.GetString(6);
@@ -49,6 +49,10 @@ namespace WCFServerDB
                         }
                     }
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetFiliale ============");
+                        Console.WriteLine(command.CommandText);
+                    }
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     return filiale;
@@ -94,6 +98,10 @@ namespace WCFServerDB
 
                     var nome = (string)command.ExecuteScalar();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetNameFiliale ============");
+                        Console.WriteLine(command.CommandText);
+                    }
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
@@ -149,7 +157,7 @@ namespace WCFServerDB
                         // Guardo il tipo di dato (int, string, ...)
                         //Se ha valore -> aggiungere la parte di codice SQL per aggiornarlo
 
-                        if (filialeProperties[index].GetValue(nuovaFiliale).GetType() == typeof(int?)) {
+                        if (filialeProperties[index].PropertyType  == typeof(int?)) {
                             if (((int?)filialeProperties[index].GetValue(nuovaFiliale)).HasValue) {
                                 command.CommandText += filialeProperties[index].Name + " = " + (int?)filialeProperties[index].GetValue(nuovaFiliale);
                                 propertyAddedToQuery = true;
@@ -161,23 +169,21 @@ namespace WCFServerDB
                             }
                         }
 
-                        bool commaNeeded = false;
                         if (propertyAddedToQuery) {
-                            for (int tempIndex = index; tempIndex < filialeProperties.Count; tempIndex++) {
+                            for (int tempIndex = index + 1; tempIndex < filialeProperties.Count; tempIndex++) {
 
-                                if (filialeProperties[tempIndex].GetValue(nuovaFiliale).GetType() == typeof(string)) {
+                                if (filialeProperties[tempIndex].PropertyType  == typeof(string)) {
                                     if (filialeProperties[tempIndex].GetValue(nuovaFiliale).ToString() != string.Empty) {
-                                        commaNeeded = true;
+                                        command.CommandText += " , ";
+                                        tempIndex = filialeProperties.Count;
                                     }
 
                                 } else {
                                     if (((int?)filialeProperties[tempIndex].GetValue(nuovaFiliale)).HasValue) {
-                                        commaNeeded = true;
+                                        command.CommandText += " , ";
+                                        tempIndex = filialeProperties.Count;
                                     }
                                 }
-                            }
-                            if (commaNeeded) {
-                                command.CommandText += ",";
                             }
                         }
 
@@ -187,7 +193,10 @@ namespace WCFServerDB
                     command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
                     command.Parameters["@idFiliale"].Value = idFiliale;
 
-                    if (Globals.debugMode) { Console.WriteLine(command.CommandText); }
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo ModificaDatiFiliale ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     int result = command.ExecuteNonQuery();
 

@@ -35,6 +35,11 @@ namespace WCFServerDB
 
                     decimal? saldo = (Nullable<decimal>)command.ExecuteScalar();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ CheckImporto ============");
+                        Console.WriteLine(command.CommandText);
+                    }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     if (saldo.HasValue) {
@@ -84,46 +89,65 @@ namespace WCFServerDB
 
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE IBAN = @IBANCommittente;";
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
+
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters["@importo"].Value = importo;
 
                     var result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiBonifico: Update Saldo ContoCorrente Committente ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
+                    command.Parameters.Clear();
+
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE IBAN = @IBANBeneficiario;";
-                    command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
+
+                    command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
+
+                    command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
                     command.Parameters["@importo"].Value = importo;
 
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiBonifico: Update Saldo ContoCorrente Beneficiario ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Beneficiario");
                     }
 
+                    command.Parameters.Clear();
+
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
-
                     command.Parameters.Add("@tipo", SqlDbType.VarChar);
-                    command.Parameters["@tipo"].Value = "bonifico";
-
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
-                    command.Parameters["@importo"].Value = importo;
-
-                    command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);
-                    command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
-
+                    command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);                   
                     command.Parameters.Add("@dataOra", SqlDbType.DateTime);
+
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
+                    command.Parameters["@tipo"].Value = "bonifico";
+                    command.Parameters["@importo"].Value = importo;
+                    command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiBonifico: Aggiunta Movimento ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -167,35 +191,47 @@ namespace WCFServerDB
                 try {
 
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE IBAN = @IBANCommittente;";
+
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
+
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters["@importo"].Value = importo;
 
+
                     var result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiDeposito: Update Saldo ContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
+                    command.Parameters.Clear();
+
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
-
                     command.Parameters.Add("@tipo", SqlDbType.VarChar);
-                    command.Parameters["@tipo"].Value = "deposito";
-
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
-                    command.Parameters["@importo"].Value = importo;
-
                     command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);
-                    command.Parameters["@IBANBeneficiario"].Value = null;
-
                     command.Parameters.Add("@dataOra", SqlDbType.DateTime);
+
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
+                    command.Parameters["@tipo"].Value = "deposito";
+                    command.Parameters["@importo"].Value = importo;
+                    command.Parameters["@IBANBeneficiario"].Value = DBNull.Value;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiDeposito: Aggiunta Movimento ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -240,34 +276,45 @@ namespace WCFServerDB
 
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE IBAN = @IBANCommittente;";
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
+
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters["@importo"].Value = importo;
 
                     var result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiPrelievoDenaro: Update Saldo ContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
+                    command.Parameters.Clear();
+
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
-
                     command.Parameters.Add("@tipo", SqlDbType.VarChar);
-                    command.Parameters["@tipo"].Value = "prelievo";
-
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
-                    command.Parameters["@importo"].Value = importo;
-
                     command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);
-                    command.Parameters["@IBANBeneficiario"].Value = null;
-
                     command.Parameters.Add("@dataOra", SqlDbType.DateTime);
+
+
+                    command.Parameters["@tipo"].Value = "prelievo";
+                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
+                    command.Parameters["@importo"].Value = importo;
+                    command.Parameters["@IBANBeneficiario"].Value = DBNull.Value;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
                     result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiPrelievoDenaro: Aggiunta Movimento ============");
+                        Console.WriteLine(command.CommandText);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -314,7 +361,7 @@ namespace WCFServerDB
                     command.CommandText = "SELECT idMovimenti, IBANCommittente, tipo, importo, IBANBeneficiario, dataOra "
                          + "FROM Movimenti, ContoCorrente "
                          + "WHERE (IBANCommittente = IBAN OR IBANBeneficiario = IBAN)"
-                         + "AND idContoCorrente = @idContoCorrente";
+                         + " AND idContoCorrente = @idContoCorrente";
 
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
@@ -322,15 +369,20 @@ namespace WCFServerDB
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
 
-                            var idMovimenti = reader.GetInt32(0);
+                            var idMovimenti = reader.GetDecimal(0).ToString();
                             var IBANCommittente = reader.GetString(1);
                             var tipo = reader.GetString(2);
                             var importo = reader.GetDecimal(3);
-                            var IBANBeneficiario = reader.GetString(4);
+                            var IBANBeneficiario = (!reader.IsDBNull(4)) ? reader.GetString(4) : string.Empty;
                             var dataOra = reader.GetDateTime(5);
 
                             listaMovimenti.Add(new Movimento(idMovimenti, IBANCommittente, tipo, importo, IBANBeneficiario, dataOra));
                         }
+                    }
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetListaMovimenti ============");
+                        Console.WriteLine(command.CommandText);
                     }
 
                     // Attempt to commit the transaction.

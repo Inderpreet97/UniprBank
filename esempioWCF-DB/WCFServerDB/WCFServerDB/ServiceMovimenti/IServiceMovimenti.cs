@@ -35,7 +35,7 @@ namespace WCFServerDB
         
 
         [DataMember]
-        public int? idMovimenti { get; set; }
+        public string idMovimenti { get; set; }
         [DataMember]
         public string IBANCommittente { get; set; }
         [DataMember]
@@ -48,7 +48,7 @@ namespace WCFServerDB
         public DateTime? dataOra { get; set; }
 
         public Movimento() {
-            this.idMovimenti = null;
+            this.idMovimenti = string.Empty;
             this.IBANCommittente = string.Empty;
             this.tipo = string.Empty;
             this.importo = null;
@@ -56,7 +56,7 @@ namespace WCFServerDB
             this.dataOra = null;
         }
 
-        public Movimento(int? idMovimenti, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
+        public Movimento(string idMovimenti, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
             this.idMovimenti = idMovimenti;
             this.IBANCommittente = IBANCommittente;
             this.tipo = tipo;
