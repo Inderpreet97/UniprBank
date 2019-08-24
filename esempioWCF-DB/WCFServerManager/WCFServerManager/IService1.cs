@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
-using WCFServerManager.ServiceReference1;
-
+using WCFServerManager.ServiceReferenceAccountPersona;
+using WCFServerManager.ServiceReferenceContoCorrente;
+using WCFServerManager.ServiceReferenceFiliale;
+using WCFServerManager.ServiceReferenceServiceMovimenti;
 
 namespace WCFServerManager
 {
@@ -23,6 +21,75 @@ namespace WCFServerManager
         bool Login(string username, string password);
 
         [OperationContract]
-        int GetPrivilegi(string username);
+        string GetPrivilegi(string username);
+
+        [OperationContract]
+        List<Persona> GetListaPersone(string tipoAccount, string idFiliale);
+
+        [OperationContract]
+        bool EliminaAccount(string username);
+
+        [OperationContract]
+        Persona CheckUsername(string username); 
+
+        [OperationContract]
+        Persona GetPersona(string codiceFiscale);
+
+        [OperationContract]
+        bool AggiungiPersona(Persona persona, string password);
+
+        [OperationContract]
+        bool ModificaPersona(string username, Persona persona);
+
+        [OperationContract]
+        string GetIdFilialeByUsername(string username);
+
+
+        // Metodi ContoCorrente
+
+        [OperationContract]
+        List<ContoCorrente> GetListaContoCorrente(string username);
+
+        [OperationContract]
+        ContoCorrente SelectContoCorrente(int idContoCorrente);
+
+        [OperationContract]
+        bool CheckIBAN(string IBAN);
+
+        [OperationContract]
+        bool CheckIDConto(int idContoCorrente);
+
+        [OperationContract]
+        bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
+
+
+        // Metodi Filiale
+
+        [OperationContract]
+        Filiale GetFiliale(string username);
+
+        [OperationContract]
+        bool ModificaDatiFiliale(string idFiliale, Filiale nuovaFiliale);
+
+        [OperationContract]
+        string GetNameFiliale(string idFiliale);
+
+
+        // Metodi Movimenti 
+
+        [OperationContract]
+        List<Movimento> GetListaMovimenti(int idContoCorrente);
+
+        [OperationContract]
+        bool CheckImporto(decimal importo, string IBANCommittente);
+
+        [OperationContract]
+        bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo);
+
+        [OperationContract]
+        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo);
+
+        [OperationContract]
+        bool EseguiDeposito(string IBANCommittente, decimal importo);
     }
 }

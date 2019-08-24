@@ -25,7 +25,7 @@ namespace WCFServerManager
         public bool Login(string username, string password){
             return wcfDBClient.Login(username, password);
         }
-        public int GetPrivilegi(string username){
+        public string GetPrivilegi(string username){
             return wcfDBClient.GetPrivilegi(username);
         }
     }
