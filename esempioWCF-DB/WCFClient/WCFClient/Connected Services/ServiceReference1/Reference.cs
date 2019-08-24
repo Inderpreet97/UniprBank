@@ -9,17 +9,657 @@
 //------------------------------------------------------------------------------
 
 namespace WCFClient.ServiceReference1 {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Persona", Namespace="http://schemas.datacontract.org/2004/07/WCFServerDB")]
+    [System.SerializableAttribute()]
+    public partial class Persona : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CAPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cittaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string codiceFiscaleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cognomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> dataDiNascitaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string filialeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indirizzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroDiTelefonoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string privilegiField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string provinciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string sessoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string usernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CAP {
+            get {
+                return this.CAPField;
+            }
+            set {
+                if ((this.CAPField.Equals(value) != true)) {
+                    this.CAPField = value;
+                    this.RaisePropertyChanged("CAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string citta {
+            get {
+                return this.cittaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cittaField, value) != true)) {
+                    this.cittaField = value;
+                    this.RaisePropertyChanged("citta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string codiceFiscale {
+            get {
+                return this.codiceFiscaleField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.codiceFiscaleField, value) != true)) {
+                    this.codiceFiscaleField = value;
+                    this.RaisePropertyChanged("codiceFiscale");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string cognome {
+            get {
+                return this.cognomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cognomeField, value) != true)) {
+                    this.cognomeField = value;
+                    this.RaisePropertyChanged("cognome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> dataDiNascita {
+            get {
+                return this.dataDiNascitaField;
+            }
+            set {
+                if ((this.dataDiNascitaField.Equals(value) != true)) {
+                    this.dataDiNascitaField = value;
+                    this.RaisePropertyChanged("dataDiNascita");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string filiale {
+            get {
+                return this.filialeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.filialeField, value) != true)) {
+                    this.filialeField = value;
+                    this.RaisePropertyChanged("filiale");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string indirizzo {
+            get {
+                return this.indirizzoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.indirizzoField, value) != true)) {
+                    this.indirizzoField = value;
+                    this.RaisePropertyChanged("indirizzo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nome {
+            get {
+                return this.nomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
+                    this.nomeField = value;
+                    this.RaisePropertyChanged("nome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string numeroDiTelefono {
+            get {
+                return this.numeroDiTelefonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroDiTelefonoField, value) != true)) {
+                    this.numeroDiTelefonoField = value;
+                    this.RaisePropertyChanged("numeroDiTelefono");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string privilegi {
+            get {
+                return this.privilegiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.privilegiField, value) != true)) {
+                    this.privilegiField = value;
+                    this.RaisePropertyChanged("privilegi");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string provincia {
+            get {
+                return this.provinciaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.provinciaField, value) != true)) {
+                    this.provinciaField = value;
+                    this.RaisePropertyChanged("provincia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string sesso {
+            get {
+                return this.sessoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.sessoField, value) != true)) {
+                    this.sessoField = value;
+                    this.RaisePropertyChanged("sesso");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string stato {
+            get {
+                return this.statoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statoField, value) != true)) {
+                    this.statoField = value;
+                    this.RaisePropertyChanged("stato");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
+                    this.usernameField = value;
+                    this.RaisePropertyChanged("username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ContoCorrente", Namespace="http://schemas.datacontract.org/2004/07/WCFServerDB")]
+    [System.SerializableAttribute()]
+    public partial class ContoCorrente : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IBANField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> idContoCorrenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idFilialeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> saldoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string usernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IBAN {
+            get {
+                return this.IBANField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IBANField, value) != true)) {
+                    this.IBANField = value;
+                    this.RaisePropertyChanged("IBAN");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> idContoCorrente {
+            get {
+                return this.idContoCorrenteField;
+            }
+            set {
+                if ((this.idContoCorrenteField.Equals(value) != true)) {
+                    this.idContoCorrenteField = value;
+                    this.RaisePropertyChanged("idContoCorrente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string idFiliale {
+            get {
+                return this.idFilialeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idFilialeField, value) != true)) {
+                    this.idFilialeField = value;
+                    this.RaisePropertyChanged("idFiliale");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> saldo {
+            get {
+                return this.saldoField;
+            }
+            set {
+                if ((this.saldoField.Equals(value) != true)) {
+                    this.saldoField = value;
+                    this.RaisePropertyChanged("saldo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
+                    this.usernameField = value;
+                    this.RaisePropertyChanged("username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Filiale", Namespace="http://schemas.datacontract.org/2004/07/WCFServerDB")]
+    [System.SerializableAttribute()]
+    public partial class Filiale : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<int> CAPField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string cittaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idFilialeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string indirizzoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string nomeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string numeroDiTelefonoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string provinciaField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<int> CAP {
+            get {
+                return this.CAPField;
+            }
+            set {
+                if ((this.CAPField.Equals(value) != true)) {
+                    this.CAPField = value;
+                    this.RaisePropertyChanged("CAP");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string citta {
+            get {
+                return this.cittaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.cittaField, value) != true)) {
+                    this.cittaField = value;
+                    this.RaisePropertyChanged("citta");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string idFiliale {
+            get {
+                return this.idFilialeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idFilialeField, value) != true)) {
+                    this.idFilialeField = value;
+                    this.RaisePropertyChanged("idFiliale");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string indirizzo {
+            get {
+                return this.indirizzoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.indirizzoField, value) != true)) {
+                    this.indirizzoField = value;
+                    this.RaisePropertyChanged("indirizzo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string nome {
+            get {
+                return this.nomeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.nomeField, value) != true)) {
+                    this.nomeField = value;
+                    this.RaisePropertyChanged("nome");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string numeroDiTelefono {
+            get {
+                return this.numeroDiTelefonoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.numeroDiTelefonoField, value) != true)) {
+                    this.numeroDiTelefonoField = value;
+                    this.RaisePropertyChanged("numeroDiTelefono");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string provincia {
+            get {
+                return this.provinciaField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.provinciaField, value) != true)) {
+                    this.provinciaField = value;
+                    this.RaisePropertyChanged("provincia");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string stato {
+            get {
+                return this.statoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statoField, value) != true)) {
+                    this.statoField = value;
+                    this.RaisePropertyChanged("stato");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Movimento", Namespace="http://schemas.datacontract.org/2004/07/WCFServerDB")]
+    [System.SerializableAttribute()]
+    public partial class Movimento : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IBANBeneficiarioField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string IBANCommittenteField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> dataOraField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string idMovimentiField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<decimal> importoField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string tipoField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IBANBeneficiario {
+            get {
+                return this.IBANBeneficiarioField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IBANBeneficiarioField, value) != true)) {
+                    this.IBANBeneficiarioField = value;
+                    this.RaisePropertyChanged("IBANBeneficiario");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string IBANCommittente {
+            get {
+                return this.IBANCommittenteField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.IBANCommittenteField, value) != true)) {
+                    this.IBANCommittenteField = value;
+                    this.RaisePropertyChanged("IBANCommittente");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> dataOra {
+            get {
+                return this.dataOraField;
+            }
+            set {
+                if ((this.dataOraField.Equals(value) != true)) {
+                    this.dataOraField = value;
+                    this.RaisePropertyChanged("dataOra");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string idMovimenti {
+            get {
+                return this.idMovimentiField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.idMovimentiField, value) != true)) {
+                    this.idMovimentiField = value;
+                    this.RaisePropertyChanged("idMovimenti");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<decimal> importo {
+            get {
+                return this.importoField;
+            }
+            set {
+                if ((this.importoField.Equals(value) != true)) {
+                    this.importoField = value;
+                    this.RaisePropertyChanged("importo");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string tipo {
+            get {
+                return this.tipoField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.tipoField, value) != true)) {
+                    this.tipoField = value;
+                    this.RaisePropertyChanged("tipo");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IService1")]
     public interface IService1 {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSaldo", ReplyAction="http://tempuri.org/IService1/GetSaldoResponse")]
-        double GetSaldo(int idContoCorrente);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetSaldo", ReplyAction="http://tempuri.org/IService1/GetSaldoResponse")]
-        System.Threading.Tasks.Task<double> GetSaldoAsync(int idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/Login", ReplyAction="http://tempuri.org/IService1/LoginResponse")]
         bool Login(string username, string password);
@@ -28,10 +668,130 @@ namespace WCFClient.ServiceReference1 {
         System.Threading.Tasks.Task<bool> LoginAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPrivilegi", ReplyAction="http://tempuri.org/IService1/GetPrivilegiResponse")]
-        int GetPrivilegi(string username);
+        string GetPrivilegi(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPrivilegi", ReplyAction="http://tempuri.org/IService1/GetPrivilegiResponse")]
-        System.Threading.Tasks.Task<int> GetPrivilegiAsync(string username);
+        System.Threading.Tasks.Task<string> GetPrivilegiAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPersone", ReplyAction="http://tempuri.org/IService1/GetListaPersoneResponse")]
+        WCFClient.ServiceReference1.Persona[] GetListaPersone(string tipoAccount, string idFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPersone", ReplyAction="http://tempuri.org/IService1/GetListaPersoneResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona[]> GetListaPersoneAsync(string tipoAccount, string idFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaAccount", ReplyAction="http://tempuri.org/IService1/EliminaAccountResponse")]
+        bool EliminaAccount(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaAccount", ReplyAction="http://tempuri.org/IService1/EliminaAccountResponse")]
+        System.Threading.Tasks.Task<bool> EliminaAccountAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUsername", ReplyAction="http://tempuri.org/IService1/CheckUsernameResponse")]
+        WCFClient.ServiceReference1.Persona CheckUsername(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckUsername", ReplyAction="http://tempuri.org/IService1/CheckUsernameResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona> CheckUsernameAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPersona", ReplyAction="http://tempuri.org/IService1/GetPersonaResponse")]
+        WCFClient.ServiceReference1.Persona GetPersona(string codiceFiscale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetPersona", ReplyAction="http://tempuri.org/IService1/GetPersonaResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona> GetPersonaAsync(string codiceFiscale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AggiungiPersona", ReplyAction="http://tempuri.org/IService1/AggiungiPersonaResponse")]
+        bool AggiungiPersona(WCFClient.ServiceReference1.Persona persona, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AggiungiPersona", ReplyAction="http://tempuri.org/IService1/AggiungiPersonaResponse")]
+        System.Threading.Tasks.Task<bool> AggiungiPersonaAsync(WCFClient.ServiceReference1.Persona persona, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModificaPersona", ReplyAction="http://tempuri.org/IService1/ModificaPersonaResponse")]
+        bool ModificaPersona(string username, WCFClient.ServiceReference1.Persona persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModificaPersona", ReplyAction="http://tempuri.org/IService1/ModificaPersonaResponse")]
+        System.Threading.Tasks.Task<bool> ModificaPersonaAsync(string username, WCFClient.ServiceReference1.Persona persona);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetIdFilialeByUsername", ReplyAction="http://tempuri.org/IService1/GetIdFilialeByUsernameResponse")]
+        string GetIdFilialeByUsername(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetIdFilialeByUsername", ReplyAction="http://tempuri.org/IService1/GetIdFilialeByUsernameResponse")]
+        System.Threading.Tasks.Task<string> GetIdFilialeByUsernameAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaContoCorrente", ReplyAction="http://tempuri.org/IService1/GetListaContoCorrenteResponse")]
+        WCFClient.ServiceReference1.ContoCorrente[] GetListaContoCorrente(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaContoCorrente", ReplyAction="http://tempuri.org/IService1/GetListaContoCorrenteResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente[]> GetListaContoCorrenteAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectContoCorrente", ReplyAction="http://tempuri.org/IService1/SelectContoCorrenteResponse")]
+        WCFClient.ServiceReference1.ContoCorrente SelectContoCorrente(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectContoCorrente", ReplyAction="http://tempuri.org/IService1/SelectContoCorrenteResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckIBAN", ReplyAction="http://tempuri.org/IService1/CheckIBANResponse")]
+        bool CheckIBAN(string IBAN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckIBAN", ReplyAction="http://tempuri.org/IService1/CheckIBANResponse")]
+        System.Threading.Tasks.Task<bool> CheckIBANAsync(string IBAN);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckIDConto", ReplyAction="http://tempuri.org/IService1/CheckIDContoResponse")]
+        bool CheckIDConto(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckIDConto", ReplyAction="http://tempuri.org/IService1/CheckIDContoResponse")]
+        System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IService1/AggiungiContoCorrenteResponse")]
+        bool AggiungiContoCorrente(string username, string idFiliale, System.Nullable<decimal> saldo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IService1/AggiungiContoCorrenteResponse")]
+        System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFiliale", ReplyAction="http://tempuri.org/IService1/GetFilialeResponse")]
+        WCFClient.ServiceReference1.Filiale GetFiliale(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetFiliale", ReplyAction="http://tempuri.org/IService1/GetFilialeResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Filiale> GetFilialeAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModificaDatiFiliale", ReplyAction="http://tempuri.org/IService1/ModificaDatiFilialeResponse")]
+        bool ModificaDatiFiliale(string idFiliale, WCFClient.ServiceReference1.Filiale nuovaFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/ModificaDatiFiliale", ReplyAction="http://tempuri.org/IService1/ModificaDatiFilialeResponse")]
+        System.Threading.Tasks.Task<bool> ModificaDatiFilialeAsync(string idFiliale, WCFClient.ServiceReference1.Filiale nuovaFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNameFiliale", ReplyAction="http://tempuri.org/IService1/GetNameFilialeResponse")]
+        string GetNameFiliale(string idFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetNameFiliale", ReplyAction="http://tempuri.org/IService1/GetNameFilialeResponse")]
+        System.Threading.Tasks.Task<string> GetNameFilialeAsync(string idFiliale);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaMovimenti", ReplyAction="http://tempuri.org/IService1/GetListaMovimentiResponse")]
+        WCFClient.ServiceReference1.Movimento[] GetListaMovimenti(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaMovimenti", ReplyAction="http://tempuri.org/IService1/GetListaMovimentiResponse")]
+        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Movimento[]> GetListaMovimentiAsync(int idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckImporto", ReplyAction="http://tempuri.org/IService1/CheckImportoResponse")]
+        bool CheckImporto(decimal importo, string IBANCommittente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckImporto", ReplyAction="http://tempuri.org/IService1/CheckImportoResponse")]
+        System.Threading.Tasks.Task<bool> CheckImportoAsync(decimal importo, string IBANCommittente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiBonifico", ReplyAction="http://tempuri.org/IService1/EseguiBonificoResponse")]
+        bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiBonifico", ReplyAction="http://tempuri.org/IService1/EseguiBonificoResponse")]
+        System.Threading.Tasks.Task<bool> EseguiBonificoAsync(string IBANCommittente, string IBANBeneficiario, decimal importo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IService1/EseguiPrelievoDenaroResponse")]
+        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IService1/EseguiPrelievoDenaroResponse")]
+        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiDeposito", ReplyAction="http://tempuri.org/IService1/EseguiDepositoResponse")]
+        bool EseguiDeposito(string IBANCommittente, decimal importo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiDeposito", ReplyAction="http://tempuri.org/IService1/EseguiDepositoResponse")]
+        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -61,14 +821,6 @@ namespace WCFClient.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        public double GetSaldo(int idContoCorrente) {
-            return base.Channel.GetSaldo(idContoCorrente);
-        }
-        
-        public System.Threading.Tasks.Task<double> GetSaldoAsync(int idContoCorrente) {
-            return base.Channel.GetSaldoAsync(idContoCorrente);
-        }
-        
         public bool Login(string username, string password) {
             return base.Channel.Login(username, password);
         }
@@ -77,12 +829,172 @@ namespace WCFClient.ServiceReference1 {
             return base.Channel.LoginAsync(username, password);
         }
         
-        public int GetPrivilegi(string username) {
+        public string GetPrivilegi(string username) {
             return base.Channel.GetPrivilegi(username);
         }
         
-        public System.Threading.Tasks.Task<int> GetPrivilegiAsync(string username) {
+        public System.Threading.Tasks.Task<string> GetPrivilegiAsync(string username) {
             return base.Channel.GetPrivilegiAsync(username);
+        }
+        
+        public WCFClient.ServiceReference1.Persona[] GetListaPersone(string tipoAccount, string idFiliale) {
+            return base.Channel.GetListaPersone(tipoAccount, idFiliale);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona[]> GetListaPersoneAsync(string tipoAccount, string idFiliale) {
+            return base.Channel.GetListaPersoneAsync(tipoAccount, idFiliale);
+        }
+        
+        public bool EliminaAccount(string username) {
+            return base.Channel.EliminaAccount(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EliminaAccountAsync(string username) {
+            return base.Channel.EliminaAccountAsync(username);
+        }
+        
+        public WCFClient.ServiceReference1.Persona CheckUsername(string username) {
+            return base.Channel.CheckUsername(username);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona> CheckUsernameAsync(string username) {
+            return base.Channel.CheckUsernameAsync(username);
+        }
+        
+        public WCFClient.ServiceReference1.Persona GetPersona(string codiceFiscale) {
+            return base.Channel.GetPersona(codiceFiscale);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona> GetPersonaAsync(string codiceFiscale) {
+            return base.Channel.GetPersonaAsync(codiceFiscale);
+        }
+        
+        public bool AggiungiPersona(WCFClient.ServiceReference1.Persona persona, string password) {
+            return base.Channel.AggiungiPersona(persona, password);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AggiungiPersonaAsync(WCFClient.ServiceReference1.Persona persona, string password) {
+            return base.Channel.AggiungiPersonaAsync(persona, password);
+        }
+        
+        public bool ModificaPersona(string username, WCFClient.ServiceReference1.Persona persona) {
+            return base.Channel.ModificaPersona(username, persona);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ModificaPersonaAsync(string username, WCFClient.ServiceReference1.Persona persona) {
+            return base.Channel.ModificaPersonaAsync(username, persona);
+        }
+        
+        public string GetIdFilialeByUsername(string username) {
+            return base.Channel.GetIdFilialeByUsername(username);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetIdFilialeByUsernameAsync(string username) {
+            return base.Channel.GetIdFilialeByUsernameAsync(username);
+        }
+        
+        public WCFClient.ServiceReference1.ContoCorrente[] GetListaContoCorrente(string username) {
+            return base.Channel.GetListaContoCorrente(username);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente[]> GetListaContoCorrenteAsync(string username) {
+            return base.Channel.GetListaContoCorrenteAsync(username);
+        }
+        
+        public WCFClient.ServiceReference1.ContoCorrente SelectContoCorrente(int idContoCorrente) {
+            return base.Channel.SelectContoCorrente(idContoCorrente);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente) {
+            return base.Channel.SelectContoCorrenteAsync(idContoCorrente);
+        }
+        
+        public bool CheckIBAN(string IBAN) {
+            return base.Channel.CheckIBAN(IBAN);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckIBANAsync(string IBAN) {
+            return base.Channel.CheckIBANAsync(IBAN);
+        }
+        
+        public bool CheckIDConto(int idContoCorrente) {
+            return base.Channel.CheckIDConto(idContoCorrente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente) {
+            return base.Channel.CheckIDContoAsync(idContoCorrente);
+        }
+        
+        public bool AggiungiContoCorrente(string username, string idFiliale, System.Nullable<decimal> saldo) {
+            return base.Channel.AggiungiContoCorrente(username, idFiliale, saldo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo) {
+            return base.Channel.AggiungiContoCorrenteAsync(username, idFiliale, saldo);
+        }
+        
+        public WCFClient.ServiceReference1.Filiale GetFiliale(string username) {
+            return base.Channel.GetFiliale(username);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Filiale> GetFilialeAsync(string username) {
+            return base.Channel.GetFilialeAsync(username);
+        }
+        
+        public bool ModificaDatiFiliale(string idFiliale, WCFClient.ServiceReference1.Filiale nuovaFiliale) {
+            return base.Channel.ModificaDatiFiliale(idFiliale, nuovaFiliale);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ModificaDatiFilialeAsync(string idFiliale, WCFClient.ServiceReference1.Filiale nuovaFiliale) {
+            return base.Channel.ModificaDatiFilialeAsync(idFiliale, nuovaFiliale);
+        }
+        
+        public string GetNameFiliale(string idFiliale) {
+            return base.Channel.GetNameFiliale(idFiliale);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetNameFilialeAsync(string idFiliale) {
+            return base.Channel.GetNameFilialeAsync(idFiliale);
+        }
+        
+        public WCFClient.ServiceReference1.Movimento[] GetListaMovimenti(int idContoCorrente) {
+            return base.Channel.GetListaMovimenti(idContoCorrente);
+        }
+        
+        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Movimento[]> GetListaMovimentiAsync(int idContoCorrente) {
+            return base.Channel.GetListaMovimentiAsync(idContoCorrente);
+        }
+        
+        public bool CheckImporto(decimal importo, string IBANCommittente) {
+            return base.Channel.CheckImporto(importo, IBANCommittente);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckImportoAsync(decimal importo, string IBANCommittente) {
+            return base.Channel.CheckImportoAsync(importo, IBANCommittente);
+        }
+        
+        public bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo) {
+            return base.Channel.EseguiBonifico(IBANCommittente, IBANBeneficiario, importo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EseguiBonificoAsync(string IBANCommittente, string IBANBeneficiario, decimal importo) {
+            return base.Channel.EseguiBonificoAsync(IBANCommittente, IBANBeneficiario, importo);
+        }
+        
+        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaro(IBANCommittente, importo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaroAsync(IBANCommittente, importo);
+        }
+        
+        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
+            return base.Channel.EseguiDeposito(IBANCommittente, importo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo) {
+            return base.Channel.EseguiDepositoAsync(IBANCommittente, importo);
         }
     }
 }

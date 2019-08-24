@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Linq;static 
 using System.Text;
 using System.Threading.Tasks;
 using EasyConsole;
 using System.Configuration;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient
 {
     static class Globals 
     {
         public static DateTime defaultDate = new DateTime(1900, 1, 1);
+        public static ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
     }
     static class LoggedUser
     {
@@ -22,6 +24,25 @@ namespace WCFClient
     }
     static class Funzioni 
     {
+        public static void Stampa(Persona p) {
+            Output.WriteLine("#########################################");
+            Output.WriteLine("Tipo di utenza: " + p.privilegi);
+            Output.WriteLine("\nUsername: " + p.username + "\nNome: " + p.nome + "\nCognome: " + p.cognome);
+            Output.WriteLine("\nCodice Fiscale: " + p.codiceFiscale + "\nSesso: " + p.sesso + "\nData di nascita" + p.dataDiNascita);
+            Output.WriteLine("\nCittà: " + p.citta + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
+            Output.WriteLine("\nNumero di telefono: ", p.numeroDiTelefono);
+        }
+
+        public static void StampaFiliale(Filiale filiale) {
+            Output.WriteLine("Nome filiale: " + filiale.nome);
+            Output.WriteLine("Indirizzo: " + filiale.indirizzo);
+            Output.WriteLine("CAP: " + filiale.CAP);
+            Output.WriteLine("Città: " + filiale.citta);
+            Output.WriteLine("Provincia: " + filiale.provincia);
+            Output.WriteLine("Stato: " + filiale.stato);
+            Output.WriteLine("Numero di telefono: " + filiale.numeroDiTelefono);
+        }
+
         public static void algoritmoModificaPersona(Persona persona) {
             
             //Lista delle properties dell' oggetto
@@ -88,8 +109,7 @@ namespace WCFClient
         }
         public static Persona checkUsername(string username) {
             //Restituisce una persona vuota se l'username non è presente, restituisce una persona popolata in caso contrario
-            //Persona p = WCFCLient.CheckUsername(string username);
-            Persona p = new Persona();
+            Persona p = Globals.wcfClient.CheckUsername(username);
             return p;
         }
         public static bool checkEta(DateTime dataDiNascita) {
@@ -182,8 +202,22 @@ namespace WCFClient
                 tempInt = (int?)Input.ReadInt("CAP: ", 0, 99999);
             }
 
-            Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
-                indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale);
+            //Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
+            //    indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale);
+            Persona persona = new Persona();
+            persona.username = username;
+            persona.privilegi = privilegio;
+            persona.codiceFiscale = codiceFiscale;
+            persona.nome = nome;
+            persona.cognome = cognome;
+            persona.dataDiNascita = dataDiNascita;
+            persona.sesso = sesso;
+            persona.indirizzo = indirizzo;
+            persona.CAP = CAP;
+            persona.provincia = provincia;
+            persona.stato = stato;
+            persona.numeroDiTelefono = numeroDiTelefono;
+            persona.filiale = filiale;
 
             bool risultato = false;
 
@@ -199,7 +233,7 @@ namespace WCFClient
             }
             Output.WriteLine("Le password coincidono...\n\n");
 
-            //risultato = WCFCLient.AggiungiPersona(persona, password)
+            risultato = Globals.wcfClient.AggiungiPersona(persona, password1);
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
@@ -217,143 +251,26 @@ namespace WCFClient
             Persona persona = new Persona();
 
             //persona.username = digitaUsername();
-            //string currentUsername = persona.username;
+            string currentUsername = persona.username;
 
             Console.Clear();
-            persona.Stampa();
+            //persona.Stampa();
 
             Input.ReadString("PREMI INVIO PER NON MODIFICARE...");
 
             algoritmoModificaPersona(persona); //Occorre passare l'oggetto per riferimento o basta il valore?
-            
-            //WCFClient.ModificaPersona(currentUsername, p);
+
+            Globals.wcfClient.ModificaPersona(currentUsername, persona);
 
             if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
         public static bool checkContoCorrente(int idContoCorrente) {
-            bool risultato = false;
-            //risultato = WCFClient.checkContoCorrente(idContoCorrente)
-            return risultato;
+            return Globals.wcfClient.CheckIDConto(idContoCorrente);
         }
     }
 
     //##################################### CLASSI TEMPORANEE ##############################################
-
-    public class Persona 
-    {
-        public Persona() {
-            this.username = string.Empty;
-            this.privilegi = string.Empty;
-            this.codiceFiscale = string.Empty;
-            this.nome = string.Empty;
-            this.cognome = string.Empty;
-            this.dataDiNascita = null;
-            this.sesso = string.Empty;
-            this.indirizzo = string.Empty;
-            this.CAP = null;
-            this.citta = string.Empty;
-            this.provincia = string.Empty;
-            this.stato = string.Empty;
-            this.numeroDiTelefono = string.Empty;
-            this.filiale = string.Empty;
-        }
-
-        public Persona(string username, string privilegi, string codiceFiscale,
-            string nome, string cognome, DateTime? dataDiNascita, string sesso, string indirizzo, int? CAP,
-            string citta, string provincia, string stato, string numeroDiTelefono, string filiale) {
-            this.username = username;
-            this.privilegi = privilegi;
-            this.codiceFiscale = codiceFiscale;
-            this.nome = nome;
-            this.cognome = cognome;
-            this.dataDiNascita = dataDiNascita;
-            this.sesso = sesso;
-            this.indirizzo = indirizzo;
-            this.CAP = CAP;
-            this.citta = citta;
-            this.provincia = provincia;
-            this.stato = stato;
-            this.numeroDiTelefono = numeroDiTelefono;
-            this.filiale = filiale;
-        }
-
-        public void Stampa() {
-            Output.WriteLine("#########################################");
-            Output.WriteLine("Tipo di utenza: " + this.privilegi);
-            Output.WriteLine("\nUsername: " + this.username + "\nNome: " + this.nome + "\nCognome: " + this.cognome);
-            Output.WriteLine("\nCodice Fiscale: " + this.codiceFiscale + "\nSesso: " + this.sesso + "\nData di nascita" + this.dataDiNascita);
-            Output.WriteLine("\nCittà: " + this.citta + "\nProvincia: " + this.provincia + "\nStato: " + this.stato);
-            Output.WriteLine("\nNumero di telefono: ", numeroDiTelefono);
-        }
-
-        public string username { get; set; }
-        public string privilegi { get; set; }
-        public string codiceFiscale { get; set; }
-        public string nome { get; set; }
-        public string cognome { get; set; }
-        public DateTime? dataDiNascita { get; set; }
-        public string sesso { get; set; }
-        public string indirizzo { get; set; }
-        public int? CAP { get; set; }
-        public string citta { get; set; }
-        public string provincia { get; set; }
-        public string stato { get; set; }
-        public string numeroDiTelefono { get; set; }
-        public string filiale { get; set; }
-    }
-
-    public class Filiale {
-
-        //Costruttori
-        public Filiale() {
-            this.idFiliale = string.Empty;
-            this.direttore = string.Empty;
-            this.nome = string.Empty;
-            this.indirizzo = string.Empty;
-            this.CAP = null;
-            this.citta = string.Empty;
-            this.provincia = string.Empty;
-            this.stato = string.Empty;
-            this.numeroDiTelefono = string.Empty;
-        }
-
-        public Filiale(string idFiliale, string nome, string indirizzo,
-            int? CAP, string citta, string provincia, string stato, string numeroDiTelefono, string direttore) {
-            this.idFiliale = idFiliale;
-            this.nome = nome;
-            this.indirizzo = indirizzo;
-            this.CAP = CAP;
-            this.citta = citta;
-            this.provincia = provincia;
-            this.stato = stato;
-            this.numeroDiTelefono = numeroDiTelefono;
-            this.direttore = direttore;
-        }
-
-        //Metodi
-        public void StampaFiliale() {
-            Output.WriteLine("Nome filiale: " + this.nome);
-            Output.WriteLine("Indirizzo: " + this.indirizzo);
-            Output.WriteLine("CAP: " + this.CAP);
-            Output.WriteLine("Città: " + this.citta);
-            Output.WriteLine("Provincia: " + this.provincia);
-            Output.WriteLine("Stato: " + this.stato);
-            Output.WriteLine("Numero di telefono: " + this.numeroDiTelefono);
-            Output.WriteLine("Direttore: " + this.direttore);
-        }
-
-        //Attributi
-        public string idFiliale { get; set; }
-        public string nome { get; set; }
-        public string indirizzo { get; set; }
-        public int? CAP { get; set; }
-        public string citta { get; set; }
-        public string provincia { get; set; }
-        public string stato { get; set; }
-        public string numeroDiTelefono { get; set; }
-        public string direttore { get; set; }
-    }
 
     public class ContoCorrente {
         public ContoCorrente() {
@@ -438,8 +355,6 @@ namespace WCFClient
     {
         static void Main(string[] args) {
 
-            /*ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
-
             string logo = ConfigurationManager.AppSettings["logo"].Replace("\\n", "\n");
 
             //Login
@@ -471,22 +386,22 @@ namespace WCFClient
                 }
             } while (!checkDati);
 
-            //LoggedUser.idFiliale = WCFClient.getIdFilialeByUsername(LoggedUser.username);
+            LoggedUser.idFiliale = wcfClient.GetIdFilialeByUsername(LoggedUser.username);
 
             //Login eseguito correttamente
             Console.Clear();
 
             switch (wcfClient.GetPrivilegi(LoggedUser.username))
             {
-                case 1:
+                case "admin":
                     LoggedUser.privilegi = "admin";
                     new DirettoreProgram().Run();
                     break;
-                case 2:
+                case "impiegato":
                     LoggedUser.privilegi = "impiegato";
                     new ImpiegatoProgram().Run();
                     break;
-                case 3:
+                case "cliente":
                     LoggedUser.privilegi = "cliente";
                     new ClienteProgram().Run();
                     break;
@@ -495,10 +410,7 @@ namespace WCFClient
                     Output.WriteLine(ConsoleColor.DarkRed, errorString);
                     Console.ReadLine();
                     break;
-            }*/
-
-            DirettoreProgram program = new DirettoreProgram();
-            program.Run();
+            }
         }
     }
 }

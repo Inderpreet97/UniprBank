@@ -101,7 +101,22 @@
     <None Include="Connected Services\ServiceReference1\item1.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\ServiceReference1\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\ServiceReference1\Service1.wsdl" />
+    <None Include="Connected Services\ServiceReference1\WCFClient.ServiceReference1.ContoCorrente.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\WCFClient.ServiceReference1.Filiale.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\WCFClient.ServiceReference1.Movimento.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference1\WCFClient.ServiceReference1.Persona.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <Compile Include="Pages\ContoMenu\VisualizzaConto.cs" />
   </ItemGroup>

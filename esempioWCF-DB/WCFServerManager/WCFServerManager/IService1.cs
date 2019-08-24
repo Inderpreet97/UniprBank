@@ -11,12 +11,8 @@ namespace WCFServerManager
     [ServiceContract]
     public interface IService1
     {
+        // Metodi Account & Persona
 
-        //Operazioni su conto corrente
-        [OperationContract]
-        double? GetSaldo(int idContoCorrente);
-
-        //Operazioni di login
         [OperationContract]
         bool Login(string username, string password);
 

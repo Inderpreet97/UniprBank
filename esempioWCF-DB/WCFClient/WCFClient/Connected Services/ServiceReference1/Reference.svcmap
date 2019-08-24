@@ -22,8 +22,9 @@
     <MetadataSource Address="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="03ce3c6c-6b65-4079-a152-7561afe6809a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="8d7429cf-7195-4e1f-a48b-48d297fc2baa" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?xsd=xsd2" />
     <MetadataFile FileName="item.disco" MetadataType="Disco" ID="b196ce19-c01b-4d82-8c4c-263f1cd1c513" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?disco" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="03ce3c6c-6b65-4079-a152-7561afe6809a" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?xsd=xsd1" />
     <MetadataFile FileName="Service1.wsdl" MetadataType="Wsdl" ID="0c7a929c-24da-4b20-b08c-fc758ae489bd" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?wsdl" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="8e0078b3-970f-45e1-9fc3-471c9aa9b0ee" SourceId="1" SourceUrl="http://localhost:8733/Design_Time_Addresses/WCFServerManager/Service1/?xsd=xsd0" />
   </Metadata>
