@@ -25,21 +25,21 @@ namespace WCFServerDB
     public class Filiale
     {
         [DataMember]
-        public string idFiliale { get; set; }
+        public string idFiliale { get; set; } = string.Empty;
         [DataMember]
-        public string nome { get; set; }
+        public string nome { get; set; } = string.Empty;
         [DataMember]
-        public string indirizzo { get; set; }
+        public string indirizzo { get; set; } = string.Empty;
         [DataMember]
-        public int? CAP { get; set; }
+        public int? CAP { get; set; } = null;
         [DataMember]
-        public string citta { get; set; }
+        public string citta { get; set; } = string.Empty;
         [DataMember]
-        public string provincia { get; set; }
+        public string provincia { get; set; } = string.Empty;
         [DataMember]
-        public string stato { get; set; }
+        public string stato { get; set; } = string.Empty;
         [DataMember]
-        public string numeroDiTelefono { get; set; }
+        public string numeroDiTelefono { get; set; } = string.Empty;
         public Filiale() {
             this.idFiliale = string.Empty;
             this.nome = string.Empty;

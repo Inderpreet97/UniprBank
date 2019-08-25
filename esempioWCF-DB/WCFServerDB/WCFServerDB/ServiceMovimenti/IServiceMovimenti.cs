@@ -32,20 +32,20 @@ namespace WCFServerDB
     [DataContract]
     public class Movimento
     {
-        
+
 
         [DataMember]
-        public string idMovimenti { get; set; }
+        public string idMovimenti { get; set; } = string.Empty;
         [DataMember]
-        public string IBANCommittente { get; set; }
+        public string IBANCommittente { get; set; } = string.Empty;
         [DataMember]
-        public string tipo { get; set; }
+        public string tipo { get; set; } = string.Empty;
         [DataMember]
-        public decimal? importo { get; set; }
+        public decimal? importo { get; set; } = null;
         [DataMember]
-        public string IBANBeneficiario { get; set; }
+        public string IBANBeneficiario { get; set; } = string.Empty;
         [DataMember]
-        public DateTime? dataOra { get; set; }
+        public DateTime? dataOra { get; set; } = null;
 
         public Movimento() {
             this.idMovimenti = string.Empty;

@@ -15,7 +15,14 @@ namespace WCFClient.Pages
 
             bool risultato = Globals.wcfClient.AggiungiContoCorrente(username, LoggedUser.idFiliale, 0);
 
-            if (risultato) { Output.WriteLine("Conto corrente aggiunto"); } else { Output.WriteLine("Errore"); }
+            if (risultato) {
+
+                Output.WriteLine("Conto corrente aggiunto");
+
+            } else {
+
+                Output.WriteLine("Errore");
+            }
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

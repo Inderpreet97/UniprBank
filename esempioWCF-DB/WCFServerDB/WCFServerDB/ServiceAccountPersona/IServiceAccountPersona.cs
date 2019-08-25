@@ -44,33 +44,33 @@ namespace WCFServerDB
     public class Persona
     {
         [DataMember]
-        public string username { get; set; }
+        public string username { get; set; } = string.Empty;
         [DataMember]
-        public string privilegi { get; set; }
+        public string privilegi { get; set; } = string.Empty;
         [DataMember]
-        public string codiceFiscale { get; set; }
+        public string codiceFiscale { get; set; } = string.Empty;
         [DataMember]
-        public string nome { get; set; }
+        public string nome { get; set; } = string.Empty;
         [DataMember]
-        public string cognome { get; set; }
+        public string cognome { get; set; } = string.Empty;
         [DataMember]
-        public DateTime? dataDiNascita { get; set; }
+        public DateTime? dataDiNascita { get; set; } = null;
         [DataMember]
-        public string sesso { get; set; }
+        public string sesso { get; set; } = string.Empty;
         [DataMember]
-        public string indirizzo { get; set; }
+        public string indirizzo { get; set; } = string.Empty;
         [DataMember]
-        public int? CAP { get; set; }
+        public int? CAP { get; set; } = null;
         [DataMember]
-        public string citta { get; set; }
+        public string citta { get; set; } = string.Empty;
         [DataMember]
-        public string provincia { get; set; }
+        public string provincia { get; set; } = string.Empty;
         [DataMember]
-        public string stato { get; set; }
+        public string stato { get; set; } = string.Empty;
         [DataMember]
-        public string numeroDiTelefono { get; set; }
+        public string numeroDiTelefono { get; set; } = string.Empty;
         [DataMember]
-        public string filiale { get; set; }
+        public string filiale { get; set; } = string.Empty;
 
         public Persona() {
             this.username = string.Empty;

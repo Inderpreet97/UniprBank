@@ -74,7 +74,7 @@ namespace WCFClient
             //Lista delle properties non modificabili
             List<string> BlackList = new List<string>() { "privilegi", "filiale" };
 
-            string temp = string.Empty;
+            string temp;
             
             //Itero tutte le properties dell'oggetto
             for (int index = 0; index < personaProperties.Count; index++) {
@@ -82,7 +82,6 @@ namespace WCFClient
                 //Se la property si può modificare (non è contenuta nella blacklist)
                 if (!BlackList.Contains(personaProperties[index].Name)) {
 
-                    temp = string.Empty;
                     temp = Input.ReadString("Nuovo " + personaProperties[index].Name);
 
                     if (!string.IsNullOrWhiteSpace(temp)) {
@@ -156,7 +155,7 @@ namespace WCFClient
             string stato = string.Empty;
             DateTime dataDiNascita = Globals.defaultDate;
             int? CAP = null;
-            string temp = null;
+            string temp;
             int? tempInt = null;
 
             //Tutti gli attributi devono essere valorizzati, altrimenti esegue il ciclo while
@@ -168,60 +167,49 @@ namespace WCFClient
                 //Nome
                 temp = Input.ReadString("Nome: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { nome = temp; }
-                temp = string.Empty;
-
+                
                 //Cognome
                 temp = Input.ReadString("Cognome: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { cognome = temp; }
-                temp = string.Empty;
-
+                
                 //Data di nascita
                 temp = Input.ReadString("Data di nascita: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { DateTime.TryParse(temp, out dataDiNascita); }
-                temp = string.Empty;
-
+                
                 //Codice fiscale
                 temp = Input.ReadString("Codice fiscale: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { codiceFiscale = temp; }
-                temp = string.Empty;
-
+                
                 //Sesso
                 temp = Input.ReadString("Sesso: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { sesso = temp; }
-                temp = string.Empty;
-
+                
                 //Indirizzo
                 temp = Input.ReadString("Indirizzo: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { indirizzo = temp; }
-                temp = string.Empty;
-
+                
                 //Citta
                 temp = Input.ReadString("Città: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { citta = temp; }
-                temp = string.Empty;
-
+                
                 //Provincia
                 temp = Input.ReadString("Provincia: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { provincia = temp; }
-                temp = string.Empty;
-
+                
                 //Stato
                 temp = Input.ReadString("Stato: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { stato = temp; }
-                temp = string.Empty;
-
+                
                 //Numero di telefono
                 temp = Input.ReadString("Numero di telefono: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { numeroDiTelefono = temp; }
-                temp = string.Empty;
-
+                
                 //Filiale
                 temp = Input.ReadString("Filiale: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { filiale = temp; }
-                temp = string.Empty;
-
+                
                 //CAP
-                tempInt = (int?)Input.ReadInt("CAP: ", 0, 99999);
+                CAP = (int?)Input.ReadInt("CAP: ", 0, 99999);
             }
 
             //Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
@@ -289,9 +277,6 @@ namespace WCFClient
 
         }
 
-        public static bool checkContoCorrente(int idContoCorrente) {
-            return Globals.wcfClient.CheckIDConto(idContoCorrente);
-        }
     }
 
     class MainProgram

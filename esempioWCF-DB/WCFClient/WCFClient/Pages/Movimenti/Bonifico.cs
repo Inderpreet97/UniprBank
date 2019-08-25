@@ -9,10 +9,9 @@ namespace WCFClient.Pages
 
         public Bonifico(Program program) : base("Bonifico", program) { }
 
-        public override void Display()
-        {
+        public override void Display() {
             base.Display();
-            
+
             //IBAN
             string IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             while (!Globals.wcfClient.CheckIBAN(IBANBeneficiario)) {
@@ -23,33 +22,45 @@ namespace WCFClient.Pages
             //SELEZIONARE IBAN
             string IBANCommittente = Input.ReadString("IBAN conto corrente con il quale effettuare il bonifico: ");
 
-            //IMPORTO BONIFICO
-            decimal importoBonifico = Convert.ToDecimal("Importo bonifico: ");
-            bool importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente); ;
+            var scelta = 1;
 
-            while (importoBonifico < 0 || !importoDisponibile) {
+            do {
+                try {
+                    //IMPORTO BONIFICO
+                    decimal importoBonifico = Convert.ToDecimal("Importo bonifico: ");
+                    bool importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente); ;
 
-                if (importoBonifico < 0) {
+                    while (importoBonifico < 0 || !importoDisponibile) {
 
-                    Output.WriteLine("L'importo deve essere maggiore di 0.0");
+                        if (importoBonifico < 0) {
 
-                } else {
+                            Output.WriteLine("L'importo deve essere maggiore di 0.0");
 
-                    Output.WriteLine("Il saldo non ricopre l'importo");
+                        } else {
+
+                            Output.WriteLine("Il saldo non ricopre l'importo");
+                        }
+
+                        importoBonifico = Convert.ToDecimal("Importo bonifico: ");
+
+                        importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente);
+                    };
+
+                    bool risultato = Globals.wcfClient.EseguiBonifico(IBANCommittente, IBANBeneficiario, importoBonifico);
+
+                    if (risultato) {
+                        Output.WriteLine("Bonifico effettuato correttamente");
+                    } else {
+                        Output.WriteLine("Bonifico non avvenuto");
+                    }
+
                 }
+                catch (FormatException ex) {
 
-                importoBonifico = Convert.ToDecimal("Importo bonifico: ");
-
-                importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente);
-            };
-
-            bool risultato = Globals.wcfClient.EseguiBonifico(IBANCommittente, IBANBeneficiario, importoBonifico);
-
-            if (risultato) {
-                Output.WriteLine("Bonifico effettuato correttamente");
-            } else {
-                Output.WriteLine("Bonifico non avvenuto");
-            }
+                    Output.WriteLine(ConsoleColor.Red, ex.Message);
+                    scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                }
+            } while (scelta != 1);
 
             Input.ReadString("Press [Enter] to navigate home");
 

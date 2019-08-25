@@ -29,15 +29,15 @@ namespace WCFServerDB
     {
 
         [DataMember]
-        public int? idContoCorrente { get; set; }
+        public int? idContoCorrente { get; set; } = null;
         [DataMember]
-        public string IBAN { get; set; }
+        public string IBAN { get; set; } = string.Empty;
         [DataMember]
-        public string username { get; set; }
+        public string username { get; set; } = string.Empty;
         [DataMember]
-        public decimal? saldo { get; set; }
+        public decimal? saldo { get; set; } = null;
         [DataMember]
-        public string idFiliale { get; set; }
+        public string idFiliale { get; set; } = string.Empty;
 
         public ContoCorrente() {
             this.idContoCorrente = null;
