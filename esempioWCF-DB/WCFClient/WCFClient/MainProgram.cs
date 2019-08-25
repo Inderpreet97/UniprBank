@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;static 
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EasyConsole;
@@ -12,7 +12,7 @@ namespace WCFClient
     static class Globals 
     {
         public static DateTime defaultDate = new DateTime(1900, 1, 1);
-        public static ServiceReference1.Service1Client wcfClient = new ServiceReference1.Service1Client();
+        public static Service1Client wcfClient = new Service1Client();
     }
     static class LoggedUser
     {
@@ -22,9 +22,10 @@ namespace WCFClient
         public static string idFiliale = "";
         public static List<ContoCorrente> contoCorrenti = new List<ContoCorrente>();
     }
+
     static class Funzioni 
     {
-        public static void Stampa(Persona p) {
+        public static void StampaPersona(Persona p) {
             Output.WriteLine("#########################################");
             Output.WriteLine("Tipo di utenza: " + p.privilegi);
             Output.WriteLine("\nUsername: " + p.username + "\nNome: " + p.nome + "\nCognome: " + p.cognome);
@@ -41,6 +42,28 @@ namespace WCFClient
             Output.WriteLine("Provincia: " + filiale.provincia);
             Output.WriteLine("Stato: " + filiale.stato);
             Output.WriteLine("Numero di telefono: " + filiale.numeroDiTelefono);
+        }
+
+        public static void StampaContoCorrente(ContoCorrente contoCorrente) {
+            Console.Clear();
+            Output.WriteLine("IBAN", contoCorrente.IBAN);
+            Output.WriteLine("Saldo: ", contoCorrente.saldo);
+            Output.WriteLine("Filiale di appartenza", Globals.wcfClient.GetNameFiliale(contoCorrente.idFiliale));
+        }
+
+        public static void StampaMovimento(Movimento movimento) {
+            Console.Clear();
+
+            Output.WriteLine("Id movimento: ", movimento.idMovimenti);
+            Output.WriteLine("Tipo: ", movimento.tipo);
+            Output.WriteLine("Importo: ", movimento.importo);
+            Output.WriteLine("Data ora: ", movimento.dataOra);
+
+            if (movimento.tipo == "Bonifico") {
+                Output.WriteLine("Committente: ", movimento.IBANCommittente);
+                Output.WriteLine("Beneficiario: ", movimento.IBANBeneficiario);
+            }
+
         }
 
         public static void algoritmoModificaPersona(Persona persona) {
@@ -76,6 +99,7 @@ namespace WCFClient
                 }
             }
         }
+
         public static string digitaNuovoUsername() {
 
             /*Questa funzione viene richiamata ogni qualvolta bisogna registrare un NUOVO utente
@@ -85,20 +109,21 @@ namespace WCFClient
             */
 
             string username = Input.ReadString("Digitare l'username: ");
-            while (Funzioni.checkUsername(username).username != string.Empty) {
+            while (Globals.wcfClient.CheckUsername(username).username != string.Empty) {
                 //La persona restituita deve essere vuota (non esiste = username disponibile)
                 Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
                 username = Input.ReadString("Digitare l'username: ");
             }
             return username;
         }
+
         public static string digitaUsername() {
             //Questa funzione viene chiamata ogni volta che occorre digitare l'username e lo controlla
             //Attenzione! Questa funzione non viene richiamata per registrare una nuova persona, per questo utilizzare digitaNuoboUsername()
             //Restituisce l'username come stringa
 
             string username = Input.ReadString("Digitare l'username: ");
-            while(Funzioni.checkUsername(username).username == string.Empty) {
+            while(Globals.wcfClient.CheckUsername(username).username == string.Empty) {
                 //Utente non trovato
                 Output.WriteLine("Username non trovato, riprovare\n");
                 Output.WriteLine("Digitare l'username");
@@ -107,17 +132,14 @@ namespace WCFClient
 
 
         }
-        public static Persona checkUsername(string username) {
-            //Restituisce una persona vuota se l'username non è presente, restituisce una persona popolata in caso contrario
-            Persona p = Globals.wcfClient.CheckUsername(username);
-            return p;
-        }
+
         public static bool checkEta(DateTime dataDiNascita) {
             //Controlla se l'utente è maggiorenne e se non ha più di limite max di età
             short limiteMaxEta = 100;
             if (DateTime.Compare(DateTime.Now, dataDiNascita) >= 18 && DateTime.Compare(DateTime.Now, dataDiNascita) < limiteMaxEta) { return true; }
             return false;
         }
+
         public static void aggiungiPersona(string privilegio) {
 
             string username = digitaNuovoUsername();
@@ -237,6 +259,7 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
+
         public static void modificaPersona(string usernamePersona) {
 
             /*Questa funzione viene richiamata sia quando un impiegato o un direttore vogliono modificare un profilo di un cliente
@@ -265,91 +288,11 @@ namespace WCFClient
             if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
         }
+
         public static bool checkContoCorrente(int idContoCorrente) {
             return Globals.wcfClient.CheckIDConto(idContoCorrente);
         }
     }
-
-    //##################################### CLASSI TEMPORANEE ##############################################
-
-    public class ContoCorrente {
-        public ContoCorrente() {
-            this.idContoCorrente = null;
-            this.IBAN = string.Empty;
-            this.username = string.Empty;
-            this.saldo = null;
-            this.idFiliale = string.Empty;
-        }
-
-        public string getNomeFiliale() { //Ottiene il nome della filiale con quell'ID Filiale
-            //string nomeFiliale = WCFClient.getNomeFiliale(this.idFiliale);
-            string nomeFiliale = string.Empty;
-            return nomeFiliale;
-        }
-
-        public ContoCorrente(int? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
-            this.idContoCorrente = idContoCorrente;
-            this.IBAN = IBAN;
-            this.username = username;
-            this.saldo = saldo;
-            this.idFiliale = idFiliale;
-        }
-
-        public int? idContoCorrente { get; set; }
-        public string IBAN { get; set; }
-        public string username { get; set; }
-        public decimal? saldo { get; set; }
-        public string idFiliale { get; set; }
-
-        public void stampa() {
-            Console.Clear();
-            Output.WriteLine("IBAN", this.IBAN);
-            Output.WriteLine("Saldo: ", this.saldo);
-            Output.WriteLine("Filiale di appartenza", getNomeFiliale());
-        }
-    }
-
-    public class Movimento {
-        public Movimento() {
-            this.idMovimento = string.Empty;
-            this.IBANCommittente = string.Empty;
-            this.tipo = string.Empty;
-            this.importo = null;
-            this.IBANBeneficiario = string.Empty;
-            this.dataOra = null;
-        }
-
-        public Movimento(string idMovimento, string IBANCommittente, string tipo, decimal? importo, string IBANBeneficiario, DateTime? dataOra) {
-            this.idMovimento = idMovimento;
-            this.IBANCommittente = IBANCommittente;
-            this.tipo = tipo;
-            this.importo = importo;
-            this.IBANBeneficiario = IBANBeneficiario;
-            this.dataOra = dataOra;
-        }
-
-        public void Stampa() {
-            Console.Clear();
-
-            Output.WriteLine("Id movimento: ", this.idMovimento);
-            Output.WriteLine("Tipo: ", this.tipo);
-            Output.WriteLine("Importo: ", this.importo);
-            Output.WriteLine("Data ora: ", this.dataOra);
-            if(this.tipo == "Bonifico" && importo > 0) { Output.WriteLine("Bonifico in entrata da: ", this.IBANCommittente); }
-            if(this.tipo == "Bonifico" && importo < 0) { Output.WriteLine("Bonifico in uscita a: ", this.IBANBeneficiario); }
-
-        }
-
-        public string idMovimento { get; set; }
-        public string IBANCommittente { get; set; }
-        public string tipo { get; set; }
-        public decimal? importo { get; set; }
-        public string IBANBeneficiario { get; set; }
-        public DateTime? dataOra { get; set; }
-    }
-
-    //################################################################################################
-
 
     class MainProgram
     {
@@ -381,17 +324,17 @@ namespace WCFClient
                 }
                 else
                 { 
-                    checkDati = wcfClient.Login(LoggedUser.username, password);
+                    checkDati = Globals.wcfClient.Login(LoggedUser.username, password);
                     errorString= (checkDati) ? string.Empty : "Username o Password non corretti!";
                 }
             } while (!checkDati);
 
-            LoggedUser.idFiliale = wcfClient.GetIdFilialeByUsername(LoggedUser.username);
+            LoggedUser.idFiliale = Globals.wcfClient.GetIdFilialeByUsername(LoggedUser.username);
 
             //Login eseguito correttamente
             Console.Clear();
 
-            switch (wcfClient.GetPrivilegi(LoggedUser.username))
+            switch (Globals.wcfClient.GetPrivilegi(LoggedUser.username))
             {
                 case "admin":
                     LoggedUser.privilegi = "admin";

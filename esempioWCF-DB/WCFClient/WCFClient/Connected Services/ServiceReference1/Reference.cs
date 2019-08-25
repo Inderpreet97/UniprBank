@@ -674,10 +674,10 @@ namespace WCFClient.ServiceReference1 {
         System.Threading.Tasks.Task<string> GetPrivilegiAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPersone", ReplyAction="http://tempuri.org/IService1/GetListaPersoneResponse")]
-        WCFClient.ServiceReference1.Persona[] GetListaPersone(string tipoAccount, string idFiliale);
+        System.Collections.Generic.List<WCFClient.ServiceReference1.Persona> GetListaPersone(string tipoAccount, string idFiliale);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaPersone", ReplyAction="http://tempuri.org/IService1/GetListaPersoneResponse")]
-        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona[]> GetListaPersoneAsync(string tipoAccount, string idFiliale);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.Persona>> GetListaPersoneAsync(string tipoAccount, string idFiliale);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EliminaAccount", ReplyAction="http://tempuri.org/IService1/EliminaAccountResponse")]
         bool EliminaAccount(string username);
@@ -716,10 +716,10 @@ namespace WCFClient.ServiceReference1 {
         System.Threading.Tasks.Task<string> GetIdFilialeByUsernameAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaContoCorrente", ReplyAction="http://tempuri.org/IService1/GetListaContoCorrenteResponse")]
-        WCFClient.ServiceReference1.ContoCorrente[] GetListaContoCorrente(string username);
+        System.Collections.Generic.List<WCFClient.ServiceReference1.ContoCorrente> GetListaContoCorrente(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaContoCorrente", ReplyAction="http://tempuri.org/IService1/GetListaContoCorrenteResponse")]
-        System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente[]> GetListaContoCorrenteAsync(string username);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.ContoCorrente>> GetListaContoCorrenteAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/SelectContoCorrente", ReplyAction="http://tempuri.org/IService1/SelectContoCorrenteResponse")]
         WCFClient.ServiceReference1.ContoCorrente SelectContoCorrente(int idContoCorrente);
@@ -764,10 +764,10 @@ namespace WCFClient.ServiceReference1 {
         System.Threading.Tasks.Task<string> GetNameFilialeAsync(string idFiliale);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaMovimenti", ReplyAction="http://tempuri.org/IService1/GetListaMovimentiResponse")]
-        WCFClient.ServiceReference1.Movimento[] GetListaMovimenti(int idContoCorrente);
+        System.Collections.Generic.List<WCFClient.ServiceReference1.Movimento> GetListaMovimenti(int idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/GetListaMovimenti", ReplyAction="http://tempuri.org/IService1/GetListaMovimentiResponse")]
-        System.Threading.Tasks.Task<WCFClient.ServiceReference1.Movimento[]> GetListaMovimentiAsync(int idContoCorrente);
+        System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.Movimento>> GetListaMovimentiAsync(int idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/CheckImporto", ReplyAction="http://tempuri.org/IService1/CheckImportoResponse")]
         bool CheckImporto(decimal importo, string IBANCommittente);
@@ -782,16 +782,16 @@ namespace WCFClient.ServiceReference1 {
         System.Threading.Tasks.Task<bool> EseguiBonificoAsync(string IBANCommittente, string IBANBeneficiario, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IService1/EseguiPrelievoDenaroResponse")]
-        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo);
+        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IService1/EseguiPrelievoDenaroResponse")]
-        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(int idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiDeposito", ReplyAction="http://tempuri.org/IService1/EseguiDepositoResponse")]
-        bool EseguiDeposito(string IBANCommittente, decimal importo);
+        bool EseguiDeposito(int idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IService1/EseguiDeposito", ReplyAction="http://tempuri.org/IService1/EseguiDepositoResponse")]
-        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(int idContoCorrente, decimal importo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -837,11 +837,11 @@ namespace WCFClient.ServiceReference1 {
             return base.Channel.GetPrivilegiAsync(username);
         }
         
-        public WCFClient.ServiceReference1.Persona[] GetListaPersone(string tipoAccount, string idFiliale) {
+        public System.Collections.Generic.List<WCFClient.ServiceReference1.Persona> GetListaPersone(string tipoAccount, string idFiliale) {
             return base.Channel.GetListaPersone(tipoAccount, idFiliale);
         }
         
-        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Persona[]> GetListaPersoneAsync(string tipoAccount, string idFiliale) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.Persona>> GetListaPersoneAsync(string tipoAccount, string idFiliale) {
             return base.Channel.GetListaPersoneAsync(tipoAccount, idFiliale);
         }
         
@@ -893,11 +893,11 @@ namespace WCFClient.ServiceReference1 {
             return base.Channel.GetIdFilialeByUsernameAsync(username);
         }
         
-        public WCFClient.ServiceReference1.ContoCorrente[] GetListaContoCorrente(string username) {
+        public System.Collections.Generic.List<WCFClient.ServiceReference1.ContoCorrente> GetListaContoCorrente(string username) {
             return base.Channel.GetListaContoCorrente(username);
         }
         
-        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.ContoCorrente[]> GetListaContoCorrenteAsync(string username) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.ContoCorrente>> GetListaContoCorrenteAsync(string username) {
             return base.Channel.GetListaContoCorrenteAsync(username);
         }
         
@@ -957,11 +957,11 @@ namespace WCFClient.ServiceReference1 {
             return base.Channel.GetNameFilialeAsync(idFiliale);
         }
         
-        public WCFClient.ServiceReference1.Movimento[] GetListaMovimenti(int idContoCorrente) {
+        public System.Collections.Generic.List<WCFClient.ServiceReference1.Movimento> GetListaMovimenti(int idContoCorrente) {
             return base.Channel.GetListaMovimenti(idContoCorrente);
         }
         
-        public System.Threading.Tasks.Task<WCFClient.ServiceReference1.Movimento[]> GetListaMovimentiAsync(int idContoCorrente) {
+        public System.Threading.Tasks.Task<System.Collections.Generic.List<WCFClient.ServiceReference1.Movimento>> GetListaMovimentiAsync(int idContoCorrente) {
             return base.Channel.GetListaMovimentiAsync(idContoCorrente);
         }
         
@@ -981,20 +981,20 @@ namespace WCFClient.ServiceReference1 {
             return base.Channel.EseguiBonificoAsync(IBANCommittente, IBANBeneficiario, importo);
         }
         
-        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiPrelievoDenaro(IBANCommittente, importo);
+        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiPrelievoDenaroAsync(IBANCommittente, importo);
+        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(int idContoCorrente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaroAsync(idContoCorrente, importo);
         }
         
-        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiDeposito(IBANCommittente, importo);
+        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
+            return base.Channel.EseguiDeposito(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiDepositoAsync(IBANCommittente, importo);
+        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(int idContoCorrente, decimal importo) {
+            return base.Channel.EseguiDepositoAsync(idContoCorrente, importo);
         }
     }
 }

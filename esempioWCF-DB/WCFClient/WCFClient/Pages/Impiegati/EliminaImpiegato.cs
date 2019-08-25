@@ -15,12 +15,19 @@ namespace WCFClient.Pages
 
             while (!risultato) {
                 usernameImpiegato = Input.ReadString("Inserire username impiegato da rimuovere: ");
-                //Richiesta al database
-                //bool risultato = WCFCLient.EliminaImpiegato(string username);                        
-                if (risultato) { Output.WriteLine("Impiegato rimosso con successo"); risultato = true; } else {
+
+                risultato = Globals.wcfClient.EliminaAccount(usernameImpiegato);    
+                
+                if (risultato) {
+                    Output.WriteLine("Impiegato rimosso con successo");
+                    risultato = true;
+
+                } else {
+
                     Output.WriteLine("Impiegato non trovato");
                     string esc = Input.ReadString("1-Riprova\nPremere qualsiasi tasto per uscire");
-                    if (esc != "1") { risultato = true; }
+
+                    if (esc != "1") { risultato = true; }     
                 }
             }
 

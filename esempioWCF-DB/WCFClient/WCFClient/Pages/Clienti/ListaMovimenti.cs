@@ -2,6 +2,7 @@
 using ConsoleTables;
 using System;
 using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
@@ -13,18 +14,29 @@ namespace WCFClient.Pages
         {
             base.Display();
 
-            int contoCorrente = Convert.ToInt32(Input.ReadString("Id conto corrente: "));
-            bool risultato = false;
+            var scelta = 1;
 
-            //List<Movimento> listaMovimenti = WCFClient.GetListaMovimenti(idContoCorrente);
-            List<Movimento> listaMovimenti = new List<Movimento>();
+            do {
+                try {
+                    int idContoCorrente = Convert.ToInt32(Input.ReadString("Id conto corrente: "));
 
-            var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
+                    List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(idContoCorrente);
 
-            listaMovimenti.ForEach(movimento => {
-                table.AddRow(movimento.idMovimento, movimento.IBANCommittente, movimento.tipo, movimento.importo,
-                    movimento.IBANBeneficiario, movimento.dataOra);
-            });
+                    var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
+
+                    listaMovimenti.ForEach(movimento => {
+                        table.AddRow(movimento.idMovimenti, movimento.IBANCommittente, movimento.tipo, movimento.importo,
+                            movimento.IBANBeneficiario, movimento.dataOra);
+                    });
+
+                    table.Write();
+                }
+                catch (FormatException ex) {
+
+                    Output.WriteLine(ConsoleColor.Red, ex.Message);
+                    scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                }
+            } while (scelta != 1);
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

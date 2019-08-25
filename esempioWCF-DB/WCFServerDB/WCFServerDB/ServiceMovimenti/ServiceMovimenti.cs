@@ -174,7 +174,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
+        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -190,12 +190,12 @@ namespace WCFServerDB
 
                 try {
 
-                    command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE IBAN = @IBANCommittente;";
+                    command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE idContoCorrente = @idContoCorrente;";
 
-                    command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
+                    command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
 
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
+                    command.Parameters["@idContoCorrente"].Value = idContoCorrente;
                     command.Parameters["@importo"].Value = importo;
 
 
@@ -209,6 +209,15 @@ namespace WCFServerDB
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
+
+                    command.Parameters.Clear();
+
+                    command.CommandText = "SELECT IBAN FROM ContoCorrente WHERE idContoCorrente = @idContoCorrente;";
+
+                    command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
+                    command.Parameters["@idContoCorrente"].Value = idContoCorrente;
+
+                    var IBANCommittente = command.ExecuteScalar();
 
                     command.Parameters.Clear();
 
@@ -258,7 +267,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
+        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -274,11 +283,12 @@ namespace WCFServerDB
 
                 try {
 
-                    command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE IBAN = @IBANCommittente;";
-                    command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
+                    command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE idContoCorrente = @idContoCorrente;";
+
+                    command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
 
-                    command.Parameters["@IBANCommittente"].Value = IBANCommittente;
+                    command.Parameters["@idContoCorrente"].Value = idContoCorrente;
                     command.Parameters["@importo"].Value = importo;
 
                     var result = command.ExecuteNonQuery();
@@ -291,6 +301,15 @@ namespace WCFServerDB
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
+
+                    command.Parameters.Clear();
+
+                    command.CommandText = "SELECT IBAN FROM ContoCorrente WHERE idContoCorrente = @idContoCorrente;";
+
+                    command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
+                    command.Parameters["@idContoCorrente"].Value = idContoCorrente;
+
+                    var IBANCommittente = command.ExecuteScalar();
 
                     command.Parameters.Clear();
 

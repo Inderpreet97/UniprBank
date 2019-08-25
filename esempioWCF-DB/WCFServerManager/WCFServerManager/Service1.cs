@@ -47,12 +47,12 @@ namespace WCFServerManager
             return serviceMovimentiClient.EseguiBonifico(IBANCommittente, IBANBeneficiario, importo);
         }
 
-        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
-            return serviceMovimentiClient.EseguiDeposito(IBANCommittente, importo);
+        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
+            return serviceMovimentiClient.EseguiDeposito(idContoCorrente, importo);
         }
 
-        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
-            return serviceMovimentiClient.EseguiPrelievoDenaro(IBANCommittente, importo);
+        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
+            return serviceMovimentiClient.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
 
         public Filiale GetFiliale(string username) {

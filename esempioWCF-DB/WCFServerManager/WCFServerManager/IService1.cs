@@ -83,9 +83,9 @@ namespace WCFServerManager
         bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo);
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo);
+        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo);
 
         [OperationContract]
-        bool EseguiDeposito(string IBANCommittente, decimal importo);
+        bool EseguiDeposito(int idContoCorrente, decimal importo);
     }
 }

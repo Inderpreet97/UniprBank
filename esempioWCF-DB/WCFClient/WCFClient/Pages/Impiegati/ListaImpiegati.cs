@@ -1,21 +1,19 @@
 ﻿using EasyConsole;
 using ConsoleTables;
 using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
     class ListaImpiegati : Page
     {
-        public ListaImpiegati(Program program) : base("Sospendi", program) { }
+        public ListaImpiegati(Program program) : base("Lista Impiegati", program) { }
 
         public override void Display()
         {
             base.Display();
-
-            List<Persona> listaImpiegati = new List<Persona>();
-            string idFiliale = LoggedUser.idFiliale;    //L'id filiale del direttore/impiegato che sta richiedendo la lista
-
-            //listaClienti = WCFClient.GetListaPersone("impiegato", string idFiliale);
+            // LoggedUser.idFiliale = L'idfiliale del direttore/impiegato che sta richiedendo la lista
+            List<Persona> listaImpiegati = Globals.wcfClient.GetListaPersone("impiegato", LoggedUser.idFiliale);
 
             var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
                 "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
@@ -28,6 +26,8 @@ namespace WCFClient.Pages
                     persona.cognome, persona.sesso, tempDataNascita, persona.indirizzo, persona.CAP,
                     persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
             });
+
+            table.Write();
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

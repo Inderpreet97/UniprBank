@@ -1,6 +1,7 @@
 ﻿using EasyConsole;
 using ConsoleTables;
 using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
@@ -9,10 +10,9 @@ namespace WCFClient.Pages
         public ListaClienti(Program program) : base("Crea ContoCorrente", program) { }
 
         public void getListaClienti() {
-            List<Persona> listaClienti = new List<Persona>();
-            string idFiliale = LoggedUser.idFiliale; //L'id filiale del direttore/impiegato che sta richiedendo la lista dei clienti
 
-            //listaClienti = WCFClient.GetListaPersone("cliente", string idFiliale);
+            //LoggedUser.idFiliale = L'id filiale del direttore/impiegato che sta richiedendo la lista dei clienti
+            List<Persona> listaClienti = Globals.wcfClient.GetListaPersone("cliente", LoggedUser.idFiliale);
 
             var table = new ConsoleTable("Filiale", "Privilegi", "Codice Fiscale", "Nome", "Cognome", "Sesso",
                 "Data di nascita", "Indirizzo", "CAP", "Città", "Provincia", "Stato", "Numero di Telefono");
@@ -26,7 +26,8 @@ namespace WCFClient.Pages
                     persona.citta, persona.provincia, persona.stato, persona.numeroDiTelefono);
             });
 
-            
+            table.Write();
+
         }
 
         public override void Display()

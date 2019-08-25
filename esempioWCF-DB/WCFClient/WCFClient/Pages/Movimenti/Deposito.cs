@@ -6,32 +6,48 @@ namespace WCFClient.Pages
     class Deposito : Page
     {
 
-        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
-            //WCFClient.EseguiDeposito(idContoCorrente, importo);
-            return false;
-        }
 
         public Deposito(Program program) : base("Deposito", program) { }
 
         public override void Display()
         {
             base.Display();
-            Output.WriteLine("Hello from Page 1Ai");
 
-            int idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
-            while (!FunzioniMovimento.checkIDConto(idContoCorrente)) {
-                Output.WriteLine("Conto non trovato, riprovare");
-                idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
-            }
+            var scelta = 1;
 
-            decimal importo = Convert.ToDecimal("Importo da caricare: ");
-            if (importo > 0) {
-                if (EseguiDeposito(idContoCorrente, importo)) { Output.WriteLine("Deposito di denaro effettuato con successo"); } else {
-                    Output.WriteLine("Deposito non effettuato");
+            do {
+                try {
+
+                    int idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
+                    while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
+
+                        Output.WriteLine("Conto non trovato, riprovare");
+                        idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
+
+                    }
+
+                    decimal importo = Convert.ToDecimal("Importo da caricare: ");
+                    if (importo > 0) {
+
+                        if (Globals.wcfClient.EseguiDeposito(idContoCorrente, importo)) {
+
+                            Output.WriteLine("Deposito di denaro effettuato con successo");
+
+                        } else {
+
+                            Output.WriteLine("Deposito non effettuato");
+                        }
+                    } else {
+
+                        Output.WriteLine("Deposito non effettuato, la cifra non è valida");
+                    }
                 }
-            } else {
-                Output.WriteLine("Deposito non effettuato, la cifra non è valida");
-            }
+                catch (FormatException ex) {
+
+                    Output.WriteLine(ConsoleColor.Red, ex.Message);
+                    scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                }
+            } while (scelta != 1);
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

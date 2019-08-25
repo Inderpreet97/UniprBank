@@ -7,7 +7,7 @@ namespace WCFClient.Pages
     {
 
         public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
-            //WCFClient.EseguiDeposito(idContoCorrente, importo);
+            Globals.wcfClient.EseguiPrelievoDenaro(idContoCorrente, importo);
             return false;
         }
 
@@ -18,14 +18,16 @@ namespace WCFClient.Pages
             base.Display();
 
             int idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
-            while (!FunzioniMovimento.checkIDConto(idContoCorrente)) {
+            while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
                 Output.WriteLine("Conto non trovato, riprovare");
                 idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
             }
 
             decimal importo = Convert.ToDecimal("Importo da caricare: ");
             if (importo > 0) {
-                if (EseguiPrelievoDenaro(idContoCorrente, importo)) { Output.WriteLine("Prelievo di denaro effettuato con successo"); } else {
+                if (EseguiPrelievoDenaro(idContoCorrente, importo)) {
+                    Output.WriteLine("Prelievo di denaro effettuato con successo");
+                } else {
                     Output.WriteLine("Prelievo di denaro non effettuato");
                 }
             } else {

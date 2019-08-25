@@ -21,10 +21,10 @@ namespace WCFServerDB
 	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo); // true (bonifico avvenuto) false (caso contrario)
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo); // true (avvenuto), false (non avvenuto)
+        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
 
         [OperationContract]
-	    bool EseguiDeposito(string IBANCommittente, decimal importo);  // true (avvenuto), false (non avvenuto)
+	    bool EseguiDeposito(int idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
 
 
     }

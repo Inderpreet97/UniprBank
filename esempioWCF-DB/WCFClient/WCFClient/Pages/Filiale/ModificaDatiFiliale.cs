@@ -1,6 +1,7 @@
 ﻿using EasyConsole;
 using System;
 using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
@@ -59,8 +60,7 @@ namespace WCFClient.Pages
             if (!string.IsNullOrWhiteSpace(temp)) { direttore = temp; }
             temp = string.Empty;
 
-            //bool risultato = WCFClient.ModificaFiliale(filiale);
-            bool risultato = false;
+            bool risultato = Globals.wcfClient.ModificaDatiFiliale(LoggedUser.idFiliale, filiale);
 
             if (risultato) { Output.WriteLine("Modifica effettuata correttamente"); } else { Output.WriteLine("Errore"); }
         }
@@ -68,25 +68,15 @@ namespace WCFClient.Pages
         public override void Display(){
             base.Display();
 
-            //WCFClient.getFiliale(LoggedUser.username)
-            Filiale filiale = new Filiale();
+            Filiale filiale = Globals.wcfClient.GetFiliale(LoggedUser.username);
 
             //Stampa dati correnti della filiale            
-            filiale.StampaFiliale();
+            Funzioni.StampaFiliale(filiale);
 
             ModificaFiliale(filiale);
-            //bool risultato = WCFClient.UpdateDatiFilialebool UpdateDatiFiliale([string]nome, [string]indirizzo, [int?]numeroTelefono, ....)
-            bool risulato = false;
-
-            if (risulato) {
-                Output.WriteLine("Dati filiale modificati correttamente...");
-
-            } else {
-                Output.WriteLine("Aggiornamento dati non andato a buon fine...");
-            }
 
             //Stampa nuovamente la filiale
-            filiale.StampaFiliale();
+            Funzioni.StampaFiliale(filiale);
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();
