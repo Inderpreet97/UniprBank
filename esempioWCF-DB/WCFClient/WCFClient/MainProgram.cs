@@ -26,12 +26,12 @@ namespace WCFClient
     static class Funzioni 
     {
         public static void StampaPersona(Persona p) {
-            Output.WriteLine("#########################################");
+            Output.WriteLine("\n\t>> Dati Persona <<\n");
             Output.WriteLine("Tipo di utenza: " + p.privilegi);
             Output.WriteLine("\nUsername: " + p.username + "\nNome: " + p.nome + "\nCognome: " + p.cognome);
-            Output.WriteLine("\nCodice Fiscale: " + p.codiceFiscale + "\nSesso: " + p.sesso + "\nData di nascita" + p.dataDiNascita);
+            Output.WriteLine("\nCodice Fiscale: " + p.codiceFiscale + "\nSesso: " + p.sesso + "\nData di nascita: " + p.dataDiNascita.ToString().Remove(10, 9));
             Output.WriteLine("\nCittà: " + p.citta + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
-            Output.WriteLine("\nNumero di telefono: ", p.numeroDiTelefono);
+            Output.WriteLine("\nNumero di telefono: " + p.numeroDiTelefono);
         }
 
         public static void StampaFiliale(Filiale filiale) {
@@ -64,39 +64,6 @@ namespace WCFClient
                 Output.WriteLine("Beneficiario: ", movimento.IBANBeneficiario);
             }
 
-        }
-
-        public static void algoritmoModificaPersona(Persona persona) {
-            
-            //Lista delle properties dell' oggetto
-            List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
-            
-            //Lista delle properties non modificabili
-            List<string> BlackList = new List<string>() { "privilegi", "filiale" };
-
-            string temp;
-            
-            //Itero tutte le properties dell'oggetto
-            for (int index = 0; index < personaProperties.Count; index++) {
-
-                //Se la property si può modificare (non è contenuta nella blacklist)
-                if (!BlackList.Contains(personaProperties[index].Name)) {
-
-                    temp = Input.ReadString("Nuovo " + personaProperties[index].Name);
-
-                    if (!string.IsNullOrWhiteSpace(temp)) {
-                        if (personaProperties[index].GetValue(persona).GetType() == typeof(int?)) { //Int
-                            personaProperties[index].SetValue(persona, Convert.ToInt32(temp));
-                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(DateTime?)) { //Date time
-                            personaProperties[index].SetValue(persona, Convert.ToDateTime(temp));
-                        } else if (personaProperties[index].GetValue(persona).GetType() == typeof(decimal)){
-                            personaProperties[index].SetValue(persona, Convert.ToDecimal(temp));
-                        } else { //string
-                            personaProperties[index].SetValue(persona, temp);
-                        }
-                    } 
-                }
-            }
         }
 
         public static string digitaNuovoUsername() {
@@ -156,7 +123,6 @@ namespace WCFClient
             DateTime dataDiNascita = Globals.defaultDate;
             int? CAP = null;
             string temp;
-            int? tempInt = null;
 
             //Tutti gli attributi devono essere valorizzati, altrimenti esegue il ciclo while
             while (codiceFiscale == string.Empty || nome == string.Empty || cognome == string.Empty ||
@@ -258,20 +224,53 @@ namespace WCFClient
             altrimenti se lo ho già, vuol dire che la funzione viene chiamata dal cliente/impiegato/direttore
             per modificare il proprio profilo*/
 
-            bool risultato = false;
-            Persona persona = new Persona();
+            if(usernamePersona == string.Empty) {
+                usernamePersona = digitaUsername();
+            }
 
-            //persona.username = digitaUsername();
-            string currentUsername = persona.username;
+            Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
+            StampaPersona(persona);
 
-            Console.Clear();
-            //persona.Stampa();
+            persona = new Persona();
 
-            Input.ReadString("PREMI INVIO PER NON MODIFICARE...");
+            //Lista delle properties dell' oggetto
+            List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
 
-            algoritmoModificaPersona(persona); //Occorre passare l'oggetto per riferimento o basta il valore?
+            //Lista delle properties non modificabili
+            List<string> BlackList = new List<string>() { "privilegi", "filiale" };
 
-            Globals.wcfClient.ModificaPersona(currentUsername, persona);
+            string temp;
+
+            //Itero tutte le properties dell'oggetto
+            for (int index = 0; index < personaProperties.Count; index++) {
+
+                //Se la property si può modificare (non è contenuta nella blacklist)
+                if (!BlackList.Contains(personaProperties[index].Name)) {
+
+                    temp = Input.ReadString("Nuovo " + personaProperties[index].Name + ": ");
+
+                    if (!string.IsNullOrWhiteSpace(temp)) {
+                        if (personaProperties[index].PropertyType == typeof(int?)) { 
+                            //Int
+                            personaProperties[index].SetValue(persona, Convert.ToInt32(temp));
+
+                        } else if (personaProperties[index].PropertyType == typeof(DateTime?)) { 
+                            //Date time
+                            personaProperties[index].SetValue(persona, Convert.ToDateTime(temp));
+
+                        } else if (personaProperties[index].PropertyType == typeof(decimal?)) {
+                            //decimal
+                            personaProperties[index].SetValue(persona, Convert.ToDecimal(temp));
+
+                        } else { 
+                            //string
+                            personaProperties[index].SetValue(persona, temp);
+                        }
+                    }
+                }
+            }
+
+            bool risultato = Globals.wcfClient.ModificaPersona(usernamePersona, persona);
 
             if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
 
