@@ -43,6 +43,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo Login ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                        Console.WriteLine("@password = {0}", password);
                         Console.WriteLine("Risultato: {0}", users);
                     }
 
@@ -98,6 +100,7 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetPrivilegi ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
                         Console.WriteLine("Risultato: {0}", privilegiString);
                     }
 
@@ -177,7 +180,10 @@ namespace WCFServerDB
 
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetListaPersone ============");
-                        Console.WriteLine("Query: {0}", command.CommandText); 
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@privilegi = {0}", tipoAccount);
+                        Console.WriteLine("@idFiliale = {0}", idFiliale);
+                        Console.WriteLine("Numero di risultati: {0}", listaPersone.Count());
                     }
 
                     // Attempt to commit the transaction.
@@ -232,6 +238,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaAccount: Count Accounts ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                        Console.WriteLine("Risultato Numero Account: {0}", numAccountPersona);
                     }
 
                     var codiceFiscale = string.Empty;
@@ -246,6 +254,8 @@ namespace WCFServerDB
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo EliminaAccount: Select CodiceFiscale Account ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
+                            Console.WriteLine("@username = {0}", username);
+                            Console.WriteLine("Risultato CodiceFiscale: {0}", codiceFiscale);
                         }
                     }
 
@@ -259,6 +269,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaAccount ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                        Console.WriteLine("Risultato: {0}", result);
                     }
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -314,6 +326,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaPersona ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@codiceFiscale = {0}", codiceFiscale);
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     // Attempt to commit the transaction.
@@ -387,6 +401,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo CheckUsername ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                        Console.WriteLine("Risultato: {0}", persona.codiceFiscale);
                     }
 
                     // Attempt to commit the transaction.
@@ -465,6 +481,17 @@ namespace WCFServerDB
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo AggiungiPersona: persona ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
+                            Console.WriteLine("@codiceFiscale = {0}", persona.codiceFiscale);
+                            Console.WriteLine("@nome = {0}", persona.nome);
+                            Console.WriteLine("@cognome = {0}", persona.cognome);
+                            Console.WriteLine("@dataDiNascita = {0}", persona.dataDiNascita);
+                            Console.WriteLine("@sesso = {0}", persona.sesso);
+                            Console.WriteLine("@indirizzo = {0}", persona.indirizzo);
+                            Console.WriteLine("@CAP = {0}", persona.CAP);
+                            Console.WriteLine("@provincia = {0}", persona.provincia);
+                            Console.WriteLine("@stato = {0}", persona.stato);
+                            Console.WriteLine("@numeroDiTelefono = {0}", persona.numeroDiTelefono);
+                            Console.WriteLine("Risultato: {0}", result);
                         }
 
                         if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiungere una Persona nel DB");
@@ -497,6 +524,11 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo AggiungiPersona: account ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", persona.username);
+                        Console.WriteLine("@password = {0}", password);
+                        Console.WriteLine("@privilegi = {0}", persona.privilegi);
+                        Console.WriteLine("@codicefiscale = {0}", persona.codiceFiscale);
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     // Attempt to commit the transaction.
@@ -630,6 +662,8 @@ namespace WCFServerDB
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo ModificaPersona: persona ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
+                            Console.WriteLine("@username = {0}", usernameOld);
+                            Console.WriteLine("Risultato: {0}", result);
                         }
 
                         if (result <= 0) throw new Exception("Errore: si è verificato un problema nell'aggiornare una Persona nel DB");
@@ -673,6 +707,8 @@ namespace WCFServerDB
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
+                            Console.WriteLine("@username = {0}", usernameOld);
+                            Console.WriteLine("Risultato: {0}", result);
                         }
 
                         // Attempt to commit the transaction.
@@ -766,6 +802,8 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetPersona ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@codiceFiscale = {0}", codiceFiscale);
+                        Console.WriteLine("Risultato: {0}", persona.codiceFiscale);
                     }
 
                     // Attempt to commit the transaction.
@@ -817,6 +855,7 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetIdFilialeByUsername ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
                         Console.WriteLine("Risultato: {0}", filiale);
                     }
 
