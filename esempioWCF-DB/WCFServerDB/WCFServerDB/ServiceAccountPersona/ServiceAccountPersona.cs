@@ -38,13 +38,16 @@ namespace WCFServerDB
                     command.Parameters["@username"].Value = username;
                     command.Parameters["@password"].Value = password;
 
-                    int? users = (Nullable<int>)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo Login ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@username = {0}", username);
                         Console.WriteLine("@password = {0}", password);
+                    }
+
+                    int? users = (Nullable<int>)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", users);
                     }
 
@@ -95,12 +98,15 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
 
-                    var privilegiString = (string)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetPrivilegi ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@username = {0}", username);
+                    }
+
+                    var privilegiString = (string)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", privilegiString);
                     }
 
@@ -156,6 +162,13 @@ namespace WCFServerDB
                     command.Parameters["@privilegi"].Value = tipoAccount;
                     command.Parameters["@idFiliale"].Value = idFiliale;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetListaPersone ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@privilegi = {0}", tipoAccount);
+                        Console.WriteLine("@idFiliale = {0}", idFiliale);
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
 
@@ -179,10 +192,6 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo GetListaPersone ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
-                        Console.WriteLine("@privilegi = {0}", tipoAccount);
-                        Console.WriteLine("@idFiliale = {0}", idFiliale);
                         Console.WriteLine("Numero di risultati: {0}", listaPersone.Count());
                     }
 
@@ -233,12 +242,15 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
 
-                    int numAccountPersona = (int)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaAccount: Count Accounts ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@username = {0}", username);
+                    }
+
+                    int numAccountPersona = (int)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato Numero Account: {0}", numAccountPersona);
                     }
 
@@ -249,12 +261,15 @@ namespace WCFServerDB
                         command.Parameters.Add("@username", SqlDbType.VarChar);
                         command.Parameters["@username"].Value = username;
 
-                        codiceFiscale = (string)command.ExecuteScalar();
-
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo EliminaAccount: Select CodiceFiscale Account ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
                             Console.WriteLine("@username = {0}", username);
+                        }
+
+                        codiceFiscale = (string)command.ExecuteScalar();
+
+                        if (Globals.debugMode) {
                             Console.WriteLine("Risultato CodiceFiscale: {0}", codiceFiscale);
                         }
                     }
@@ -264,12 +279,15 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
 
-                    int result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaAccount ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@username = {0}", username);
+                    }
+
+                    int result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", result);
                     }
                     // Attempt to commit the transaction.
@@ -321,12 +339,15 @@ namespace WCFServerDB
                     command.Parameters.Add("@codiceFiscale", SqlDbType.VarChar);
                     command.Parameters["@codiceFiscale"].Value = codiceFiscale;
 
-                    int result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EliminaPersona ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@codiceFiscale = {0}", codiceFiscale);
+                    }
+
+                    int result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
@@ -379,6 +400,13 @@ namespace WCFServerDB
                     command.Parameters["@username"].Value = username;
 
                     Persona persona = new Persona();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo CheckUsername ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
                             persona.username = username;
@@ -399,9 +427,6 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo CheckUsername ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
-                        Console.WriteLine("@username = {0}", username);
                         Console.WriteLine("Risultato: {0}", persona.codiceFiscale);
                     }
 
@@ -476,8 +501,6 @@ namespace WCFServerDB
                         command.Parameters["@stato"].Value = persona.stato;
                         command.Parameters["@numeroDiTelefono"].Value = persona.numeroDiTelefono;
 
-                        result = command.ExecuteNonQuery();
-
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo AggiungiPersona: persona ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
@@ -491,6 +514,11 @@ namespace WCFServerDB
                             Console.WriteLine("@provincia = {0}", persona.provincia);
                             Console.WriteLine("@stato = {0}", persona.stato);
                             Console.WriteLine("@numeroDiTelefono = {0}", persona.numeroDiTelefono);
+                        }
+
+                        result = command.ExecuteNonQuery();
+
+                        if (Globals.debugMode) {
                             Console.WriteLine("Risultato: {0}", result);
                         }
 
@@ -519,7 +547,6 @@ namespace WCFServerDB
                      *  String hash = System.Text.Encoding.ASCII.GetString(data);
                      *  
                      */
-                    result = command.ExecuteNonQuery();
 
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo AggiungiPersona: account ============");
@@ -528,6 +555,11 @@ namespace WCFServerDB
                         Console.WriteLine("@password = {0}", password);
                         Console.WriteLine("@privilegi = {0}", persona.privilegi);
                         Console.WriteLine("@codicefiscale = {0}", persona.codiceFiscale);
+                    }
+
+                    result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
@@ -657,12 +689,15 @@ namespace WCFServerDB
                         command.Parameters.Add("@username", SqlDbType.VarChar);
                         command.Parameters["@username"].Value = usernameOld;
 
-                        result = command.ExecuteNonQuery();
-
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo ModificaPersona: persona ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
                             Console.WriteLine("@username = {0}", usernameOld);
+                        }
+
+                        result = command.ExecuteNonQuery();
+
+                        if (Globals.debugMode) {
                             Console.WriteLine("Risultato: {0}", result);
                         }
 
@@ -702,12 +737,16 @@ namespace WCFServerDB
                         command.CommandText += " WHERE username = @username";
                         command.Parameters.Add("@username", SqlDbType.VarChar);
                         command.Parameters["@username"].Value = usernameOld;
-                        result = command.ExecuteNonQuery();
 
                         if (Globals.debugMode) {
                             Console.WriteLine("\n============ Metodo ModificaPersona: account ============");
                             Console.WriteLine("Query: {0}", command.CommandText);
                             Console.WriteLine("@username = {0}", usernameOld);
+                        }
+
+                        result = command.ExecuteNonQuery();
+
+                        if (Globals.debugMode) {
                             Console.WriteLine("Risultato: {0}", result);
                         }
 
@@ -781,6 +820,12 @@ namespace WCFServerDB
                     command.Parameters.Add("@codiceFiscale", SqlDbType.VarChar);
                     command.Parameters["@codiceFiscale"].Value = codiceFiscale;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetPersona ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@codiceFiscale = {0}", codiceFiscale);
+                    }
+
                     Persona persona = new Persona();
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
@@ -800,9 +845,6 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo GetPersona ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
-                        Console.WriteLine("@codiceFiscale = {0}", codiceFiscale);
                         Console.WriteLine("Risultato: {0}", persona.codiceFiscale);
                     }
 
@@ -850,12 +892,15 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
 
-                    var filiale = (string)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetIdFilialeByUsername ============");
                         Console.WriteLine("Query: {0}", command.CommandText);
                         Console.WriteLine("@username = {0}", username);
+                    }
+
+                    var filiale = (string)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", filiale);
                     }
 

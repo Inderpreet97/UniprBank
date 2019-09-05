@@ -35,6 +35,12 @@ namespace WCFServerDB
 
                     ContoCorrente contoCorrente = new ContoCorrente();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo SelectContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
                             contoCorrente.idContoCorrente = idContoCorrente;
@@ -46,8 +52,7 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo SelectContoCorrente ============");
-                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("Risultato: {0}", contoCorrente.IBAN);
                     }
 
                     // Attempt to commit the transaction.
@@ -94,11 +99,16 @@ namespace WCFServerDB
                     command.Parameters.Add("@IBAN", SqlDbType.VarChar);
                     command.Parameters["@IBAN"].Value = IBAN; ;
 
-                    int? conti = (Nullable<int>)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo CheckIBAN ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBAN = {0}", IBAN);
+                    }
+
+                    int? conti = (Nullable<int>)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", conti);
                     }
 
                     // Attempt to commit the transaction.
@@ -148,11 +158,16 @@ namespace WCFServerDB
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente; ;
 
-                    int? conti = (Nullable<int>)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo CheckIDConto ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+                    }
+
+                    int? conti = (Nullable<int>)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", conti);
                     }
 
                     // Attempt to commit the transaction.
@@ -206,12 +221,18 @@ namespace WCFServerDB
                     command.Parameters["@idFiliale"].Value = idFiliale;
                     command.Parameters["@saldo"].Value = saldo;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo AggiungiContoCorrente ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                        Console.WriteLine("@idFiliale = {0}", idFiliale);
+                        Console.WriteLine("@saldo = {0}", saldo);
+                    }
 
                     int result = command.ExecuteNonQuery();
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo AggiungiContoCorrente ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     // Attempt to commit the transaction.
@@ -263,6 +284,12 @@ namespace WCFServerDB
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetListaContoCorrente ============");
+                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
 
@@ -276,8 +303,7 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo GetListaContoCorrente ============");
-                        Console.WriteLine("Query: {0}", command.CommandText);
+                        Console.WriteLine("Risultato: {0}", listaContoCorrente.Count());
                     }
 
                     // Attempt to commit the transaction.
