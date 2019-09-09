@@ -203,6 +203,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetIBANByIdContoCorrente">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idContoCorrente" type="xs:unsignedLong" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetIBANByIdContoCorrenteResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetIBANByIdContoCorrenteResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetFiliale">
     <xs:complexType>
       <xs:sequence>
