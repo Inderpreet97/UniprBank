@@ -16,7 +16,7 @@ namespace WCFClient.Pages
             while (!risultato) {
                 usernameImpiegato = Input.ReadString("Inserire username impiegato da attivare: ");
                 //Richiesta al database
-                //bool risultato = WCFCLient.AttivaImpiegato(string username);                        
+                //bool risultato = Globals.WCFCLient.AttivaImpiegato(string username);                        
                 if (risultato) { Output.WriteLine("Impiegato attivato con successo"); risultato = true; } else {
                     Output.WriteLine("Impiegato non trovato");
                     string esc = Input.ReadString("1-Riprova\nPremere qualsiasi tasto per uscire");
