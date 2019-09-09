@@ -15,6 +15,7 @@ namespace WCFClient
             AddPage(new Prelievo(this));
             AddPage(new Deposito(this));
             AddPage(new ProfiloMenu(this));
+            AddPage(new ProfiloModifica(this));
             AddPage(new ProfiloLogout(this));
             AddPage(new ContoMenu(this));
             AddPage(new VisualizzaConto(this));

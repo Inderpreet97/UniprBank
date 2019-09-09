@@ -6,7 +6,7 @@ namespace WCFClient.Pages
     {   
         public ProfiloMenu(Program program) 
             : base("Profilo", program, 
-                    new Option("Menu1" , ()=> program.NavigateTo<MainMenuDirettore>()),
+                    new Option("Modifica" , ()=> program.NavigateTo<ProfiloModifica>()),
                     new Option("Logout" , ()=> program.NavigateTo<ProfiloLogout>()))
         { 
         }
