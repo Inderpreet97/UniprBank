@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using WCFServerManager.ServiceReferenceAccountPersona;
 using WCFServerManager.ServiceReferenceContoCorrente;
@@ -27,7 +28,7 @@ namespace WCFServerManager
             return serviceContoCorrenteClient.CheckIBAN(IBAN);
         }
 
-        public bool CheckIDConto(int idContoCorrente) {
+        public bool CheckIDConto(UInt64 idContoCorrente) {
             return serviceContoCorrenteClient.CheckIDConto(idContoCorrente);
         }
 
@@ -47,11 +48,11 @@ namespace WCFServerManager
             return serviceMovimentiClient.EseguiBonifico(IBANCommittente, IBANBeneficiario, importo);
         }
 
-        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
+        public bool EseguiDeposito(UInt64 idContoCorrente, decimal importo) {
             return serviceMovimentiClient.EseguiDeposito(idContoCorrente, importo);
         }
 
-        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
+        public bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo) {
             return serviceMovimentiClient.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
 
@@ -67,7 +68,7 @@ namespace WCFServerManager
             return serviceContoCorrenteClient.GetListaContoCorrente(username).ToList();
         }
 
-        public List<Movimento> GetListaMovimenti(int idContoCorrente) {
+        public List<Movimento> GetListaMovimenti(UInt64 idContoCorrente) {
             return serviceMovimentiClient.GetListaMovimenti(idContoCorrente).ToList();
 
         }
@@ -105,7 +106,7 @@ namespace WCFServerManager
 
         }
 
-        public ContoCorrente SelectContoCorrente(int idContoCorrente) {
+        public ContoCorrente SelectContoCorrente(UInt64 idContoCorrente) {
             return serviceContoCorrenteClient.SelectContoCorrente(idContoCorrente);
 
         }

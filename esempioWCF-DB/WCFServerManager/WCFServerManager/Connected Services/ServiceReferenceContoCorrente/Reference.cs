@@ -26,7 +26,7 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         private string IBANField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Nullable<int> idContoCorrenteField;
+        private System.Nullable<ulong> idContoCorrenteField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string idFilialeField;
@@ -61,7 +61,7 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Nullable<int> idContoCorrente {
+        public System.Nullable<ulong> idContoCorrente {
             get {
                 return this.idContoCorrenteField;
             }
@@ -133,10 +133,10 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente[]> GetListaContoCorrenteAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/SelectContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/SelectContoCorrenteResponse")]
-        WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(int idContoCorrente);
+        WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/SelectContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/SelectContoCorrenteResponse")]
-        System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente);
+        System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIBAN", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIBANResponse")]
         bool CheckIBAN(string IBAN);
@@ -145,10 +145,10 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         System.Threading.Tasks.Task<bool> CheckIBANAsync(string IBAN);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIDConto", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIDContoResponse")]
-        bool CheckIDConto(int idContoCorrente);
+        bool CheckIDConto(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/CheckIDConto", ReplyAction="http://tempuri.org/IServiceContoCorrente/CheckIDContoResponse")]
-        System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente);
+        System.Threading.Tasks.Task<bool> CheckIDContoAsync(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrenteResponse")]
         bool AggiungiContoCorrente(string username, string idFiliale, System.Nullable<decimal> saldo);
@@ -192,11 +192,11 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
             return base.Channel.GetListaContoCorrenteAsync(username);
         }
         
-        public WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(int idContoCorrente) {
+        public WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente SelectContoCorrente(ulong idContoCorrente) {
             return base.Channel.SelectContoCorrente(idContoCorrente);
         }
         
-        public System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(int idContoCorrente) {
+        public System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceContoCorrente.ContoCorrente> SelectContoCorrenteAsync(ulong idContoCorrente) {
             return base.Channel.SelectContoCorrenteAsync(idContoCorrente);
         }
         
@@ -208,11 +208,11 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
             return base.Channel.CheckIBANAsync(IBAN);
         }
         
-        public bool CheckIDConto(int idContoCorrente) {
+        public bool CheckIDConto(ulong idContoCorrente) {
             return base.Channel.CheckIDConto(idContoCorrente);
         }
         
-        public System.Threading.Tasks.Task<bool> CheckIDContoAsync(int idContoCorrente) {
+        public System.Threading.Tasks.Task<bool> CheckIDContoAsync(ulong idContoCorrente) {
             return base.Channel.CheckIDContoAsync(idContoCorrente);
         }
         

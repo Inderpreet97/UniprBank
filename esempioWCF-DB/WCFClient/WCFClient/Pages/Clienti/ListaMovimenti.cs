@@ -18,7 +18,7 @@ namespace WCFClient.Pages
 
             do {
                 try {
-                    int idContoCorrente = Convert.ToInt32(Input.ReadString("Id conto corrente: "));
+                    UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Id conto corrente: "));
 
                     List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(idContoCorrente);
 

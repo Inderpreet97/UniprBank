@@ -12,7 +12,7 @@ namespace WCFServerDB
     public interface IServiceMovimenti
     {
         [OperationContract]
-        List<Movimento> GetListaMovimenti(int idContoCorrente);
+        List<Movimento> GetListaMovimenti(UInt64 idContoCorrente);
 
         [OperationContract]
         bool CheckImporto(decimal importo, string IBANCommittente); // controlla se il saldo ricopre l'importo del bonifico
@@ -21,10 +21,10 @@ namespace WCFServerDB
 	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo); // true (bonifico avvenuto) false (caso contrario)
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
+        bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
 
         [OperationContract]
-	    bool EseguiDeposito(int idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
+	    bool EseguiDeposito(UInt64 idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
 
 
     }

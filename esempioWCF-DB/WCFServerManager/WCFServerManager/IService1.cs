@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using WCFServerManager.ServiceReferenceAccountPersona;
 using WCFServerManager.ServiceReferenceContoCorrente;
@@ -47,13 +48,13 @@ namespace WCFServerManager
         List<ContoCorrente> GetListaContoCorrente(string username);
 
         [OperationContract]
-        ContoCorrente SelectContoCorrente(int idContoCorrente);
+        ContoCorrente SelectContoCorrente(UInt64 idContoCorrente);
 
         [OperationContract]
         bool CheckIBAN(string IBAN);
 
         [OperationContract]
-        bool CheckIDConto(int idContoCorrente);
+        bool CheckIDConto(UInt64 idContoCorrente);
 
         [OperationContract]
         bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
@@ -74,7 +75,7 @@ namespace WCFServerManager
         // Metodi Movimenti 
 
         [OperationContract]
-        List<Movimento> GetListaMovimenti(int idContoCorrente);
+        List<Movimento> GetListaMovimenti(UInt64 idContoCorrente);
 
         [OperationContract]
         bool CheckImporto(decimal importo, string IBANCommittente);
@@ -83,9 +84,9 @@ namespace WCFServerManager
         bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo);
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo);
+        bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo);
 
         [OperationContract]
-        bool EseguiDeposito(int idContoCorrente, decimal importo);
+        bool EseguiDeposito(UInt64 idContoCorrente, decimal importo);
     }
 }

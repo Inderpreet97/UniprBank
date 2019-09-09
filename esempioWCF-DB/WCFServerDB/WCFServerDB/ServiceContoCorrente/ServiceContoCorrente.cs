@@ -13,7 +13,7 @@ namespace WCFServerDB
     // NOTA: è possibile utilizzare il comando "Rinomina" del menu "Refactoring" per modificare il nome di classe "ServiceContoCorrente" nel codice e nel file di configurazione contemporaneamente.
     public class ServiceContoCorrente : IServiceContoCorrente
     {
-        public ContoCorrente SelectContoCorrente(int idContoCorrente)
+        public ContoCorrente SelectContoCorrente(UInt64 idContoCorrente)
         {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
@@ -138,7 +138,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool CheckIDConto(int idContoCorrente) {
+        public bool CheckIDConto(UInt64 idContoCorrente) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -293,7 +293,7 @@ namespace WCFServerDB
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
 
-                            var idContoCorrente = (int)reader.GetDecimal(0);
+                            var idContoCorrente = (UInt64)reader.GetDecimal(0);
                             var IBAN = reader.GetString(1);
                             var saldo = reader.GetDecimal(2);
                             var idFiliale = reader.GetString(3);

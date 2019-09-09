@@ -20,14 +20,18 @@ namespace WCFClient.Pages
             }
 
             //SELEZIONARE IBAN
-            string IBANCommittente = Input.ReadString("IBAN conto corrente con il quale effettuare il bonifico: ");
+            string IBANCommittente = Input.ReadString("IBAN Committente: ");
+            while (!Globals.wcfClient.CheckIBAN(IBANCommittente)) {
+                Output.WriteLine("IBAN non esistente, riprovare");
+                IBANCommittente = Input.ReadString("IBAN Committente: ");
+            }
 
             var scelta = 1;
 
             do {
                 try {
                     //IMPORTO BONIFICO
-                    decimal importoBonifico = Convert.ToDecimal("Importo bonifico: ");
+                    decimal importoBonifico = Convert.ToDecimal(Input.ReadString("Importo bonifico: "));
                     bool importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente); ;
 
                     while (importoBonifico < 0 || !importoDisponibile) {
@@ -41,7 +45,7 @@ namespace WCFClient.Pages
                             Output.WriteLine("Il saldo non ricopre l'importo");
                         }
 
-                        importoBonifico = Convert.ToDecimal("Importo bonifico: ");
+                        importoBonifico = Convert.ToDecimal(Input.ReadString("Importo bonifico: "));
 
                         importoDisponibile = Globals.wcfClient.CheckImporto(importoBonifico, IBANCommittente);
                     };

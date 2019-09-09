@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
@@ -12,13 +13,13 @@ namespace WCFServerDB
         List<ContoCorrente> GetListaContoCorrente(string username);
 
         [OperationContract]
-        ContoCorrente SelectContoCorrente(int idContoCorrente);
+        ContoCorrente SelectContoCorrente(UInt64 idContoCorrente);
 
         [OperationContract]
         bool CheckIBAN(string IBAN); //true se l'iban esiste, false in caso contrario
 
         [OperationContract]
-        bool CheckIDConto(int idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
+        bool CheckIDConto(UInt64 idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
 
         [OperationContract]
         bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
@@ -29,7 +30,7 @@ namespace WCFServerDB
     {
 
         [DataMember]
-        public int? idContoCorrente { get; set; } = null;
+        public UInt64? idContoCorrente { get; set; } = null;
         [DataMember]
         public string IBAN { get; set; } = string.Empty;
         [DataMember]
@@ -47,7 +48,7 @@ namespace WCFServerDB
             this.idFiliale = string.Empty;
         }
 
-        public ContoCorrente(int? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
+        public ContoCorrente(UInt64? idContoCorrente, string IBAN, string username, decimal? saldo, string idFiliale) {
             this.idContoCorrente = idContoCorrente;
             this.IBAN = IBAN;
             this.username = username;

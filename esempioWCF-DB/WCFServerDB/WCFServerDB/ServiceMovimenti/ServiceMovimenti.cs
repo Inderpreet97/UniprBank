@@ -200,7 +200,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
+        public bool EseguiDeposito(UInt64 idContoCorrente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -317,7 +317,7 @@ namespace WCFServerDB
             }
         }
 
-        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
+        public bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
 
@@ -426,7 +426,7 @@ namespace WCFServerDB
             }
         }
 
-        public List<Movimento> GetListaMovimenti(int idContoCorrente) {
+        public List<Movimento> GetListaMovimenti(UInt64 idContoCorrente) {
             List<Movimento> listaMovimenti = new List<Movimento>() { };
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
@@ -451,6 +451,13 @@ namespace WCFServerDB
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetListaMovimenti ============");
+                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
 
@@ -464,10 +471,9 @@ namespace WCFServerDB
                             listaMovimenti.Add(new Movimento(idMovimenti, IBANCommittente, tipo, importo, IBANBeneficiario, dataOra));
                         }
                     }
-
+                    
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo GetListaMovimenti ============");
-                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("Risultato: {0}", listaMovimenti.Count());
                     }
 
                     // Attempt to commit the transaction.

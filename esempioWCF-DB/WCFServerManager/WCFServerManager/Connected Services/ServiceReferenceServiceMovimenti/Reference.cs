@@ -143,10 +143,10 @@ namespace WCFServerManager.ServiceReferenceServiceMovimenti {
     public interface IServiceMovimenti {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/GetListaMovimenti", ReplyAction="http://tempuri.org/IServiceMovimenti/GetListaMovimentiResponse")]
-        WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[] GetListaMovimenti(int idContoCorrente);
+        WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[] GetListaMovimenti(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/GetListaMovimenti", ReplyAction="http://tempuri.org/IServiceMovimenti/GetListaMovimentiResponse")]
-        System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[]> GetListaMovimentiAsync(int idContoCorrente);
+        System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[]> GetListaMovimentiAsync(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/CheckImporto", ReplyAction="http://tempuri.org/IServiceMovimenti/CheckImportoResponse")]
         bool CheckImporto(decimal importo, string IBANCommittente);
@@ -161,16 +161,16 @@ namespace WCFServerManager.ServiceReferenceServiceMovimenti {
         System.Threading.Tasks.Task<bool> EseguiBonificoAsync(string IBANCommittente, string IBANBeneficiario, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaroResponse")]
-        bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo);
+        bool EseguiPrelievoDenaro(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaroResponse")]
-        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(int idContoCorrente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiDeposito", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiDepositoResponse")]
-        bool EseguiDeposito(int idContoCorrente, decimal importo);
+        bool EseguiDeposito(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiDeposito", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiDepositoResponse")]
-        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(int idContoCorrente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(ulong idContoCorrente, decimal importo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -200,11 +200,11 @@ namespace WCFServerManager.ServiceReferenceServiceMovimenti {
                 base(binding, remoteAddress) {
         }
         
-        public WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[] GetListaMovimenti(int idContoCorrente) {
+        public WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[] GetListaMovimenti(ulong idContoCorrente) {
             return base.Channel.GetListaMovimenti(idContoCorrente);
         }
         
-        public System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[]> GetListaMovimentiAsync(int idContoCorrente) {
+        public System.Threading.Tasks.Task<WCFServerManager.ServiceReferenceServiceMovimenti.Movimento[]> GetListaMovimentiAsync(ulong idContoCorrente) {
             return base.Channel.GetListaMovimentiAsync(idContoCorrente);
         }
         
@@ -224,19 +224,19 @@ namespace WCFServerManager.ServiceReferenceServiceMovimenti {
             return base.Channel.EseguiBonificoAsync(IBANCommittente, IBANBeneficiario, importo);
         }
         
-        public bool EseguiPrelievoDenaro(int idContoCorrente, decimal importo) {
+        public bool EseguiPrelievoDenaro(ulong idContoCorrente, decimal importo) {
             return base.Channel.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(int idContoCorrente, decimal importo) {
+        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(ulong idContoCorrente, decimal importo) {
             return base.Channel.EseguiPrelievoDenaroAsync(idContoCorrente, importo);
         }
         
-        public bool EseguiDeposito(int idContoCorrente, decimal importo) {
+        public bool EseguiDeposito(ulong idContoCorrente, decimal importo) {
             return base.Channel.EseguiDeposito(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(int idContoCorrente, decimal importo) {
+        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(ulong idContoCorrente, decimal importo) {
             return base.Channel.EseguiDepositoAsync(idContoCorrente, importo);
         }
     }

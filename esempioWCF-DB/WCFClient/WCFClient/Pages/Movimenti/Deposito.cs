@@ -18,15 +18,15 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                   UInt64 idContoCorrente = Convert.ToUInt64("Numero di conto corrente: ");
+                   UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
                     while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
 
                         Output.WriteLine("Conto non trovato, riprovare");
-                        idContoCorrente = Convert.ToUInt64("Numero di conto corrente: ");
+                        idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
 
                     }
 
-                    decimal importo = Convert.ToDecimal("Importo da caricare: ");
+                    decimal importo = Convert.ToDecimal(Input.ReadString("Importo da caricare: "));
                     if (importo > 0) {
 
                         if (Globals.wcfClient.EseguiDeposito(idContoCorrente, importo)) {
