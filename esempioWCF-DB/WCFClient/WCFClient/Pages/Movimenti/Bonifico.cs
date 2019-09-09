@@ -21,13 +21,11 @@ namespace WCFClient.Pages
 
             //IBAN COMMITTENTE
             UInt64 contoScelto = Funzioni.scegliIdContoCorrente(LoggedUser.contoCorrenti);
-            //string IBANCommittente = Globals.wcfClient.getIBANbyIdContoCorrente(contoScelto);
+            string IBANCommittente = Globals.wcfClient.GetIBANByIdContoCorrente(contoScelto);
             /*while (!Globals.wcfClient.CheckIBAN(IBANCommittente)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
                 IBANCommittente = Input.ReadString("IBAN Committente: ");
             }*/
-
-            string IBANCommittente = string.Empty;
 
             var scelta = 1;
 
