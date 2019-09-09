@@ -231,35 +231,30 @@ namespace WCFClient
             Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
 
             StampaPersona(persona);
-
-            persona = new Persona();
-
-            /*
-                persona.username = string.Empty;
-                persona.privilegi = string.Empty;
-                persona.codiceFiscale = string.Empty;
-                persona.nome = string.Empty;
-                persona.cognome = string.Empty;
-                persona.dataDiNascita = null;
-                persona.sesso = string.Empty;
-                persona.indirizzo = string.Empty;
-                persona.CAP = null;
-                persona.citta = string.Empty;
-                persona.provincia = string.Empty;
-                persona.stato = string.Empty;
-                persona.numeroDiTelefono = string.Empty;
-                persona.filiale = string.Empty;
-             */
+            
+            persona.username = string.Empty;
+            persona.privilegi = string.Empty;
+            persona.codiceFiscale = string.Empty;
+            persona.nome = string.Empty;
+            persona.cognome = string.Empty;
+            persona.dataDiNascita = null;
+            persona.sesso = string.Empty;
+            persona.indirizzo = string.Empty;
+            persona.CAP = null;
+            persona.citta = string.Empty;
+            persona.provincia = string.Empty;
+            persona.stato = string.Empty;
+            persona.numeroDiTelefono = string.Empty;
+            persona.filiale = string.Empty;
+             
 
             //Lista delle properties dell' oggetto
             List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
 
             //Lista delle properties non modificabili
-            List<string> BlackList = new List<string>() { "privilegi", "filiale" };
+            List<string> BlackList = new List<string>() { "privilegi", "filiale", "ExtensionData"};
 
             string temp;
-
-            persona = new Persona();
 
             //Itero tutte le properties dell'oggetto
             for (int index = 0; index < personaProperties.Count; index++) {

@@ -18,11 +18,11 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                    int idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
+                   UInt64 idContoCorrente = Convert.ToUInt64("Numero di conto corrente: ");
                     while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
 
                         Output.WriteLine("Conto non trovato, riprovare");
-                        idContoCorrente = Convert.ToInt32("Numero di conto corrente: ");
+                        idContoCorrente = Convert.ToUInt64("Numero di conto corrente: ");
 
                     }
 
