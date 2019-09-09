@@ -96,7 +96,6 @@ namespace WCFClient
             }
             return username;
 
-
         }
 
         public static bool checkEta(DateTime dataDiNascita) {
@@ -261,14 +260,6 @@ namespace WCFClient
             string temp;
 
             persona = new Persona();
-
-            //Lista delle properties dell' oggetto
-            List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
-
-            //Lista delle properties non modificabili
-            List<string> BlackList = new List<string>() { "privilegi", "filiale" };
-
-            string temp;
 
             //Itero tutte le properties dell'oggetto
             for (int index = 0; index < personaProperties.Count; index++) {
