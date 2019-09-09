@@ -345,6 +345,7 @@ namespace WCFClient
                     break;
                 case "cliente":
                     LoggedUser.privilegi = "cliente";
+                    LoggedUser.contoCorrenti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);
                     new ClienteProgram().Run();
                     break;
                 default:

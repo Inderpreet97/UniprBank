@@ -18,8 +18,44 @@ namespace WCFClient.Pages
 
             do {
                 try {
-                    UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Id conto corrente: "));
 
+                    List<ContoCorrente> listaContiUser = new List<ContoCorrente>(); //Lista contenenti i conti di un utente
+                    List<UInt64?> listaNumeriConto = new List<UInt64?>(); //Lista contenente i numeri di conto dei contocorrenti di un utente
+
+                    //-----RICHIESTA USERNAME-------
+                    //---L'impiegato o il direttore devono inserire l'username dell'account della quale si vuole ottenere la lista movimenti
+                    //---Se invece il LoggedUser è cliente la lista dei conti viene caricata nella fase di login
+
+                    //Impiegato e direttore
+                    if (LoggedUser.privilegi != "cliente") { 
+                        string username = Funzioni.digitaUsername();
+                        listaContiUser = Globals.wcfClient.GetListaContoCorrente(username);
+                    } else { //Cliente
+                        listaContiUser = LoggedUser.contoCorrenti;
+                    }
+
+                    //-----NUMERI DI CONTO DI QUELL'UTENTE--------
+                    listaContiUser.ForEach(conto => { //Popola la lista dei numeri di conto
+                        listaNumeriConto.Add(conto.idContoCorrente);
+                    });
+                    
+                    //Stampa e scelta del contocorrente di cui visualizzare la lista
+                    UInt64? sceltaConto = null;
+
+                    do {
+                        var tableConti = new ConsoleTable("Numero di conto", "IBAN", "Saldo");
+                        listaContiUser.ForEach(conto => {
+                            tableConti.AddRow(conto.idContoCorrente, conto.IBAN, conto.saldo);
+                        });
+                        tableConti.Write();
+                        sceltaConto = Convert.ToUInt64(Input.ReadString("Digitare il numero di conto corrente: "));
+                    } while (!listaNumeriConto.Contains(sceltaConto));
+
+                    Output.WriteLine("Numero di conto corrente corretto");
+
+                    //UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Id conto corrente: "));
+
+                    UInt64 idContoCorrente = Convert.ToUInt64(sceltaConto);
                     List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(idContoCorrente);
 
                     var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
