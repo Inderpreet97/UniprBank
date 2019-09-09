@@ -1,5 +1,5 @@
-﻿
-using EasyConsole;
+﻿using EasyConsole;
+using ConsoleTables;
 using System;
 
 namespace WCFClient.Pages
@@ -12,19 +12,22 @@ namespace WCFClient.Pages
         public override void Display() {
             base.Display();
 
-            //IBAN
+            //IBAN BENEFICIARIO
             string IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             while (!Globals.wcfClient.CheckIBAN(IBANBeneficiario)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
                 IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             }
 
-            //SELEZIONARE IBAN
-            string IBANCommittente = Input.ReadString("IBAN Committente: ");
-            while (!Globals.wcfClient.CheckIBAN(IBANCommittente)) {
+            //IBAN COMMITTENTE
+            UInt64 contoScelto = Funzioni.scegliIdContoCorrente(LoggedUser.contoCorrenti);
+            //string IBANCommittente = Globals.wcfClient.getIBANbyIdContoCorrente(contoScelto);
+            /*while (!Globals.wcfClient.CheckIBAN(IBANCommittente)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
                 IBANCommittente = Input.ReadString("IBAN Committente: ");
-            }
+            }*/
+
+            string IBANCommittente = string.Empty;
 
             var scelta = 1;
 
