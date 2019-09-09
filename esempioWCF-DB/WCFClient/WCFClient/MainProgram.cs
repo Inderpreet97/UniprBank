@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EasyConsole;
 using System.Configuration;
 using WCFClient.ServiceReference1;
+using ConsoleTables;
 
 namespace WCFClient
 {
@@ -291,6 +292,30 @@ namespace WCFClient
 
         }
 
+        public static UInt64 scegliIdContoCorrente(List<ContoCorrente> listaContiUser) {
+
+            List<UInt64?> listaNumeriConto = new List<UInt64?>(); //Lista contenente i numeri di conto dei contocorrenti di un utente
+
+            listaContiUser.ForEach(conto => { //Popola la lista dei numeri di conto
+                listaNumeriConto.Add(conto.idContoCorrente);
+            });
+
+            //Stampa e scelta del contocorrente di cui visualizzare la lista
+            UInt64? sceltaConto = null;
+
+            do {
+                var tableConti = new ConsoleTable("Numero di conto", "IBAN", "Saldo");
+                listaContiUser.ForEach(conto => {
+                    tableConti.AddRow(conto.idContoCorrente, conto.IBAN, conto.saldo);
+                });
+                tableConti.Write();
+                sceltaConto = Convert.ToUInt64(Input.ReadString("Digitare il numero di conto corrente: "));
+            } while (!listaNumeriConto.Contains(sceltaConto));
+
+            Output.WriteLine("Numero di conto corrente corretto");
+
+            return Convert.ToUInt64(sceltaConto);
+        }
     }
 
     class MainProgram
