@@ -36,6 +36,12 @@ namespace WCFServerDB
 
                     Filiale filiale = new Filiale();
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo GetFiliale ============");
+                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@username = {0}", username);
+                    }
+
                     using (SqlDataReader reader = command.ExecuteReader()) {
                         while (reader.Read()) {
                             filiale.idFiliale = reader.GetString(0);
@@ -50,9 +56,9 @@ namespace WCFServerDB
                     }
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo GetFiliale ============");
-                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("Risultato: {0}", filiale.idFiliale);
                     }
+
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     return filiale;
@@ -96,11 +102,16 @@ namespace WCFServerDB
                     command.Parameters.Add("@idFiliale", SqlDbType.VarChar);
                     command.Parameters["@idFiliale"].Value = idFiliale;
 
-                    var nome = (string)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo GetNameFiliale ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idFiliale = {0}", idFiliale);
+                    }
+
+                    var nome = (string)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", nome);
                     }
                     // Attempt to commit the transaction.
                     transaction.Commit();
@@ -196,9 +207,14 @@ namespace WCFServerDB
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo ModificaDatiFiliale ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idFiliale = {0}", idFiliale);
                     }
 
                     int result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
+                    }
 
                     // Attempt to commit the transaction.
                     transaction.Commit();

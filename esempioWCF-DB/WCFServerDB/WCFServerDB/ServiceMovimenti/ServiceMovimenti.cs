@@ -33,11 +33,16 @@ namespace WCFServerDB
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
                     command.Parameters["@IBANCommittente"].Value = IBANCommittente; ;
 
-                    decimal? saldo = (Nullable<decimal>)command.ExecuteScalar();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ CheckImporto ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANCommittente = {0}", IBANCommittente);
+                    }
+
+                    decimal? saldo = (Nullable<decimal>)command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", saldo);
                     }
 
                     // Attempt to commit the transaction.
@@ -94,11 +99,17 @@ namespace WCFServerDB
                     command.Parameters["@IBANCommittente"].Value = IBANCommittente;
                     command.Parameters["@importo"].Value = importo;
 
-                    var result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiBonifico: Update Saldo ContoCorrente Committente ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANCommittente = {0}", IBANCommittente);
+                        Console.WriteLine("@importo = {0}", importo);
+                    }
+
+                    var result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     if (result <= 0) {
@@ -115,11 +126,17 @@ namespace WCFServerDB
                     command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
                     command.Parameters["@importo"].Value = importo;
 
-                    result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiBonifico: Update Saldo ContoCorrente Beneficiario ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANBeneficiario = {0}", IBANBeneficiario);
+                        Console.WriteLine("@importo = {0}", importo);
+                    }
+
+                    result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     if (result <= 0) {
@@ -142,11 +159,20 @@ namespace WCFServerDB
                     command.Parameters["@IBANBeneficiario"].Value = IBANBeneficiario;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
-                    result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiBonifico: Aggiunta Movimento ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANCommittente = {0}", IBANCommittente);
+                        Console.WriteLine("@tipo = {0}", "bonifico");
+                        Console.WriteLine("@importo = {0}", importo);
+                        Console.WriteLine("@IBANBeneficiario = {0}", IBANBeneficiario);
+                        Console.WriteLine("@dataOra = {0}", DateTime.Now);
+                    }
+
+                    result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     // Attempt to commit the transaction.
@@ -198,12 +224,17 @@ namespace WCFServerDB
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
                     command.Parameters["@importo"].Value = importo;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiDeposito: Update Saldo ContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+                        Console.WriteLine("@importo = {0}", importo);
+                    }
 
                     var result = command.ExecuteNonQuery();
 
                     if (Globals.debugMode) {
-                        Console.WriteLine("\n============ Metodo EseguiDeposito: Update Saldo ContoCorrente ============");
-                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     if (result <= 0) {
@@ -217,7 +248,17 @@ namespace WCFServerDB
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
 
+                    if (Globals.debugMode) {
+                        Console.WriteLine("\n============ Metodo EseguiDeposito: SELECT IBAN ContoCorrente ============");
+                        Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+                    }
+
                     var IBANCommittente = command.ExecuteScalar();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", IBANCommittente);
+                    }
 
                     command.Parameters.Clear();
 
@@ -235,11 +276,20 @@ namespace WCFServerDB
                     command.Parameters["@IBANBeneficiario"].Value = DBNull.Value;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
-                    result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiDeposito: Aggiunta Movimento ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANCommittente = {0}", IBANCommittente);
+                        Console.WriteLine("@tipo = {0}", "deposito");
+                        Console.WriteLine("@importo = {0}", importo);
+                        Console.WriteLine("@IBANBeneficiario = {0}", string.Empty);
+                        Console.WriteLine("@dataOra = {0}", DateTime.Now);
+                    }
+
+                    result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     // Attempt to commit the transaction.
@@ -291,11 +341,17 @@ namespace WCFServerDB
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
                     command.Parameters["@importo"].Value = importo;
 
-                    var result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiPrelievoDenaro: Update Saldo ContoCorrente ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
+                        Console.WriteLine("@importo = {0}", importo);
+                    }
+
+                    var result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
                     }
 
                     if (result <= 0) {
@@ -328,12 +384,22 @@ namespace WCFServerDB
                     command.Parameters["@IBANBeneficiario"].Value = DBNull.Value;
                     command.Parameters["@dataOra"].Value = DateTime.Now;
 
-                    result = command.ExecuteNonQuery();
-
                     if (Globals.debugMode) {
                         Console.WriteLine("\n============ Metodo EseguiPrelievoDenaro: Aggiunta Movimento ============");
                         Console.WriteLine(command.CommandText);
+                        Console.WriteLine("@IBANCommittente = {0}", IBANCommittente);
+                        Console.WriteLine("@tipo = {0}", "prelievo");
+                        Console.WriteLine("@importo = {0}", importo);
+                        Console.WriteLine("@IBANBeneficiario = {0}", string.Empty);
+                        Console.WriteLine("@dataOra = {0}", DateTime.Now);
                     }
+
+                    result = command.ExecuteNonQuery();
+
+                    if (Globals.debugMode) {
+                        Console.WriteLine("Risultato: {0}", result);
+                    }
+                    
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
