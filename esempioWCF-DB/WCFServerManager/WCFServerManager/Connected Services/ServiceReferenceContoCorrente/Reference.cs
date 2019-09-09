@@ -155,6 +155,12 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrenteResponse")]
         System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrenteResponse")]
+        string GetIBANByIdContoCorrente(ulong idContoCorrente);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrente", ReplyAction="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrenteResponse")]
+        System.Threading.Tasks.Task<string> GetIBANByIdContoCorrenteAsync(ulong idContoCorrente);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -222,6 +228,14 @@ namespace WCFServerManager.ServiceReferenceContoCorrente {
         
         public System.Threading.Tasks.Task<bool> AggiungiContoCorrenteAsync(string username, string idFiliale, System.Nullable<decimal> saldo) {
             return base.Channel.AggiungiContoCorrenteAsync(username, idFiliale, saldo);
+        }
+        
+        public string GetIBANByIdContoCorrente(ulong idContoCorrente) {
+            return base.Channel.GetIBANByIdContoCorrente(idContoCorrente);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetIBANByIdContoCorrenteAsync(ulong idContoCorrente) {
+            return base.Channel.GetIBANByIdContoCorrenteAsync(idContoCorrente);
         }
     }
 }

@@ -60,6 +60,10 @@ namespace WCFServerManager
             return serviceFilialeClient.GetFiliale(username);
         }
 
+        public string GetIBANByIdContoCorrente(ulong idContoCorrente) {
+            return serviceContoCorrenteClient.GetIBANByIdContoCorrente(idContoCorrente);
+        }
+
         public string GetIdFilialeByUsername(string username) {
             return serviceAccountPersonaClient.GetIdFilialeByUsername(username);
         }

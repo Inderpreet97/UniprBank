@@ -23,6 +23,9 @@ namespace WCFServerDB
 
         [OperationContract]
         bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
+
+        [OperationContract]
+        string GetIBANByIdContoCorrente(UInt64 idContoCorrente);
     }
 
     [DataContract]

@@ -254,7 +254,7 @@ namespace WCFServerDB
                         Console.WriteLine("@idContoCorrente = {0}", idContoCorrente);
                     }
 
-                    var IBANCommittente = command.ExecuteScalar();
+                    var IBANCommittente = (string)command.ExecuteScalar();
 
                     if (Globals.debugMode) {
                         Console.WriteLine("Risultato: {0}", IBANCommittente);
@@ -365,7 +365,7 @@ namespace WCFServerDB
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
                     command.Parameters["@idContoCorrente"].Value = idContoCorrente;
 
-                    var IBANCommittente = command.ExecuteScalar();
+                    var IBANCommittente = (string)command.ExecuteScalar();
 
                     command.Parameters.Clear();
 

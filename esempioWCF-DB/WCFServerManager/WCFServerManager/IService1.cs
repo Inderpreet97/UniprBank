@@ -59,6 +59,9 @@ namespace WCFServerManager
         [OperationContract]
         bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);
 
+        [OperationContract]
+        string GetIBANByIdContoCorrente(UInt64 idContoCorrente);
+
 
         // Metodi Filiale
 
