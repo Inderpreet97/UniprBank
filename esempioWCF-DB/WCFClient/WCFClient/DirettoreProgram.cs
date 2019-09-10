@@ -27,9 +27,9 @@ namespace WCFClient
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloLogout(this));
             AddPage(new MovimentiMenu(this));
-            AddPage(new Bonifico(this));
-            AddPage(new Prelievo(this));
-            AddPage(new Deposito(this));
+            //AddPage(new Bonifico(this));
+            //AddPage(new Prelievo(this));
+            //AddPage(new Deposito(this));
             AddPage(new ContoMenu(this));
             AddPage(new VisualizzaConto(this));
 

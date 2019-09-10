@@ -300,7 +300,7 @@ namespace WCFClient
             int index;                  //Contatore indici conto correnti
 
             do {
-                var tableConti = new ConsoleTable("Indice", "Numero di conto", "IBAN", "Saldo");
+                var tableConti = new ConsoleTable(" # ", "Numero di conto", "IBAN", "Saldo");
 
                 index = 1;
 
@@ -339,6 +339,17 @@ namespace WCFClient
             }
 
             return listaContiUser;
+        }
+
+        public static void printListaConti(List<ContoCorrente> listaConti) {
+            var tableConti = new ConsoleTable(" # ", "Numero di conto", "IBAN", "Saldo");
+
+            var index = 1;
+
+            listaConti.ForEach(conto => {
+                tableConti.AddRow(index, conto.idContoCorrente, conto.IBAN, conto.saldo);
+                index++;
+            });
         }
     }
 

@@ -6,7 +6,6 @@ namespace WCFClient.Pages
     class Deposito : Page
     {
 
-
         public Deposito(Program program) : base("Deposito", program) { }
 
         public override void Display()
