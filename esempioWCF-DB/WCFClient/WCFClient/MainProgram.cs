@@ -294,27 +294,51 @@ namespace WCFClient
 
         public static UInt64 scegliIdContoCorrente(List<ContoCorrente> listaContiUser) {
 
-            List<UInt64?> listaNumeriConto = new List<UInt64?>(); //Lista contenente i numeri di conto dei contocorrenti di un utente
+            //Questa funzione restituisce l'id del conto corrente
 
-            listaContiUser.ForEach(conto => { //Popola la lista dei numeri di conto
-                listaNumeriConto.Add(conto.idContoCorrente);
-            });
-
-            //Stampa e scelta del contocorrente di cui visualizzare la lista
-            UInt64? sceltaConto = null;
+            int sceltaConto = 0;        //Indice numero di conto da scegliere
+            int index;                  //Contatore indici conto correnti
 
             do {
-                var tableConti = new ConsoleTable("Numero di conto", "IBAN", "Saldo");
+                var tableConti = new ConsoleTable("Indice", "Numero di conto", "IBAN", "Saldo");
+
+                index = 1;
+
                 listaContiUser.ForEach(conto => {
-                    tableConti.AddRow(conto.idContoCorrente, conto.IBAN, conto.saldo);
+                    tableConti.AddRow(index, conto.idContoCorrente, conto.IBAN, conto.saldo);
+                    index++;
                 });
+
                 tableConti.Write();
-                sceltaConto = Convert.ToUInt64(Input.ReadString("Digitare il numero di conto corrente: "));
-            } while (!listaNumeriConto.Contains(sceltaConto));
+                sceltaConto = Convert.ToInt32(Input.ReadString("Digitare l'indice del conto corrente: "));
+                Output.WriteLine("Indice scelto {0}", sceltaConto);
 
-            Output.WriteLine("Numero di conto corrente corretto");
+            } while (sceltaConto < 1 || sceltaConto > index);
+            
+            Output.WriteLine("ContoCorrente selezionato: {0}", listaContiUser[sceltaConto - 1].idContoCorrente);
 
-            return Convert.ToUInt64(sceltaConto);
+            return Convert.ToUInt64(listaContiUser[sceltaConto - 1].idContoCorrente);
+        }
+
+        public static List<ContoCorrente> getListaContiByPrivilege() {
+
+            List<ContoCorrente> listaContiUser = new List<ContoCorrente>(); //Lista contenenti i conti di un utente
+
+            //-----RICHIESTA USERNAME-------
+            //---L'impiegato o il direttore devono inserire l'username dell'account della quale si vuole ottenere la lista movimenti
+            //---Se invece il LoggedUser è cliente la lista dei conti viene caricata sia nella fase di login, sia qui per aggiornare eventuali modifiche
+
+            //Impiegato e direttore
+            if (LoggedUser.privilegi != "cliente") {
+                string username = Funzioni.digitaUsername();
+                listaContiUser = Globals.wcfClient.GetListaContoCorrente(username);
+            } else { 
+                //Cliente
+                LoggedUser.contoCorrenti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);        //Ricalcola E aggionra la lista dei conti e i relativi saldi
+                listaContiUser = LoggedUser.contoCorrenti;
+            }
+
+            return listaContiUser;
         }
     }
 
@@ -347,9 +371,9 @@ namespace WCFClient
                     errorString= "Username o Password non inseriti!";
                 }
                 else
-                { 
+                {
                     checkDati = Globals.wcfClient.Login(LoggedUser.username, password);
-                    errorString= (checkDati) ? string.Empty : "Username o Password non corretti!";
+                    errorString = (checkDati) ? string.Empty : "Username o Password non corretti!";
                 }
             } while (!checkDati);
 

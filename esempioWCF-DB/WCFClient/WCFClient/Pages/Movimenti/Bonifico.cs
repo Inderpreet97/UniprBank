@@ -12,16 +12,16 @@ namespace WCFClient.Pages
         public override void Display() {
             base.Display();
 
-            //IBAN BENEFICIARIO
+            //IMPOSTA IBAN BENEFICIARIO
             string IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             while (!Globals.wcfClient.CheckIBAN(IBANBeneficiario)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
                 IBANBeneficiario = Input.ReadString("IBAN Beneficiario: ");
             }
 
-            //IBAN COMMITTENTE
-            UInt64 contoScelto = Funzioni.scegliIdContoCorrente(LoggedUser.contoCorrenti);
-            string IBANCommittente = Globals.wcfClient.GetIBANByIdContoCorrente(contoScelto);
+            //IMPOSTA IBAN COMMITTENTE
+            UInt64? contoScelto = Funzioni.scegliIdContoCorrente(LoggedUser.contoCorrenti);
+            string IBANCommittente = Globals.wcfClient.GetIBANByIdContoCorrente(Convert.ToUInt64(contoScelto));
             /*while (!Globals.wcfClient.CheckIBAN(IBANCommittente)) {
                 Output.WriteLine("IBAN non esistente, riprovare");
                 IBANCommittente = Input.ReadString("IBAN Committente: ");

@@ -19,23 +19,11 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                    List<ContoCorrente> listaContiUser = new List<ContoCorrente>(); //Lista contenenti i conti di un utente
-                    List<UInt64?> listaNumeriConto = new List<UInt64?>(); //Lista contenente i numeri di conto dei contocorrenti di un utente
+                    List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege();
 
-                    //-----RICHIESTA USERNAME-------
-                    //---L'impiegato o il direttore devono inserire l'username dell'account della quale si vuole ottenere la lista movimenti
-                    //---Se invece il LoggedUser è cliente la lista dei conti viene caricata nella fase di login
+                    UInt64? idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
 
-                    //Impiegato e direttore
-                    if (LoggedUser.privilegi != "cliente") { 
-                        string username = Funzioni.digitaUsername();
-                        listaContiUser = Globals.wcfClient.GetListaContoCorrente(username);
-                    } else { //Cliente
-                        listaContiUser = LoggedUser.contoCorrenti;
-                    }
-
-                    UInt64 idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
-                    List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(idContoCorrente);
+                    List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(Convert.ToUInt64(idContoCorrente));
 
                     var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
 

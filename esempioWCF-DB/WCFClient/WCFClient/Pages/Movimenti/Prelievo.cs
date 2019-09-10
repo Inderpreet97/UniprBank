@@ -1,5 +1,8 @@
 ﻿using EasyConsole;
+using ConsoleTables;
 using System;
+using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
@@ -7,8 +10,7 @@ namespace WCFClient.Pages
     {
 
         public bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo) {
-            Globals.wcfClient.EseguiPrelievoDenaro(idContoCorrente, importo);
-            return false;
+            return Globals.wcfClient.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
 
         public Prelievo(Program program) : base("Prelievo", program) { }
@@ -20,13 +22,19 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                    UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
+                    string username;
 
-                    while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
+                    //LISTA CONTI CORRENTI
+                    List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege();
+
+                    //SCELTA CONTO CORRENTE
+                    UInt64 idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
+
+                    /*while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
 
                         Output.WriteLine("Conto non trovato, riprovare");
                         idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
-                    }
+                    }*/
 
                     decimal importo = Convert.ToDecimal(Input.ReadString("Importo da prelevare: "));
 
