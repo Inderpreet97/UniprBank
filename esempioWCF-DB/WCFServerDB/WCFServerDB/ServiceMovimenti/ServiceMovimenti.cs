@@ -48,7 +48,7 @@ namespace WCFServerDB
                     // Attempt to commit the transaction.
                     transaction.Commit();
                     if (saldo.HasValue) {
-                        if ((saldo - importo) >= 0) return true;
+                        if (importo <= saldo) return true;
                         else return false;
                     } else {
                         throw new Exception("ERRORE: saldo contiene un null, probabilmente il contocorrente non è stato trovato");
