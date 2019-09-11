@@ -33,6 +33,8 @@ namespace WCFClient.Pages
                     });
 
                     table.Write();
+
+                    scelta = 1;
                 }
                 catch (FormatException ex) {
 

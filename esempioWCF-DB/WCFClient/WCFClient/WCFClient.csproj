@@ -56,6 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteProgram.cs" />
+    <Compile Include="Connected Services\ServiceReference2\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="ImpiegatoProgram.cs" />
     <Compile Include="Pages\ContoMenu\ContoMenu.cs" />
     <Compile Include="Pages\MainMenuCliente.cs" />
@@ -117,6 +122,28 @@
     <None Include="Connected Services\ServiceReference1\WCFClient.ServiceReference1.Persona.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\ServiceReference2\service.wsdl" />
+    <None Include="Connected Services\ServiceReference2\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference2\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiceReference2\WCFClient.ServiceReference2.ContoCorrente.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference2\WCFClient.ServiceReference2.Filiale.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference2\WCFClient.ServiceReference2.Movimento.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference2\WCFClient.ServiceReference2.Persona.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServiceReference2\WCFServerDB.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <Compile Include="Pages\ContoMenu\VisualizzaConto.cs" />
   </ItemGroup>
@@ -125,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServiceReference1\" />
+    <WCFMetadataStorage Include="Connected Services\ServiceReference2\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\item.disco" />
@@ -137,6 +165,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServiceReference1\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference2\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference2\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServiceReference2\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -15,6 +15,15 @@ namespace WCFClient.Pages
 
             Filiale filiale = new Filiale();
 
+            filiale.CAP = null;
+            filiale.citta = string.Empty;
+            filiale.nome = string.Empty;
+            filiale.indirizzo = string.Empty;
+            filiale.numeroDiTelefono = string.Empty;
+            filiale.stato = string.Empty;
+            filiale.provincia = string.Empty;
+            filiale.idFiliale = string.Empty;
+
             //Nome filiale
             string temp = Input.ReadString("Nuovo nome filiale: ");
             if (!string.IsNullOrWhiteSpace(temp)) { filiale.nome = temp; }

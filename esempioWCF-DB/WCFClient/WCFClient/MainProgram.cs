@@ -14,6 +14,8 @@ namespace WCFClient
     {
         public static DateTime defaultDate = new DateTime(1900, 1, 1);
         public static Service1Client wcfClient = new Service1Client();
+        //public static Service2Client wcfClient = new Service2Client();
+
     }
     static class LoggedUser
     {
@@ -313,7 +315,7 @@ namespace WCFClient
                 sceltaConto = Convert.ToInt32(Input.ReadString("Digitare l'indice del conto corrente: "));
                 Output.WriteLine("Indice scelto {0}", sceltaConto);
 
-            } while (sceltaConto < 1 || sceltaConto > index);
+            } while (sceltaConto < 1 || sceltaConto >= index);
             
             Output.WriteLine("ContoCorrente selezionato: {0}", listaContiUser[sceltaConto - 1].idContoCorrente);
 
