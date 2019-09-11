@@ -4,7 +4,7 @@
   <xs:element name="GetListaMovimenti">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="idContoCorrente" type="xs:int" />
+        <xs:element minOccurs="0" name="idContoCorrente" type="xs:unsignedLong" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -49,7 +49,7 @@
   <xs:element name="EseguiPrelievoDenaro">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="IBANCommittente" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idContoCorrente" type="xs:unsignedLong" />
         <xs:element minOccurs="0" name="importo" type="xs:decimal" />
       </xs:sequence>
     </xs:complexType>
@@ -64,7 +64,7 @@
   <xs:element name="EseguiDeposito">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="IBANCommittente" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idContoCorrente" type="xs:unsignedLong" />
         <xs:element minOccurs="0" name="importo" type="xs:decimal" />
       </xs:sequence>
     </xs:complexType>

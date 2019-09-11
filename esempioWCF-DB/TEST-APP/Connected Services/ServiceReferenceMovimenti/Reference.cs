@@ -143,10 +143,10 @@ namespace TEST_APP.ServiceReferenceMovimenti {
     public interface IServiceMovimenti {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/GetListaMovimenti", ReplyAction="http://tempuri.org/IServiceMovimenti/GetListaMovimentiResponse")]
-        TEST_APP.ServiceReferenceMovimenti.Movimento[] GetListaMovimenti(int idContoCorrente);
+        TEST_APP.ServiceReferenceMovimenti.Movimento[] GetListaMovimenti(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/GetListaMovimenti", ReplyAction="http://tempuri.org/IServiceMovimenti/GetListaMovimentiResponse")]
-        System.Threading.Tasks.Task<TEST_APP.ServiceReferenceMovimenti.Movimento[]> GetListaMovimentiAsync(int idContoCorrente);
+        System.Threading.Tasks.Task<TEST_APP.ServiceReferenceMovimenti.Movimento[]> GetListaMovimentiAsync(ulong idContoCorrente);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/CheckImporto", ReplyAction="http://tempuri.org/IServiceMovimenti/CheckImportoResponse")]
         bool CheckImporto(decimal importo, string IBANCommittente);
@@ -161,16 +161,16 @@ namespace TEST_APP.ServiceReferenceMovimenti {
         System.Threading.Tasks.Task<bool> EseguiBonificoAsync(string IBANCommittente, string IBANBeneficiario, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaroResponse")]
-        bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo);
+        bool EseguiPrelievoDenaro(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaro", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiPrelievoDenaroResponse")]
-        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiDeposito", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiDepositoResponse")]
-        bool EseguiDeposito(string IBANCommittente, decimal importo);
+        bool EseguiDeposito(ulong idContoCorrente, decimal importo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServiceMovimenti/EseguiDeposito", ReplyAction="http://tempuri.org/IServiceMovimenti/EseguiDepositoResponse")]
-        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo);
+        System.Threading.Tasks.Task<bool> EseguiDepositoAsync(ulong idContoCorrente, decimal importo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -200,11 +200,11 @@ namespace TEST_APP.ServiceReferenceMovimenti {
                 base(binding, remoteAddress) {
         }
         
-        public TEST_APP.ServiceReferenceMovimenti.Movimento[] GetListaMovimenti(int idContoCorrente) {
+        public TEST_APP.ServiceReferenceMovimenti.Movimento[] GetListaMovimenti(ulong idContoCorrente) {
             return base.Channel.GetListaMovimenti(idContoCorrente);
         }
         
-        public System.Threading.Tasks.Task<TEST_APP.ServiceReferenceMovimenti.Movimento[]> GetListaMovimentiAsync(int idContoCorrente) {
+        public System.Threading.Tasks.Task<TEST_APP.ServiceReferenceMovimenti.Movimento[]> GetListaMovimentiAsync(ulong idContoCorrente) {
             return base.Channel.GetListaMovimentiAsync(idContoCorrente);
         }
         
@@ -224,20 +224,20 @@ namespace TEST_APP.ServiceReferenceMovimenti {
             return base.Channel.EseguiBonificoAsync(IBANCommittente, IBANBeneficiario, importo);
         }
         
-        public bool EseguiPrelievoDenaro(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiPrelievoDenaro(IBANCommittente, importo);
+        public bool EseguiPrelievoDenaro(ulong idContoCorrente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaro(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiPrelievoDenaroAsync(IBANCommittente, importo);
+        public System.Threading.Tasks.Task<bool> EseguiPrelievoDenaroAsync(ulong idContoCorrente, decimal importo) {
+            return base.Channel.EseguiPrelievoDenaroAsync(idContoCorrente, importo);
         }
         
-        public bool EseguiDeposito(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiDeposito(IBANCommittente, importo);
+        public bool EseguiDeposito(ulong idContoCorrente, decimal importo) {
+            return base.Channel.EseguiDeposito(idContoCorrente, importo);
         }
         
-        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(string IBANCommittente, decimal importo) {
-            return base.Channel.EseguiDepositoAsync(IBANCommittente, importo);
+        public System.Threading.Tasks.Task<bool> EseguiDepositoAsync(ulong idContoCorrente, decimal importo) {
+            return base.Channel.EseguiDepositoAsync(idContoCorrente, importo);
         }
     }
 }
