@@ -351,6 +351,25 @@ namespace WCFClient
                 index++;
             });
         }
+        
+        public static decimal CheckImportoDisponibile(decimal importo, string IBANCommittente) {
+            bool importoDisponibile = Globals.wcfClient.CheckImporto(importo, IBANCommittente);
+
+            while (importo < 0 || !importoDisponibile) {
+
+                if (importo < 0) {
+                    Output.WriteLine("L'importo deve essere maggiore di 0.0");
+                } else {
+                    Output.WriteLine("Il saldo non ricopre l'importo");
+                }
+
+                importo = Convert.ToDecimal(Input.ReadString("Nuovo Importo: "));
+
+                importoDisponibile = Globals.wcfClient.CheckImporto(importo, IBANCommittente);
+            };
+
+            return importo;
+        }
     }
 
     class MainProgram

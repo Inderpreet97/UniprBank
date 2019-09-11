@@ -29,24 +29,15 @@ namespace WCFClient.Pages
 
                     //SCELTA CONTO CORRENTE
                     UInt64 idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
+                    string IBANCommittente = Globals.wcfClient.GetIBANByIdContoCorrente(idContoCorrente);
 
-                    /*while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
+                    decimal importoPrelievo = Convert.ToDecimal(Input.ReadString("Importo da prelevare: "));
 
-                        Output.WriteLine("Conto non trovato, riprovare");
-                        idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
-                    }*/
+                    importoPrelievo = Funzioni.CheckImportoDisponibile(importoPrelievo, IBANCommittente);
+                    bool risultato = Globals.wcfClient.EseguiPrelievoDenaro(idContoCorrente, importoPrelievo);
 
-                    decimal importo = Convert.ToDecimal(Input.ReadString("Importo da prelevare: "));
-
-                    if (importo > 0) {
-                        if (EseguiPrelievoDenaro(idContoCorrente, importo)) {
-                            Output.WriteLine("Prelievo di denaro effettuato con successo");
-                        } else {
-                            Output.WriteLine("Prelievo di denaro non effettuato");
-                        }
-                    } else {
-                        Output.WriteLine("Prelievo di denaro non effettuato, la cifra non è valida");
-                    }
+                    if (risultato) { Output.WriteLine("Prelievo effettuato"); } else { Output.WriteLine("Prelievo non effettuato"); }
+                   
                 }
                 catch (FormatException ex) {
 
