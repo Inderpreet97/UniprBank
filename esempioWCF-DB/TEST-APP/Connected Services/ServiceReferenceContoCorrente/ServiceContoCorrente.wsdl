@@ -37,6 +37,12 @@
   <wsdl:message name="IServiceContoCorrente_AggiungiContoCorrente_OutputMessage">
     <wsdl:part name="parameters" element="tns:AggiungiContoCorrenteResponse" />
   </wsdl:message>
+  <wsdl:message name="IServiceContoCorrente_GetIBANByIdContoCorrente_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIBANByIdContoCorrente" />
+  </wsdl:message>
+  <wsdl:message name="IServiceContoCorrente_GetIBANByIdContoCorrente_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIBANByIdContoCorrenteResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServiceContoCorrente">
     <wsdl:operation name="GetListaContoCorrente">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceContoCorrente/GetListaContoCorrente" message="tns:IServiceContoCorrente_GetListaContoCorrente_InputMessage" />
@@ -57,6 +63,10 @@
     <wsdl:operation name="AggiungiContoCorrente">
       <wsdl:input wsaw:Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente" message="tns:IServiceContoCorrente_AggiungiContoCorrente_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrenteResponse" message="tns:IServiceContoCorrente_AggiungiContoCorrente_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIBANByIdContoCorrente">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrente" message="tns:IServiceContoCorrente_GetIBANByIdContoCorrente_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrenteResponse" message="tns:IServiceContoCorrente_GetIBANByIdContoCorrente_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IServiceContoCorrente" type="tns:IServiceContoCorrente">
@@ -99,6 +109,15 @@
     </wsdl:operation>
     <wsdl:operation name="AggiungiContoCorrente">
       <soap:operation soapAction="http://tempuri.org/IServiceContoCorrente/AggiungiContoCorrente" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIBANByIdContoCorrente">
+      <soap:operation soapAction="http://tempuri.org/IServiceContoCorrente/GetIBANByIdContoCorrente" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

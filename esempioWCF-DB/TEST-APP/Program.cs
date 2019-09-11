@@ -753,11 +753,11 @@ namespace TEST_APP
             // >>>> -------------- TEST SelectContoCorrente -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= ContoCorrente SelectContoCorrente(int idContoCorrente); =--\n");
+            Console.WriteLine(" --= ContoCorrente SelectContoCorrente(ulong idContoCorrente); =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso un oggetto ContoCorrente con dati validi
-            int idContoCorrente = (int)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
             ContoCorrente risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso un oggetto ContoCorrente con dati validi");
@@ -918,11 +918,11 @@ namespace TEST_APP
             // >>>> -------------- TEST CheckIDConto -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= bool CheckIDConto(int idContoCorrente) =--\n");
+            Console.WriteLine(" --= bool CheckIDConto(ulong idContoCorrente) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso True
-            int idContoCorrente = (int)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso True");
@@ -951,6 +951,42 @@ namespace TEST_APP
             Console.ReadLine();
         }
 
+        static void TestGetIBANByIdContoCorrente(ServiceContoCorrenteClient serviceContoCorrenteClient) {
+            // >>>> -------------- TEST GetIBANByIdContoCorrente -------------- <<<<<<<<
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(" --= bool GetIBANByIdContoCorrente(ulong idContoCorrente) =--\n");
+            Console.ResetColor();
+
+            // ---- Valore Input CORRETTO, Risultato atteso un IBAN valido
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
+            string risultato;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valore di input Corretto, Risultato atteso un IBAN valido");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}", idContoCorrente);
+            risultato = serviceContoCorrenteClient.GetIBANByIdContoCorrente(idContoCorrente);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT> {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+
+            // ---- Valore Input SBAGLIATO, Risultato atteso sgtring.Empty
+            idContoCorrente = 0;
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("Valore di input Sbagliato, Risultato atteso string.Empty");
+            Console.ResetColor();
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}", idContoCorrente);
+            risultato = serviceContoCorrenteClient.GetIBANByIdContoCorrente(idContoCorrente);
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("OUTPUT> {0}", risultato);
+            Console.ResetColor();
+            Console.Write("\nPremere un tasto per continuare...");
+            Console.ReadLine();
+        }
         /*  Filiali TEST presenti nel DB sono:
         *      Filiale 1:
         *          idFiliale = "PR00TST000"
@@ -1152,11 +1188,11 @@ namespace TEST_APP
             // >>>> -------------- TEST GetListaMovimenti -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= List<Movimento> GetListaMovimenti(int idContoCorrente) =--\n");
+            Console.WriteLine(" --= List<Movimento> GetListaMovimenti(ulong idContoCorrente) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input Corretto, Risultato atteso è una lista di Movimenti appartenenti al conto corrente con id = tempuser
-            int idContoCorrente = (int)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
 
             List<Movimento> resultList = new List<Movimento>() { };
             Console.ForegroundColor = ConsoleColor.DarkGreen;
@@ -1301,19 +1337,19 @@ namespace TEST_APP
             // >>>> -------------- TEST EseguiPrelievoDenaro -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= bool EseguiPrelievoDenaro(int IBANCommittente, decimal importo) =--\n");
+            Console.WriteLine(" --= bool EseguiPrelievoDenaro(ulong idContoCorrente, decimal importo) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso True
-            string IBANCommittente = serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().IBAN;
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
             decimal importo = 100;
 
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso True");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tIBANCommittente: {0}\tImporto: {1}", IBANCommittente, importo);
-            risultato = serviceMovimentiClient.EseguiPrelievoDenaro(IBANCommittente, importo);
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}\tImporto: {1}", idContoCorrente, importo);
+            risultato = serviceMovimentiClient.EseguiPrelievoDenaro(idContoCorrente, importo);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT> {0}", risultato);
@@ -1322,13 +1358,13 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valore Input SBAGLIATO, Risultato atteso False
-            IBANCommittente = string.Empty;
+            idContoCorrente = 0;
             importo = 0;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso False");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tIBANCommittente: {0}\tImporto: {1}", IBANCommittente, importo);
-            risultato = serviceMovimentiClient.EseguiPrelievoDenaro(IBANCommittente, importo);
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}\tImporto: {1}", idContoCorrente, importo);
+            risultato = serviceMovimentiClient.EseguiPrelievoDenaro(idContoCorrente, importo);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT> {0}", risultato);
@@ -1341,19 +1377,19 @@ namespace TEST_APP
             // >>>> -------------- TEST EseguiDeposito -------------- <<<<<<<<
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(" --= bool EseguiDeposito(int IBANCommittente, decimal importo) =--\n");
+            Console.WriteLine(" --= bool EseguiDeposito(ulong idContoCorrente, decimal importo) =--\n");
             Console.ResetColor();
 
             // ---- Valore Input CORRETTO, Risultato atteso True
-            string IBANCommittente = serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().IBAN;
+            ulong idContoCorrente = (ulong)serviceContoCorrenteClient.GetListaContoCorrente("tempUser1").First().idContoCorrente;
             decimal importo = 100;
 
             bool risultato;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Corretto, Risultato atteso True");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tIBANCommittente: {0}\tImporto: {1}", IBANCommittente, importo);
-            risultato = serviceMovimentiClient.EseguiDeposito(IBANCommittente, importo);
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}\tImporto: {1}", idContoCorrente, importo);
+            risultato = serviceMovimentiClient.EseguiDeposito(idContoCorrente, importo);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT> {0}", risultato);
@@ -1362,13 +1398,13 @@ namespace TEST_APP
             Console.ReadLine();
 
             // ---- Valore Input SBAGLIATO, Risultato atteso False
-            IBANCommittente = string.Empty;
+            idContoCorrente = 0;
             importo = 0;
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine("Valore di input Sbagliato, Risultato atteso False");
             Console.ResetColor();
-            Console.WriteLine("INPUT >\tIBANCommittente: {0}\tImporto: {1}", IBANCommittente, importo);
-            risultato = serviceMovimentiClient.EseguiDeposito(IBANCommittente, importo);
+            Console.WriteLine("INPUT >\tidContoCorrente: {0}\tImporto: {1}", idContoCorrente, importo);
+            risultato = serviceMovimentiClient.EseguiDeposito(idContoCorrente, importo);
 
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("OUTPUT> {0}", risultato);
@@ -1428,7 +1464,8 @@ namespace TEST_APP
             TestSelectContoCorrente(serviceContoCorrenteClient);
             TestCheckIBAN(serviceContoCorrenteClient);
             TestCheckIDConto(serviceContoCorrenteClient);
-            
+            TestGetIBANByIdContoCorrente(serviceContoCorrenteClient);
+
             /*  Saldo di partenza: 1000
             *      Bonifico di 100 ad un altro conto
             *      Prelievo di 100
