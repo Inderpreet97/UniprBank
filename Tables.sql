@@ -36,16 +36,6 @@ CREATE TABLE Account (
     CONSTRAINT FK_filiale FOREIGN KEY (filiale) REFERENCES Filiale(idFiliale) ON UPDATE CASCADE
 );
 
--- usare questo codice SOLO SE le colonne password e username non sono già CASESENSITIVE
---ALTER TABLE Account
---ALTER COLUMN username varchar(255)
---COLLATE SQL_Latin1_General_CP1_CS_AS
-
---ALTER TABLE Account
---ALTER COLUMN password varchar(255)
---COLLATE SQL_Latin1_General_CP1_CS_AS
--- =====================================================================================
-
 CREATE TABLE ContoCorrente(
     idContoCorrente NUMERIC(10) IDENTITY(1000000000,1) NOT NULL,
     IBAN VARCHAR(20) DEFAULT NULL,

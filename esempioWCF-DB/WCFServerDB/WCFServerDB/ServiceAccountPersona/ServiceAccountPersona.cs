@@ -113,7 +113,7 @@ namespace WCFServerDB
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
-                    return privilegiString;
+                    return privilegiString.ToLower();
                 }
                 catch (Exception ex) {
                     Console.WriteLine("Commit Exception Type: {0}", ex.GetType());
@@ -174,15 +174,15 @@ namespace WCFServerDB
 
                             var username = reader.GetString(0);
                             var privilegi = reader.GetString(1);
-                            var codiceFiscale = reader.GetString(2);
+                            var codiceFiscale = reader.GetString(2).ToUpper();
                             var nome = reader.GetString(3);
                             var cognome = reader.GetString(4);
                             var dataDiNascita = reader.GetDateTime(5);
-                            var sesso = reader.GetString(6);
+                            var sesso = reader.GetString(6).ToLower();
                             var indirizzo = reader.GetString(7);
                             var CAP = (int)reader.GetDecimal(8);
                             var citta = reader.GetString(9);
-                            var provincia = reader.GetString(10);
+                            var provincia = reader.GetString(10).ToUpper();
                             var stato = reader.GetString(11);
                             var numeroDiTelefono = reader.GetString(12);
                             var filiale = reader.GetString(13);
@@ -411,15 +411,15 @@ namespace WCFServerDB
                         while (reader.Read()) {
                             persona.username = username;
                             persona.privilegi = reader.GetString(0);
-                            persona.codiceFiscale = reader.GetString(1);
+                            persona.codiceFiscale = reader.GetString(1).ToUpper();
                             persona.nome = reader.GetString(2);
                             persona.cognome = reader.GetString(3);
                             persona.dataDiNascita = reader.GetDateTime(4);
-                            persona.sesso = reader.GetString(5);
+                            persona.sesso = reader.GetString(5).ToLower();
                             persona.indirizzo = reader.GetString(6);
                             persona.CAP = (int)reader.GetDecimal(7);
                             persona.citta = reader.GetString(8);
-                            persona.provincia = reader.GetString(9);
+                            persona.provincia = reader.GetString(9).ToUpper();
                             persona.stato = reader.GetString(10);
                             persona.numeroDiTelefono = reader.GetString(11);
                             persona.filiale = reader.GetString(12);
@@ -489,15 +489,15 @@ namespace WCFServerDB
                         command.Parameters.Add("@stato", SqlDbType.VarChar);
                         command.Parameters.Add("@numeroDiTelefono", SqlDbType.VarChar);
 
-                        command.Parameters["@codiceFiscale"].Value = persona.codiceFiscale;
+                        command.Parameters["@codiceFiscale"].Value = persona.codiceFiscale.ToUpper();
                         command.Parameters["@nome"].Value = persona.nome;
                         command.Parameters["@cognome"].Value = persona.cognome;
                         command.Parameters["@dataDiNascita"].Value = persona.dataDiNascita;
-                        command.Parameters["@sesso"].Value = persona.sesso;
+                        command.Parameters["@sesso"].Value = persona.sesso.ToLower();
                         command.Parameters["@indirizzo"].Value = persona.indirizzo;
                         command.Parameters["@CAP"].Value = persona.CAP;
                         command.Parameters["@citta"].Value = persona.citta;
-                        command.Parameters["@provincia"].Value = persona.provincia;
+                        command.Parameters["@provincia"].Value = persona.provincia.ToUpper();
                         command.Parameters["@stato"].Value = persona.stato;
                         command.Parameters["@numeroDiTelefono"].Value = persona.numeroDiTelefono;
 
@@ -538,7 +538,7 @@ namespace WCFServerDB
                     command.Parameters["@username"].Value = persona.username;
                     command.Parameters["@password"].Value = password;
                     command.Parameters["@privilegi"].Value = persona.privilegi;
-                    command.Parameters["@codicefiscale"].Value = persona.codiceFiscale;
+                    command.Parameters["@codicefiscale"].Value = persona.codiceFiscale.ToUpper();
                     command.Parameters["@filiale"].Value = persona.filiale;
 
                     /*  PROVARE A CRIPTARE LE PASSWORD CON QUESTI METODI
@@ -555,7 +555,7 @@ namespace WCFServerDB
                         Console.WriteLine("@username = {0}", persona.username);
                         Console.WriteLine("@password = {0}", password);
                         Console.WriteLine("@privilegi = {0}", persona.privilegi);
-                        Console.WriteLine("@codicefiscale = {0}", persona.codiceFiscale);
+                        Console.WriteLine("@codicefiscale = {0}", persona.codiceFiscale.ToUpper());
                     }
 
                     result = command.ExecuteNonQuery();
@@ -835,11 +835,11 @@ namespace WCFServerDB
                             persona.nome = reader.GetString(0);
                             persona.cognome = reader.GetString(1);
                             persona.dataDiNascita = reader.GetDateTime(2);
-                            persona.sesso = reader.GetString(3);
+                            persona.sesso = reader.GetString(3).ToLower();
                             persona.indirizzo = reader.GetString(4);
                             persona.CAP = (int)reader.GetDecimal(5);
                             persona.citta = reader.GetString(6);
-                            persona.provincia = reader.GetString(7);
+                            persona.provincia = reader.GetString(7).ToUpper();
                             persona.stato = reader.GetString(8);
                             persona.numeroDiTelefono = reader.GetString(9);
                         }
