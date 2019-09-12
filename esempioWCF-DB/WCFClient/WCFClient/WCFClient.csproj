@@ -61,7 +61,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Funzioni.cs" />
     <Compile Include="ImpiegatoProgram.cs" />
+    <Compile Include="Pages\Clienti\EliminaCliente.cs" />
     <Compile Include="Pages\ContoMenu\ContoMenu.cs" />
     <Compile Include="Pages\MainMenuCliente.cs" />
     <Compile Include="Pages\MainMenuImpiegato.cs" />
