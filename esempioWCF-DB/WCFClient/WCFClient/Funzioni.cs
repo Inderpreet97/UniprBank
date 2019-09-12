@@ -18,9 +18,10 @@ namespace WCFClient {
             Output.WriteLine("Tipo di utenza: " + p.privilegi);
             Output.WriteLine("\nUsername: " + p.username + "\nNome: " + p.nome + "\nCognome: " + p.cognome);
             Output.WriteLine("\nCodice Fiscale: " + p.codiceFiscale + "\nSesso: " + p.sesso + "\nData di nascita: " + p.dataDiNascita.ToString().Remove(10, 9));
-            Output.WriteLine("\nCittà: " + p.citta + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
+            Output.WriteLine("\nCittà: " + p.citta + "\nIndirizzo: " + p.indirizzo + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
             Output.WriteLine("\nNumero di telefono: " + p.numeroDiTelefono);
         }
+
         public static void aggiungiPersona(string privilegio) {
 
             string username = digitaNuovoUsername();
@@ -126,9 +127,10 @@ namespace WCFClient {
             Output.WriteLine("Le password coincidono...\n\n");
 
             risultato = Globals.wcfClient.AggiungiPersona(persona, password1);
-            if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore"); }
+            if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore, persona non aggiunta"); }
 
         }
+
         public static void modificaPersona(string usernamePersona) {
 
             /*Questa funzione viene richiamata sia quando un impiegato o un direttore vogliono modificare un profilo di un cliente
@@ -140,9 +142,7 @@ namespace WCFClient {
             per modificare il proprio profilo*/
 
 
-            if (usernamePersona == string.Empty) { //Username vuoto
-                usernamePersona = digitaUsername();
-            }
+            if (usernamePersona == string.Empty) { usernamePersona = digitaUsername(); }        //Username vuoto
 
             Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
 
@@ -171,7 +171,6 @@ namespace WCFClient {
             List<string> BlackList = new List<string>() { "privilegi", "filiale", "ExtensionData" };
 
             string temp;
-
             //Itero tutte le properties dell'oggetto
             for (int index = 0; index < personaProperties.Count; index++) {
 
@@ -203,9 +202,10 @@ namespace WCFClient {
 
             bool risultato = Globals.wcfClient.ModificaPersona(usernamePersona, persona);
 
-            if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine("Errore"); }
+            if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine(ConsoleColor.Red, "La persona NON ha subito modifiche"); }
 
         }
+
         public static string digitaNuovoUsername() {
 
             /*Questa funzione viene richiamata ogni qualvolta bisogna registrare un NUOVO utente
@@ -222,6 +222,7 @@ namespace WCFClient {
             }
             return username;
         }
+
         public static string digitaUsername() {
             //Questa funzione viene chiamata ogni volta che occorre digitare l'username e lo controlla
             //Attenzione! Questa funzione non viene richiamata per registrare una nuova persona, per questo utilizzare digitaNuoboUsername()
@@ -237,6 +238,7 @@ namespace WCFClient {
             return username;
 
         }
+
         public static bool checkEta(DateTime dataDiNascita) {
             //Controlla se l'utente è maggiorenne e se non ha più di limite max di età
 
@@ -265,9 +267,11 @@ namespace WCFClient {
             Output.WriteLine("Saldo: ", contoCorrente.saldo);
             Output.WriteLine("Filiale di appartenza", Globals.wcfClient.GetNameFiliale(contoCorrente.idFiliale));
         }
+
         public static UInt64 scegliIdContoCorrente(List<ContoCorrente> listaContiUser) {
 
-            //Questa funzione restituisce l'id del conto corrente
+            /*Questa funzione restituisce l'id del conto corrente -> viene utilizzata quando occorre selezionare un conto corrente
+              da una lista di conti correnti di un utente*/
 
             int sceltaConto = 0;        //Indice numero di conto da scegliere
             int index;                  //Contatore indici conto correnti
@@ -292,6 +296,7 @@ namespace WCFClient {
 
             return Convert.ToUInt64(listaContiUser[sceltaConto - 1].idContoCorrente);
         }
+
         public static List<ContoCorrente> getListaContiByPrivilege() {
 
             List<ContoCorrente> listaContiUser = new List<ContoCorrente>(); //Lista contenenti i conti di un utente
@@ -306,12 +311,13 @@ namespace WCFClient {
                 listaContiUser = Globals.wcfClient.GetListaContoCorrente(username);
             } else {
                 //Cliente
-                LoggedUser.contoCorrenti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);        //Ricalcola E aggionra la lista dei conti e i relativi saldi
+                LoggedUser.contoCorrenti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);        //Ricalcola E aggiorna la lista dei conti e i relativi saldi
                 listaContiUser = LoggedUser.contoCorrenti;
             }
 
             return listaContiUser;
         }
+
         public static void printListaConti(List<ContoCorrente> listaConti) {
             var tableConti = new ConsoleTable(" # ", "Numero di conto", "IBAN", "Saldo");
 
@@ -340,6 +346,7 @@ namespace WCFClient {
             }
 
         }
+
         public static decimal CheckImportoDisponibile(decimal importo, string IBANCommittente) {
             bool importoDisponibile = Globals.wcfClient.CheckImporto(importo, IBANCommittente);
 

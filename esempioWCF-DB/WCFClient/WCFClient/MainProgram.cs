@@ -66,7 +66,7 @@ namespace WCFClient
             //Login eseguito correttamente
             Console.Clear();
 
-            switch (Globals.wcfClient.GetPrivilegi(LoggedUser.username))
+            switch (Globals.wcfClient.GetPrivilegi(LoggedUser.username).ToLower())
             {
                 case "admin":
                     LoggedUser.privilegi = "admin";
