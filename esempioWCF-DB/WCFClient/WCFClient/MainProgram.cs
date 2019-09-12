@@ -124,12 +124,13 @@ namespace WCFClient
             persona.sesso = sesso;
             persona.indirizzo = indirizzo;
             persona.CAP = CAP;
+            persona.citta = citta;
             persona.provincia = provincia;
             persona.stato = stato;
             persona.numeroDiTelefono = numeroDiTelefono;
             persona.filiale = filiale;
 
-            bool risultato = false;
+            bool risultato;
 
             //La password non viene registrata nella classe Persona
             string password1 = Input.ReadString("Password: ");
@@ -257,8 +258,11 @@ namespace WCFClient
         }
         public static bool checkEta(DateTime dataDiNascita) {
             //Controlla se l'utente è maggiorenne e se non ha più di limite max di età
-            short limiteMaxEta = 100;
-            if (DateTime.Compare(DateTime.Now, dataDiNascita) >= 18 && DateTime.Compare(DateTime.Now, dataDiNascita) < limiteMaxEta) { return true; }
+
+            DateTime zeroTime = new DateTime(1, 1, 1);
+            var eta = (zeroTime + (DateTime.Now - dataDiNascita)).Year - 1;
+
+            if (eta >= 18 && eta < 100) { return true; }
             return false;
         }
 

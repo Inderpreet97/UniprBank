@@ -511,6 +511,7 @@ namespace WCFServerDB
                             Console.WriteLine("@sesso = {0}", persona.sesso);
                             Console.WriteLine("@indirizzo = {0}", persona.indirizzo);
                             Console.WriteLine("@CAP = {0}", persona.CAP);
+                            Console.WriteLine("@citta = {0}", persona.citta);
                             Console.WriteLine("@provincia = {0}", persona.provincia);
                             Console.WriteLine("@stato = {0}", persona.stato);
                             Console.WriteLine("@numeroDiTelefono = {0}", persona.numeroDiTelefono);
