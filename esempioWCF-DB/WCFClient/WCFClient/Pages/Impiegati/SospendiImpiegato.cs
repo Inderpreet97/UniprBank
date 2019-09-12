@@ -4,7 +4,7 @@ namespace WCFClient.Pages
 {
     class SospendiImpiegato : Page
     {
-        public SospendiImpiegato(Program program) : base("Attiva", program) { }
+        public SospendiImpiegato(Program program) : base("Sospendi impiegato", program) { }
 
         public override void Display()
         {

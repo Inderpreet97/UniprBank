@@ -16,14 +16,15 @@ namespace WCFClient.Pages
 
             string username = Funzioni.digitaUsername();
 
-
+            //Crea un conto corrente intestato all'utente
             bool risultato = Globals.wcfClient.AggiungiContoCorrente(username, LoggedUser.idFiliale, 0);
+            if (risultato) { Output.WriteLine("Conto corrente aggiunto"); } else { Output.WriteLine("Errore, conto corrente non creato"); }
 
+            //Ottiene la lista dei conti correnti di quell'utente
             List<ContoCorrente> listaContiThisUser = Globals.wcfClient.GetListaContoCorrente(username);
 
-            
-
-            if (risultato) { Output.WriteLine("Conto corrente aggiunto"); } else { Output.WriteLine("Errore, conto corrente non creato"); }
+            Output.WriteLine("Conto correnti associati a " + username);
+            Funzioni.printListaConti(listaContiThisUser);
 
             Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();

@@ -7,7 +7,7 @@ namespace WCFClient.Pages
 {
     class ListaClienti : Page
     {
-        public ListaClienti(Program program) : base("Crea ContoCorrente", program) { }
+        public ListaClienti(Program program) : base("Lista clienti", program) { }
 
         public void getListaClienti() {
 

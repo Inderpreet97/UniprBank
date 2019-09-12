@@ -5,7 +5,7 @@ namespace WCFClient.Pages
 {
     class AggiungiImpiegato : Page
     {
-        public AggiungiImpiegato(Program program) : base("Modifica Dati", program) { }
+        public AggiungiImpiegato(Program program) : base("Aggiugni Impiegato", program) { }
 
         public override void Display()
         {

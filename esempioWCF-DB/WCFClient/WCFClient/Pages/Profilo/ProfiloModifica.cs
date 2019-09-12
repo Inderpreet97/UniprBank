@@ -5,7 +5,7 @@ namespace WCFClient.Pages {
 
         //Questa classe permette la modifica solo del proprio profilo (LoggedUser)
 
-        public ProfiloModifica(Program program) : base("Logout", program) { }
+        public ProfiloModifica(Program program) : base("Modifica profilo", program) { }
 
         public override void Display() {
             base.Display();

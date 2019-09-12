@@ -4,7 +4,7 @@ namespace WCFClient.Pages
 {
     class ModificaAccount : Page
     {
-        public ModificaAccount(Program program) : base("Modifica ContoCorrente", program) { }
+        public ModificaAccount(Program program) : base("Modifica Account", program) { }
 
         public override void Display()
         {

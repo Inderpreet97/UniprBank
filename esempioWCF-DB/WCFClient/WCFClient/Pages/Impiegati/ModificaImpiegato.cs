@@ -4,7 +4,7 @@ namespace WCFClient.Pages
 {
     class ModificaImpiegato : Page
     {
-        public ModificaImpiegato(Program program) : base("Visualizza Lista Impiegati", program) { }
+        public ModificaImpiegato(Program program) : base("Modificaa impiegato", program) { }
 
         public override void Display()
         {
