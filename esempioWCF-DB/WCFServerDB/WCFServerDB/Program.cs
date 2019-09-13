@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace WCFServerDB {
 
@@ -17,8 +12,6 @@ namespace WCFServerDB {
         static void Main(string[] args) {
 
             try {
-                var t = ConfigurationManager.AppSettings["connectionString"];
-
                 ServiceHost svcHostAccountPersona = new ServiceHost(typeof(ServiceAccountPersona));
                 ServiceHost svcHostContoCorrente = new ServiceHost(typeof(ServiceContoCorrente));
                 ServiceHost svcHostFiliale = new ServiceHost(typeof(ServiceFiliale));

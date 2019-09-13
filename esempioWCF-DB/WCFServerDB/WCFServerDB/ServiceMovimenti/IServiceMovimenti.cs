@@ -15,16 +15,16 @@ namespace WCFServerDB
         List<Movimento> GetListaMovimenti(UInt64 idContoCorrente);
 
         [OperationContract]
-        bool CheckImporto(decimal importo, string IBANCommittente); // controlla se il saldo ricopre l'importo del bonifico
+        bool CheckImporto(decimal importo, string IBANCommittente);
         
         [OperationContract]
-	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo); // true (bonifico avvenuto) false (caso contrario)
+	    bool EseguiBonifico(string IBANCommittente, string IBANBeneficiario, decimal importo);
 
         [OperationContract]
-        bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo); // true (avvenuto), false (non avvenuto)
+        bool EseguiPrelievoDenaro(UInt64 idContoCorrente, decimal importo);
 
         [OperationContract]
-	    bool EseguiDeposito(UInt64 idContoCorrente, decimal importo);  // true (avvenuto), false (non avvenuto)
+	    bool EseguiDeposito(UInt64 idContoCorrente, decimal importo);
 
 
     }
@@ -32,8 +32,6 @@ namespace WCFServerDB
     [DataContract]
     public class Movimento
     {
-
-
         [DataMember]
         public string idMovimenti { get; set; } = string.Empty;
         [DataMember]

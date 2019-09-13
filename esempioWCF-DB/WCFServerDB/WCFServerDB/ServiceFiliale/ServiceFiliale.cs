@@ -80,6 +80,9 @@ namespace WCFServerDB
                     }
                     return new Filiale();
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -135,6 +138,9 @@ namespace WCFServerDB
                     }
                     return string.Empty;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -180,18 +186,24 @@ namespace WCFServerDB
                             }
                         }
 
+                        // Se ho aggiunto del codice per aggiornare un dato devo mettere la "," nella query se ci sono altri dati da aggiornare prima del WHERE
+                        // altrimenti "," non va messa perchè dopo viene aggiunta la condizione " WHERE CodiceFiscale = ..."
                         if (propertyAddedToQuery) {
+
+                            // tempIndex = index + 1 perchè devo controllare solo i dati successivi a quello che ho appena inserito nella query
                             for (int tempIndex = index + 1; tempIndex < filialeProperties.Count; tempIndex++) {
 
                                 if (filialeProperties[tempIndex].PropertyType  == typeof(string)) {
                                     if (filialeProperties[tempIndex].GetValue(nuovaFiliale).ToString() != string.Empty) {
                                         command.CommandText += " , ";
+                                        // Basta inserire una sola " , " poi esco dal for
                                         tempIndex = filialeProperties.Count;
                                     }
 
                                 } else {
                                     if (((int?)filialeProperties[tempIndex].GetValue(nuovaFiliale)).HasValue) {
                                         command.CommandText += " , ";
+                                        // Basta inserire una sola " , " poi esco dal for
                                         tempIndex = filialeProperties.Count;
                                     }
                                 }
@@ -238,6 +250,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }

@@ -56,46 +56,64 @@ CREATE TABLE Movimenti(
     dataOra DATETIME NOT NULL,
     CONSTRAINT PK_IdMovimenti PRIMARY KEY (IdMovimenti),
     CONSTRAINT FK_Committente FOREIGN KEY (IBANCommittente) REFERENCES ContoCorrente(IBAN)  ON UPDATE CASCADE
-    -- CONSTRAINT FK_Beneficiario FOREIGN KEY (IBANBeneficiario) REFERENCES ContoCorrente(IBAN); -- SQL non permette di aver ON UPDATE CASCADE su tutte e due le Foreign Key
-    -- FK_Beneficiario BISOGNA TOGLIERLO PER FAR FUNZIONARE IL TRIGGER
 );
 -- ##################################################################################
 -- ################ AGGIUNGERE I TRIGGER DOPO AVER CREATO LE TABELLE ################
 -- ##################################################################################
 
---Quando viene fatto un update su filiale, cascade fa l'update su account. Il trigger su account fa aggiornare la filiale anche in conto corrente
+-- Questo trigger è stato creato perchè dalla tabella Filiale(idFiliale, nome...) dipendono Account e ContoCorrente. L'obiettivo è quello di aggiornare
+-- l'idFiliale nelle due tabelle dipendenti qualora venisse modificato l'id nella tabella Filiale. Ma SQL Server non permette di avere due Foreign Key con
+-- politica di update CASCADE contemporaneamente. Perciò abbiamo rimosso la FK da ContoCorrente e lasciato la FK con ON UPDATE CASCADE su Account.
+
+-- Quando viene fatto un update su filiale, cascade fa l'update su account. Il trigger su account fa aggiornare la filiale anche in conto corrente
 CREATE TRIGGER UpdateIdFiliale
 ON Account
 AFTER UPDATE
-AS IF UPDATE(filiale)
+AS IF UPDATE(filiale) -- se l'update riguarda la colonna filiale nella tabella account
 SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
    UPDATE ContoCorrente
    SET idFiliale = (SELECT filiale FROM INSERTED)
    WHERE username = (SELECT username FROM INSERTED)
 
 
--- IL TRIGGER PER AGGIORNARE L'IBAN SE VIENE AGGIORNATO QUALCHE ATTRIBUTO DEL CONTO CORRENTE
--- E CREARE AUTOMATICAMENTE IL NUOVO IBAN DOPO UN INSERT
+-- Essendo l'IBAN di un conto composto da idFiliale + idContoCorrente, nel momento in cui una filiale
+-- modifica il proprio idFiliale dobbiamo ricalcolare l'IBAN e aggiornarlo nei conti correnti dipendenti
+-- dalla filiale modificata.
+
+-- Questo trigger serve anche per calcolare l'IBAN di un conto corrente quando viene inserito per la prima volta.
+
 CREATE TRIGGER UpdateContoCorrente
 ON ContoCorrente
 after INSERT, UPDATE
 AS
 BEGIN
   SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
+
+  -- VENGONO ESEGUITE 2 QUERY:
+
+  -- QUERY 1:
+        -- Questa query permette di avere la sicurezza che l'idFiliale sia quello corretto, e che la filiale sia esistente (perchè abbiamo tolto la FK)
+        -- Aggiorno l'idFIliale prendendolo dall'account
 	Update ContoCorrente
 	SET idFiliale = (SELECT filiale FROM Account WHERE username = (SELECT username FROM INSERTED))
 	WHERE idContoCorrente = (SELECT idContoCorrente FROM INSERTED);
 
+  -- QUERY 2:
+        -- Questa query 'calcola' l'IBAN concatenando idFiliale + idContoCorrente (dopo conversione in VARCHAR)
 	UPDATE ContoCorrente
 	SET IBAN = (SELECT filiale FROM Account WHERE username = (SELECT username FROM INSERTED)) + (SELECT CAST(idContoCorrente AS VARCHAR) FROM INSERTED)
 	WHERE idContoCorrente = (SELECT idContoCorrente FROM INSERTED);
 END
 
--- QUESTO TRIGGER FUNZIONA PERFETTAMENTE
+-- Queto Trigger serve per simulare una Foreign Key. La tabella Movimenti dovrebbe avere IBANCommiettente e IBANBeneficiario come attributi che dipendono
+-- dalla stessa tabelle ContoCorrente e questo non è possibile. Quindi teniamo la FK con UPDATE CASCADE su IBANCommittente e su IBANBeneficiario la simuliamo.
+
+-- Perciò se viene aggiornato l'IBAN di un Conto Corrente automaticamente aggiorno l'IBAN nell'attributo IBANBeneficiario nella tabella Movimenti.
+-- L'attributo IBANCommittente viene aggioranto grazie alla politica di UPDATE CASCADE
 CREATE TRIGGER UpdateIBANBeneficiario
 ON ContoCorrente
 AFTER UPDATE
-AS IF UPDATE(IBAN)
+AS IF UPDATE(IBAN) -- se l'update riguarda la colonna IBAN nella tabella ContoCorrente
 SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
    UPDATE Movimenti
    SET IBANBeneficiario = (SELECT IBAN FROM INSERTED)

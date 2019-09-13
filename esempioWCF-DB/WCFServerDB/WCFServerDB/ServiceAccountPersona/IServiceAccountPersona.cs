@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 
 namespace WCFServerDB
 {
@@ -24,10 +22,10 @@ namespace WCFServerDB
         bool EliminaAccount(string username);
 
         [OperationContract]
-        Persona CheckUsername(string username); // Restituisce i dati dell'account e i dati anagrafici 
-                                                // della persona che possiede l'account
+        Persona CheckUsername(string username); 
+
         [OperationContract]
-        Persona GetPersona(string codiceFiscale); // Restituisce solo i dati anagrafici di una persona
+        Persona GetPersona(string codiceFiscale);
 
         [OperationContract]
         bool AggiungiPersona(Persona persona, string password);

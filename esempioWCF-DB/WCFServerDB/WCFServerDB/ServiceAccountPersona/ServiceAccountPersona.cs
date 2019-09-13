@@ -73,7 +73,11 @@ namespace WCFServerDB
                         Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
+
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
@@ -130,12 +134,17 @@ namespace WCFServerDB
                         Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
+
                     return String.Empty;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
 
         public List<Persona> GetListaPersone(string tipoAccount, string idFiliale) {
+            // Lista usata per ritornare i dati
             List<Persona> listaPersone = new List<Persona>() { };
 
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
@@ -197,6 +206,7 @@ namespace WCFServerDB
 
                     // Attempt to commit the transaction.
                     transaction.Commit();
+
                     return listaPersone;
                 }
                 catch (Exception ex) {
@@ -214,14 +224,15 @@ namespace WCFServerDB
                         Console.WriteLine("Rollback Exception Type: {0}", ex2.GetType());
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
+
                     return new List<Persona>() { };
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
 
-        // Elimina solo Account, la Persona rimane registrata
-        // Potrei creare un metodo EliminaPersona che elimina la persona quando
-        // viene eliminato l'ultimo account collegato alla persona
         public bool EliminaAccount(string username) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
@@ -255,6 +266,9 @@ namespace WCFServerDB
                     }
 
                     var codiceFiscale = string.Empty;
+
+                    // Se alla persona ha solo un account e non ha conti correnti, allora mi salvo il codice fiscale della persona
+                    // così posso eliminare l'account e poi anche la persona.
                     if (numAccountPersona <= 1) {
                         command.Parameters.Clear();
                         command.CommandText = "SELECT codicefiscale FROM Account WHERE username = @username;";
@@ -267,6 +281,7 @@ namespace WCFServerDB
                             Console.WriteLine("@username = {0}", username);
                         }
 
+                        // codice fiscale della persona da eliminare
                         codiceFiscale = (string)command.ExecuteScalar();
 
                         if (Globals.debugMode) {
@@ -275,6 +290,8 @@ namespace WCFServerDB
                     }
 
                     command.Parameters.Clear();
+
+                    // elimino l'account
                     command.CommandText = "DELETE FROM Account WHERE username = @username;";
                     command.Parameters.Add("@username", SqlDbType.VarChar);
                     command.Parameters["@username"].Value = username;
@@ -293,6 +310,7 @@ namespace WCFServerDB
                     // Attempt to commit the transaction.
                     transaction.Commit();
 
+                    // elimino la persona, dopo aver eliminato l'account per via dei vincoli nel DB
                     if (numAccountPersona <= 1) {
                         EliminaPersona(codiceFiscale);
                     }
@@ -317,9 +335,13 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
+        // Metodo usato solo nel lato server, non fa parte delle operazioni visibili dal client
         public bool EliminaPersona(string codiceFiscale) {
             using (SqlConnection connection = new SqlConnection(ConfigurationManager.AppSettings["connectionString"])) {
                 connection.Open();
@@ -373,6 +395,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
@@ -451,6 +476,9 @@ namespace WCFServerDB
                     }
                     return new Persona();
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -473,6 +501,9 @@ namespace WCFServerDB
                     Persona tempPersona = GetPersona(persona.codiceFiscale);
                     int result;
 
+                    // Se temPersona è vuoto (cioè tutti campi settati a default) allora devo aggiungere una nuova persona
+                    // e un nuovo account. Se il campo codice fiscale ha un valore diverso da string.Empty allora devo 
+                    // aggiungere solo un account perchè la persona è già presente nel DB
                     if (tempPersona.codiceFiscale == string.Empty) {
                         command.CommandText = "INSERT INTO Persona VALUES ( @codiceFiscale, @nome, @cognome, @dataDiNascita, "
                                                 + "@sesso, @indirizzo, @CAP, @citta, @provincia, @stato, @numeroDiTelefono)";
@@ -588,6 +619,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -609,26 +643,31 @@ namespace WCFServerDB
 
                 try {
 
-                    //Lista delle propietà della persona 
+                    // Lista delle propietà della persona 
                     List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
 
-                    //Lista vuota di properties legata alla tabella Account
+                    // Lista vuota di properties legata alla tabella Account
                     List<System.Reflection.PropertyInfo> accountProperties = new List<System.Reflection.PropertyInfo>() { };
+
+                    // Lista dei nomi degli attributi legati alla tabella Account
                     List<string> accountPropertiesNames = new List<string>() { "username", "privilegi", "filiale" };
 
-                    //Itero tutte le properties della persona rimuovendo quelle in comune con account e le aggiungo a quest' ultimo
-                    //!!!Non viene modificata la classe ma solo una lista che contiene i nomi delle propietà della classe
+                    // Itero tutte le properties della persona rimuovendo quelle in comune con account e le aggiungo alla lista accountProperties
+                    // !!! Non viene modificata la classe ma solo una lista che contiene dei riferimenti alle propietà della classe
                     for (int index = 0; index < personaProperties.Count; index++) {
                         if (accountPropertiesNames.Contains(personaProperties[index].Name)) {
                             accountProperties.Add(personaProperties[index]);
                             personaProperties.RemoveAt(index);
+                            // Quando rimuovo un elemento dalla lista ad un determinato indice, gli elementi successivi vengono scalati
                             index--;
+
                         } else if (personaProperties[index].Name == "codiceFiscale") {
+                            // Codice Fiscale è presente sia in account che persona.
                             accountProperties.Add(personaProperties[index]);
                         }
                     }
 
-                    // Prima modifica Persona e poi modifico Account
+                    // Prima modifico Persona e poi modifico Account
                     // Non possiamo usare una Query Parametrizza perchè non sappiamo esattamente quali saranno i parametri
                     command.CommandText = "UPDATE Persona SET ";
 
@@ -658,26 +697,33 @@ namespace WCFServerDB
                             }
                         }
 
+                        // Se ho aggiunto del codice per aggiornare un dato devo mettere la "," nella query se ci sono altri dati da aggiornare prima del WHERE
+                        // altrimenti "," non va messa perchè dopo viene aggiunta la condizione " WHERE CodiceFiscale = ..."
                         if (propertyAddedToQuery) {
 
+                            // Eseguo la query solo se ho aggiunto dei dati da aggiornare
                             queryDaEseguire = true;
 
+                            // tempIndex = index + 1 perchè devo controllare solo i dati successivi a quello che ho appena inserito nella query
                             for (int tempIndex = index + 1; tempIndex < personaProperties.Count; tempIndex++) {
                                
                                 if (personaProperties[tempIndex].PropertyType == typeof(string)) {
                                     if (personaProperties[tempIndex].GetValue(persona).ToString() != string.Empty) {
                                         command.CommandText += " , ";
+                                        // Basta inserire una sola " , " poi esco dal for
                                         tempIndex = personaProperties.Count;
                                     }
 
                                 } else if (personaProperties[tempIndex].PropertyType == typeof(DateTime?)) {
                                     if (((DateTime?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
                                         command.CommandText += " , ";
+                                        // Basta inserire una sola " , " poi esco dal for
                                         tempIndex = personaProperties.Count;
                                     }
                                 } else {                                    
                                     if (((int?)personaProperties[tempIndex].GetValue(persona)).HasValue) {
                                         command.CommandText += " , ";
+                                        // Basta inserire una sola " , " poi esco dal for
                                         tempIndex = personaProperties.Count;
                                     }
                                 }
@@ -764,8 +810,8 @@ namespace WCFServerDB
                         }
 
                         // Potrei aver aggiornato dati relativi solo alla tabella Persona, quindi result contiene il numero 
-                        // di righe aggiornate della query (se eseguita) update su Persona.
-                        // Se anche la query su Persona non è stata eseguita allora result contiente -1, 
+                        // di righe aggiornate dalla query (se eseguita) update su Persona.
+                        // Se anche la query su Persona non è stata eseguita allora result contiene -1, 
                         // quindi non ho aggiornato nessun dato, perciò return False.
                         if (result > 0) {
 
@@ -795,6 +841,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
@@ -870,6 +919,9 @@ namespace WCFServerDB
                     }
                     return new Persona();
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -926,6 +978,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return String.Empty;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }

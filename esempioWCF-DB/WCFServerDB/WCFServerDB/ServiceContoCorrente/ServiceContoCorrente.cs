@@ -76,6 +76,9 @@ namespace WCFServerDB
                     }
                     return new ContoCorrente();
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -135,6 +138,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -193,6 +199,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
@@ -259,6 +268,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+            }
+            finally {
+                Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
             }
         }
 
@@ -327,6 +339,9 @@ namespace WCFServerDB
                     }
                     return new List<ContoCorrente>() { };
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -383,6 +398,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return String.Empty;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }    

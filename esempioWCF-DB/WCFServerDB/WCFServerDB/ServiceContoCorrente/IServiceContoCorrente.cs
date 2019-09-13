@@ -16,10 +16,10 @@ namespace WCFServerDB
         ContoCorrente SelectContoCorrente(UInt64 idContoCorrente);
 
         [OperationContract]
-        bool CheckIBAN(string IBAN); //true se l'iban esiste, false in caso contrario
+        bool CheckIBAN(string IBAN);
 
         [OperationContract]
-        bool CheckIDConto(UInt64 idContoCorrente); // controlla se esiste un conto Corrente con quell'ID
+        bool CheckIDConto(UInt64 idContoCorrente);
 
         [OperationContract]
         bool AggiungiContoCorrente(string username, string idFiliale, decimal? saldo);

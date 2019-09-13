@@ -73,6 +73,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -92,6 +95,7 @@ namespace WCFServerDB
 
                 try {
 
+                    // Aggiorno il saldo del committente
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE IBAN = @IBANCommittente;";
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
                     command.Parameters.Add("@importo", SqlDbType.Decimal);
@@ -112,12 +116,14 @@ namespace WCFServerDB
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
+                    // Se non dovessi trovare un IBAN uguale a quello dato la query sarebbe giusta ma il result = 0
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
                     command.Parameters.Clear();
 
+                    // Aggiorno il saldo del beneficiario
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE IBAN = @IBANBeneficiario;";
 
                     command.Parameters.Add("@IBANBeneficiario", SqlDbType.VarChar);
@@ -139,12 +145,14 @@ namespace WCFServerDB
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
+                    // Se non dovessi trovare un IBAN uguale a quello dato la query sarebbe giusta ma il result = 0
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Beneficiario");
                     }
 
                     command.Parameters.Clear();
 
+                    // Aggiungo il movimento nella tabella dei movimenti
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
@@ -197,6 +205,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -216,6 +227,7 @@ namespace WCFServerDB
 
                 try {
 
+                    // Aggiorno il saldo del conto corrente
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo + @importo WHERE idContoCorrente = @idContoCorrente;";
 
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
@@ -237,12 +249,14 @@ namespace WCFServerDB
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
+                    // Se non dovessi trovare un conto corrente uguale a quello dato la query sarebbe giusta ma il result = 0
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
                     command.Parameters.Clear();
 
+                    // Cerca l'IBAN legato all'ID del conto corrente dato per poter aggiungere il movimento
                     command.CommandText = "SELECT IBAN FROM ContoCorrente WHERE idContoCorrente = @idContoCorrente;";
 
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
@@ -262,6 +276,7 @@ namespace WCFServerDB
 
                     command.Parameters.Clear();
 
+                    // Aggiungo il movimento nella tabella dei movimenti
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
@@ -314,6 +329,9 @@ namespace WCFServerDB
                     }
                     return false;
                 }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
             }
         }
 
@@ -333,6 +351,7 @@ namespace WCFServerDB
 
                 try {
 
+                    // Aggiorno il saldo del conto corrente
                     command.CommandText = "UPDATE ContoCorrente SET saldo = saldo - @importo WHERE idContoCorrente = @idContoCorrente;";
 
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
@@ -354,12 +373,14 @@ namespace WCFServerDB
                         Console.WriteLine("Risultato: {0}", result);
                     }
 
+                    // Se non dovessi trovare un conto corrente uguale a quello dato la query sarebbe giusta ma il result = 0
                     if (result <= 0) {
                         throw new Exception("ERRORE: Non è stato possibile aggiornare il contocorrente del Committente");
                     }
 
                     command.Parameters.Clear();
 
+                    // Cerca l'IBAN legato all'ID del conto corrente dato per poter aggiungere il movimento
                     command.CommandText = "SELECT IBAN FROM ContoCorrente WHERE idContoCorrente = @idContoCorrente;";
 
                     command.Parameters.Add("@idContoCorrente", SqlDbType.VarChar);
@@ -369,6 +390,7 @@ namespace WCFServerDB
 
                     command.Parameters.Clear();
 
+                    // Aggiungo il movimento nella tabella dei movimenti
                     command.CommandText = "INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)";
 
                     command.Parameters.Add("@IBANCommittente", SqlDbType.VarChar);
@@ -422,6 +444,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return false;
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
@@ -496,6 +521,9 @@ namespace WCFServerDB
                         Console.WriteLine("  Message: {0}", ex2.Message);
                     }
                     return new List<Movimento>() { };
+                }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
                 }
             }
         }
