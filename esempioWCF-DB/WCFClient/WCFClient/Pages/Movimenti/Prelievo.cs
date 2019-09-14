@@ -22,8 +22,6 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                    string username;
-
                     //LISTA CONTI CORRENTI
                     List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege();
 

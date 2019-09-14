@@ -59,6 +59,7 @@ CREATE TABLE Movimenti(
 );
 -- ##################################################################################
 -- ################ AGGIUNGERE I TRIGGER DOPO AVER CREATO LE TABELLE ################
+-- ################        INSERIRE I TRIGGERE UNO ALLA VOLTA        ################
 -- ##################################################################################
 
 -- Questo trigger è stato creato perchè dalla tabella Filiale(idFiliale, nome...) dipendono Account e ContoCorrente. L'obiettivo è quello di aggiornare
@@ -75,6 +76,9 @@ SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
    SET idFiliale = (SELECT filiale FROM INSERTED)
    WHERE username = (SELECT username FROM INSERTED)
 
+
+-- ##################################################################################
+-- ##################################################################################
 
 -- Essendo l'IBAN di un conto composto da idFiliale + idContoCorrente, nel momento in cui una filiale
 -- modifica il proprio idFiliale dobbiamo ricalcolare l'IBAN e aggiornarlo nei conti correnti dipendenti
@@ -104,6 +108,9 @@ BEGIN
 	SET IBAN = (SELECT filiale FROM Account WHERE username = (SELECT username FROM INSERTED)) + (SELECT CAST(idContoCorrente AS VARCHAR) FROM INSERTED)
 	WHERE idContoCorrente = (SELECT idContoCorrente FROM INSERTED);
 END
+
+-- ##################################################################################
+-- ##################################################################################
 
 -- Queto Trigger serve per simulare una Foreign Key. La tabella Movimenti dovrebbe avere IBANCommiettente e IBANBeneficiario come attributi che dipendono
 -- dalla stessa tabelle ContoCorrente e questo non è possibile. Quindi teniamo la FK con UPDATE CASCADE su IBANCommittente e su IBANBeneficiario la simuliamo.
@@ -135,10 +142,8 @@ SET NOCOUNT ON; -- NOCOUNT ON: non restituisce il numero di righe modificate
 -- ##################### Query per inserire alcuni dati di prova ####################
 -- ##################################################################################
 
-INSERT INTO Persona VALUES ('INDI28091997','Inderpreet','Singh','28-09-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3279199829');
-INSERT INTO Persona VALUES ('ADIN12121997','Adin','Piergaru','12-12-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3329199829');
-INSERT INTO Persona VALUES ('BEPPE15031998','Giuseppe','Urbano','15-03-1998','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3279188829');
-INSERT INTO Persona VALUES ('LUCA28071999','Luca','Inzaghi','28-07-1999','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3449199829');
+INSERT INTO Persona VALUES ('SNGNRP97P28Z222J','Inderpreet','Singh','28-09-1997','maschio','Via Torricelli,10',43036,'Fidenza','PR','Italia','3278929199');
+INSERT INTO Persona VALUES ('RBNGPP98C15B034L','Giuseppe','Urbano','15-03-1998','maschio','Via Saffi, 1',43036,'Fidenza','PR','Italia','3280504123');
 
 INSERT INTO Filiale VALUES ('PR12FID001','UniPR Bank Fidenza','Via Gramsci,71',43036,'Fidenza','PR','Italia','0524123564');
 INSERT INTO Filiale VALUES ('CR12CRM001','UniPR Bank Cremona','Via Pascoli,1',45015,'Cremona','CR','Italia','0524123333');
@@ -147,22 +152,17 @@ INSERT INTO Filiale VALUES ('CR12CRM001','UniPR Bank Cremona','Via Pascoli,1',45
 INSERT INTO Filiale VALUES ('PR00TST000','UniPR Bank Test1','Via Dordone, 12',43036,'Fidenza','PR','Italia','0524000001');
 INSERT INTO Filiale VALUES ('PR00TST001','UniPR Bank Test2','Via Gramsci, 12',43100,'Parma','PR','Italia','0524000000');
 
-INSERT INTO Account VALUES ('indi97','indi123','cliente','INDI28091997','PR12FID001');
-INSERT INTO Account VALUES ('indi97Dir','indi123','admin','INDI28091997','PR12FID001');
-INSERT INTO Account VALUES ('adin97Imp','adin123','impiegato','ADIN12121997','CR12CRM001');
-INSERT INTO Account VALUES ('beppe98Dir','beppe123','admin','BEPPE15031998','CR12CRM001');
-INSERT INTO Account VALUES ('luca99','luca123','cliente','LUCA28071999','CR12CRM001');
-INSERT INTO Account VALUES ('beppe98','beppe123','cliente','BEPPE15031998','PR12FID001');
+INSERT INTO Account VALUES ('indi97Dir','indi123','admin','SNGNRP97P28Z222J','PR12FID001');
+INSERT INTO Account VALUES ('indi97Imp','indi123','impiegato','SNGNRP97P28Z222J','PR12FID001');
+INSERT INTO Account VALUES ('indi97','indi123','cliente','SNGNRP97P28Z222J','PR12FID001');
+INSERT INTO Account VALUES ('beppe97Dir','beppe123','admin','RBNGPP98C15B034L','CR12CRM001');
+INSERT INTO Account VALUES ('beppe97Imp','beppe123','impiegato','RBNGPP98C15B034L','CR12CRM001');
+INSERT INTO Account VALUES ('beppe97','beppe123','cliente','RBNGPP98C15B034L','CR12CRM001');
 
-INSERT INTO ContoCorrente VALUES ('1','indi97',1000.00,'12FID001');
-INSERT INTO ContoCorrente VALUES ('2','luca99',1000.00,'12CRM001');
-INSERT INTO ContoCorrente VALUES ('3','beppe98',1000.00,'12FID001');
-INSERT INTO ContoCorrente VALUES ('4','beppe98',1000.00,'PR12FID001');
-INSERT INTO ContoCorrente VALUES ('5','luca99',1000.00,'CR12CRM001');
-INSERT INTO ContoCorrente VALUES ('6','indi97',1000.00,'PR12FID001');
 
---INSERT INTO Movimenti VALUES ();
---INSERT INTO Movimenti VALUES ();
---INSERT INTO Movimenti VALUES ();
---INSERT INTO Movimenti VALUES ();
---INSERT INTO Movimenti VALUES ();
+INSERT INTO ContoCorrente VALUES ('1','indi97',1000.00,'PR12FID001');
+INSERT INTO ContoCorrente VALUES ('2','beppe97',1000.00,'CR12CRM001');
+INSERT INTO ContoCorrente VALUES ('3','beppe97',1000.00,'CR12CRM001');
+
+-- GUARDARE IBAN NEL DB, NON USARE '1', '2', '3' -> sono IBAN temporanei
+INSERT INTO Movimenti VALUES (@IBANCommittente, @tipo, @importo, @IBANBeneficiario, @dataOra)

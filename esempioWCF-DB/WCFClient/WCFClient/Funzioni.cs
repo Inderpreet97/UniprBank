@@ -18,7 +18,7 @@ namespace WCFClient {
             Output.WriteLine("Tipo di utenza: " + p.privilegi);
             Output.WriteLine("\nUsername: " + p.username + "\nNome: " + p.nome + "\nCognome: " + p.cognome);
             Output.WriteLine("\nCodice Fiscale: " + p.codiceFiscale + "\nSesso: " + p.sesso + "\nData di nascita: " + p.dataDiNascita.ToString().Remove(10, 9));
-            Output.WriteLine("\nCittà: " + p.citta + "\nIndirizzo: " + p.indirizzo + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
+            Output.WriteLine("\nIndirizzo: " + p.indirizzo + "\nCittà: " + p.citta + "\nCAP: " + p.CAP + "\nProvincia: " + p.provincia + "\nStato: " + p.stato);
             Output.WriteLine("\nNumero di telefono: " + p.numeroDiTelefono);
         }
 
@@ -147,6 +147,9 @@ namespace WCFClient {
             Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
 
             StampaPersona(persona);
+
+            Output.WriteLine(ConsoleColor.Yellow, "\n\tInserire dati da aggiornare");
+            Output.WriteLine(ConsoleColor.DarkYellow, "Premere invio per i campi che non si intende modificare\n");
 
             persona.username = string.Empty;
             persona.privilegi = string.Empty;

@@ -13,7 +13,7 @@ namespace WCFClient
             AddPage(new MovimentiMenu(this));
             AddPage(new Bonifico(this));
             AddPage(new Prelievo(this));
-            //AddPage(new Deposito(this));
+            AddPage(new Deposito(this));
             AddPage(new ProfiloMenu(this));
             AddPage(new ProfiloModifica(this));
             AddPage(new ProfiloLogout(this));

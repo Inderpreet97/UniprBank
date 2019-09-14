@@ -1,5 +1,7 @@
 ﻿using EasyConsole;
 using System;
+using System.Collections.Generic;
+using WCFClient.ServiceReference1;
 
 namespace WCFClient.Pages
 {
@@ -17,12 +19,12 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                   UInt64 idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
+                    //LISTA CONTI CORRENTI
+                    List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege();
 
-                    while (!Globals.wcfClient.CheckIDConto(idContoCorrente)) {
-                        Output.WriteLine("Conto non trovato, riprovare");
-                        idContoCorrente = Convert.ToUInt64(Input.ReadString("Numero di conto corrente: "));
-                    }
+                    //SCELTA CONTO CORRENTE
+                    UInt64 idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
+                    string IBANCommittente = Globals.wcfClient.GetIBANByIdContoCorrente(idContoCorrente);
 
                     decimal importo = Convert.ToDecimal(Input.ReadString("Importo da caricare: "));
                     if (importo > 0) {

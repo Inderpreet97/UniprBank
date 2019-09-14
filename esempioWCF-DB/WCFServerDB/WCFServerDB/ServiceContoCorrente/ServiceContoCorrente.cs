@@ -268,10 +268,10 @@ namespace WCFServerDB
                     }
                     return false;
                 }
-            }
-            finally {
-                Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
-            }
+                finally {
+                    Console.WriteLine("\nServizio WCF online --- premere un tasto per interrompere...");
+                }
+            } 
         }
 
         public List<ContoCorrente> GetListaContoCorrente(string username) {
