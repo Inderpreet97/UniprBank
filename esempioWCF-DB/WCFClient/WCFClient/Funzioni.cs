@@ -75,6 +75,9 @@ namespace WCFClient {
                 temp = Input.ReadString("Città: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { citta = temp; }
 
+                //CAP
+                CAP = (int?)Input.ReadInt("CAP: ", 0, 99999);
+
                 //Provincia
                 temp = Input.ReadString("Provincia: ");
                 if (!string.IsNullOrWhiteSpace(temp)) { provincia = temp; }
@@ -89,9 +92,6 @@ namespace WCFClient {
 
                 //Filiale
                 Output.WriteLine("Filiale di appartenenza: " + filiale + " - " + Globals.wcfClient.GetNameFiliale(filiale));
-
-                //CAP
-                CAP = (int?)Input.ReadInt("CAP: ", 0, 99999);
             }
 
             //Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
@@ -127,7 +127,12 @@ namespace WCFClient {
             Output.WriteLine("Le password coincidono...\n\n");
 
             risultato = Globals.wcfClient.AggiungiPersona(persona, password1);
-            if (risultato) { Output.WriteLine(privilegio + " aggiunto correttamente"); } else { Output.WriteLine("Errore, persona non aggiunta"); }
+
+            if (risultato) {
+                Output.WriteLine(ConsoleColor.DarkGreen,"\n" + privilegio + " aggiunto correttamente\n");
+            } else {
+                Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, persona non aggiunta\n");
+            }
 
         }
 
@@ -205,7 +210,11 @@ namespace WCFClient {
 
             bool risultato = Globals.wcfClient.ModificaPersona(usernamePersona, persona);
 
-            if (risultato) { Output.WriteLine(persona.privilegi + " modificato correttamente"); } else { Output.WriteLine(ConsoleColor.Red, "La persona NON ha subito modifiche"); }
+            if (risultato) {
+                Output.WriteLine(ConsoleColor.DarkGreen ,"\n" +persona.privilegi + " modificato correttamente\n");
+            } else {
+                Output.WriteLine(ConsoleColor.DarkRed, "\nLa persona NON ha subito modifiche\n");
+            }
 
         }
 

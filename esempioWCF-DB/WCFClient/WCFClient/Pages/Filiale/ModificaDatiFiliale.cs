@@ -56,7 +56,7 @@ namespace WCFClient.Pages
 
             bool risultato = Globals.wcfClient.ModificaDatiFiliale(LoggedUser.idFiliale, filiale);
 
-            if (risultato) { Output.WriteLine("Modifica effettuata correttamente"); } else { Output.WriteLine("Errore"); }
+            if (risultato) { Output.WriteLine(ConsoleColor.DarkGreen,"\nModifica effettuata correttamente\n"); } else { Output.WriteLine(ConsoleColor.DarkRed,"\nErrore! I dati non sono stati modificati\n"); }
         }
 
         public override void Display(){
@@ -69,6 +69,7 @@ namespace WCFClient.Pages
 
             ModificaFiliale();
 
+            filiale = Globals.wcfClient.GetFiliale(LoggedUser.username);
             //Stampa nuovamente la filiale
             Funzioni.StampaFiliale(filiale);
 

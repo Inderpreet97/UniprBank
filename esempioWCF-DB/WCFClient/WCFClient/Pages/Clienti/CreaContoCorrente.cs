@@ -1,4 +1,5 @@
 ﻿using EasyConsole;
+using System;
 using System.Collections.Generic;
 using WCFClient.ServiceReference1;
 
@@ -18,7 +19,12 @@ namespace WCFClient.Pages
 
             //Crea un conto corrente intestato all'utente
             bool risultato = Globals.wcfClient.AggiungiContoCorrente(username, LoggedUser.idFiliale, 0);
-            if (risultato) { Output.WriteLine("Conto corrente aggiunto"); } else { Output.WriteLine("Errore, conto corrente non creato"); }
+
+            if (risultato) {
+                Output.WriteLine(ConsoleColor.DarkGreen ,"\nConto corrente aggiunto\n");
+            } else {
+                Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, conto corrente non creato\n");
+            }
 
             //Ottiene la lista dei conti correnti di quell'utente
             List<ContoCorrente> listaContiThisUser = Globals.wcfClient.GetListaContoCorrente(username);
