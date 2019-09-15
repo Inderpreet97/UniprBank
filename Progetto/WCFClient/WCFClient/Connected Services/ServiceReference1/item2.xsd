@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCFServerDB" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFServerDB" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfPersona">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Persona" nillable="true" type="tns:Persona" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPersona" nillable="true" type="tns:ArrayOfPersona" />
+  <xs:complexType name="Persona">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CAP" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="citta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="codiceFiscale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="cognome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dataDiNascita" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="filiale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indirizzo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDiTelefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="privilegi" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="provincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="sesso" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stato" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Persona" nillable="true" type="tns:Persona" />
+  <xs:complexType name="ArrayOfContoCorrente">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ContoCorrente" nillable="true" type="tns:ContoCorrente" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContoCorrente" nillable="true" type="tns:ArrayOfContoCorrente" />
+  <xs:complexType name="ContoCorrente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IBAN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idContoCorrente" nillable="true" type="xs:unsignedLong" />
+      <xs:element minOccurs="0" name="idFiliale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="saldo" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContoCorrente" nillable="true" type="tns:ContoCorrente" />
+  <xs:complexType name="Filiale">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CAP" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="citta" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idFiliale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="indirizzo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="nome" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="numeroDiTelefono" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="provincia" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="stato" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Filiale" nillable="true" type="tns:Filiale" />
+  <xs:complexType name="ArrayOfMovimento">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Movimento" nillable="true" type="tns:Movimento" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMovimento" nillable="true" type="tns:ArrayOfMovimento" />
+  <xs:complexType name="Movimento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IBANBeneficiario" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IBANCommittente" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="dataOra" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="idMovimenti" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="importo" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="tipo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Movimento" nillable="true" type="tns:Movimento" />
+</xs:schema>

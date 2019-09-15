@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCFServerDB" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCFServerDB" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ArrayOfContoCorrente">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ContoCorrente" nillable="true" type="tns:ContoCorrente" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContoCorrente" nillable="true" type="tns:ArrayOfContoCorrente" />
+  <xs:complexType name="ContoCorrente">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IBAN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idContoCorrente" nillable="true" type="xs:unsignedLong" />
+      <xs:element minOccurs="0" name="idFiliale" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="saldo" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ContoCorrente" nillable="true" type="tns:ContoCorrente" />
+</xs:schema>
