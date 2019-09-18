@@ -1,0 +1,135 @@
+******************************
+***	    Program        ***
+******************************
+Costruttore: protected Program(string title, bool breadcrumbHeader)
+  Il costruttore della classe Abstract Program, questo costruttore è accessibile solo tramite le classi
+  figlie di Program. Infatti è chiamato nei costruttori dei diversi program che abbiamo creato.
+	: base (string title, bool breadcrumbHeader) <- Chiamata del costruttore della classe Program.
+  - string title: titolo della homepage
+  - bool breadcrumbHeader: attiva/disattiva visualizzazione della cronologia delle pagine aperte
+
+Proprietà:
+  - protected string Title
+  - public bool BreadcrumbHeader { get; private set; }
+  - protected Page CurrentPage: se la History contiene elementi ritorna quello in cima, altrimenti Null.
+  - private Dictionary<Type, Page> Pages
+  - public Stack<Page> History { get; private set; }
+  - public bool NavigationEnabled { get { return History.Count > 1; } }
+
+La classe Program è una classe Abstract, quindi NON possiamo istanzare oggetti di Program,
+dobbiamo prima creare una classe figlia di Program.
+
+Program contiene anche una proprietà chiamata History di tipo Stack<Page> che permette di creare
+una cronologia delle Page aperte.
+
+Il compito di un oggetto Program è quello di chiamare il metodo display della Page richiesta,
+e pulire la console nel passaggio da una Page all'altra.
+
+
+Metodi: 
+  - public virtual void Run()
+	Cambia il titolo della Console e chiama il metodo Display della CurrentPage, che all'inizio di un
+	Program è la Page che abbiamo impostato con SetPage.
+
+  - public void AddPage(Page page)
+	La classe program contiene una Dictionary <type, Page> che contiene tutte le pagine che verrano usate
+	in questo programma. AddPage non fa altro che aggiungere una Page a questo dictionary.
+
+  - public void NavigateHome()
+	Rimuove dalla History tutte le pagine fino a tornare alla "homepage", pulisce la console, e chiama il
+	metodo Display della prima Page che abbiamo impostato con SetPage.
+
+  - public T SetPage<T>()
+	Se la Page che vogliamo aprire è la Page aperta in questo momento allora non facciamo niente e ritorniamo la
+	CurrentPage.
+	Altrimenti, se questa Page esiste nel dictionary Pages del program, la inseriamo in cima alla History. Quindi diventerà
+	la nuova CurrentPage.
+
+  - public T NavigateTo<T>()
+	Usa SetPage per impostare la prossima Page da aprire, pulisce la console, e chiama il metodo Display della CurrentPage,
+	che sarà la Page impostata da SetPage.
+	
+  - public Page NavigateBack()
+	Toglie una Page dalla History, pulisce la console, e chiama il metodo Display della nuova CurrentPage, che sarà la Page
+	che nello stack History era immediatamente sotto alla Page appena rimossa.
+
+******************************
+***	     Page          ***
+******************************
+Costruttore: public Page(string title, Program program)
+
+Nel costruttore bisogna indicare il Program al quale appartiene la Page perchè nel metodo Display usiamo
+la proprietà History di Program per poter stampare la cronologia delle pagine aperte.
+
+Nel program viene usata spesso una variabile chiamata pageType di tipo Type. Questa variabile contiene il
+nome della Classe figlia di Page, di cui è un oggetto la Page della quale siamo memorizzando il tipo.
+
+Proprietà:
+  - public string Title
+  - public Program Program
+
+Metodi: 
+  - public virtual void Display()
+	Display definito nella classe base serve per stampare il titolo della Page oppure se
+	breadcrumbHeader è true e non siamo nella homepage serve per stampare la cronologia delle pagine aperte.
+
+******************************
+***	    MenuPage       ***
+******************************
+MenuPage è una pagina molto semplice, composta da un Menu le cui opzioni permettono di andare 
+in una Page, un'altra MenuPage o tornare indietro se non è l'homepage.
+
+Costruttore: MenuPage(string title, Program program, params Option[] options) : base(title, program)
+
+Proprietà (+ quelle di Page):
+  - protected Menu Menu
+
+Metodi: 
+  - public override void Display()
+	Chiama il metodo Display della classe base, Page.Display(), e chiama il metodo Menu.Display()
+
+******************************
+***	     Menu          ***
+******************************
+Costruttore:
+  - public Menu() { Options = new List<Option>(); }
+
+Proprietà (+ quelle di Page):
+  - private IList<Option> Options
+
+Metodi: 
+  - public void Display()
+	Stampa la lista delle Option presenti nella List Options
+
+  - public Menu Add(string option, Action callback)
+	Dato il nome della Option e l'espressione Lambda da eseguire quando viene scelta l'opzione, questo
+	costruisce l'oggetto Option e lo aggiunge alla lista Options.
+
+  - public Menu Add(Option option)
+	Questo è un overload del metodo precedente, che semplicemente aggiunge alla lista Options la Option
+	in ingresso.
+
+  - public bool Contains(string option) { return Options.FirstOrDefault((op) => op.Name.Equals(option)) != null; }
+	# Options.FirstOrDefault(Func<Option,bool>) --> Restituisce il primo elemento della sequenza che soddisfa una condizione specificata
+        	o un valore predefinito se tale elemento non viene trovato.
+	# TResult Func<in T,out TResult>(T arg) -> (op) => op.Name.Equals(option) --> Una Func<T,TResult> è come un'espressione Lamba ma ha
+		un valore di ritorno. Nel nostro caso questa Func prende in ingresso un oggetto di tipo Option e ritorna un Bool.
+		Il bool ritornato è risultato dell'espressione op.Name.Equals(option)
+	Se la Func ritorna True allora FirstOrDefault ritorna la Option presente nella lista che ha verificato la condizione, se nessuna
+	Option ha verificato la condizione della Func allora FirstOrDefault ritorna un Null.
+	Il risultato di FirstOrDefault verrà usato nella espressione 'risultato di FirstOrDefault' != Null, il risultato di questa espressione (bool)
+	è il valore di ritorno del metodo Contains.
+
+
+******************************
+***	    Option         ***
+******************************
+Costruttore:
+  - public Option(string name, Action callback)
+
+Proprietà (+ quelle di Page):
+  - public string Name
+  - public Action Callback
+
+Metodi: 
+  - public override string ToString() { return Name; }
