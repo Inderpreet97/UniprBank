@@ -17,22 +17,25 @@ namespace WCFClient.Pages
 
             string username = Funzioni.digitaUsername();
 
-            //Crea un conto corrente intestato all'utente
-            bool risultato = Globals.wcfClient.AggiungiContoCorrente(username, LoggedUser.idFiliale, 0);
+            if (username != string.Empty) {
+                //Crea un conto corrente intestato all'utente
+                bool risultato = Globals.wcfClient.AggiungiContoCorrente(username, LoggedUser.idFiliale, 0);
 
-            if (risultato) {
-                Output.WriteLine(ConsoleColor.DarkGreen ,"\nConto corrente aggiunto\n");
-            } else {
-                Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, conto corrente non creato\n");
+                if (risultato) {
+                    Output.WriteLine(ConsoleColor.DarkGreen, "\nConto corrente aggiunto\n");
+                } else {
+                    Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, conto corrente non creato\n");
+                }
+
+                //Ottiene la lista dei conti correnti di quell'utente
+                List<ContoCorrente> listaContiThisUser = Globals.wcfClient.GetListaContoCorrente(username);
+
+                Output.WriteLine("Conto correnti associati a " + username);
+                Funzioni.printListaConti(listaContiThisUser);
             }
 
-            //Ottiene la lista dei conti correnti di quell'utente
-            List<ContoCorrente> listaContiThisUser = Globals.wcfClient.GetListaContoCorrente(username);
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
 
-            Output.WriteLine("Conto correnti associati a " + username);
-            Funzioni.printListaConti(listaContiThisUser);
-
-            Input.ReadString("Press [Enter] to navigate home");
             Program.NavigateHome();
         }
     }

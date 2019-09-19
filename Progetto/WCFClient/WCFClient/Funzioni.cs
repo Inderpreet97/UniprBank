@@ -7,9 +7,12 @@ using EasyConsole;
 using System.Configuration;
 using WCFClient.ServiceReference1;
 using ConsoleTables;
+using System.Text.RegularExpressions;
 
-namespace WCFClient {
-    static class Funzioni {
+namespace WCFClient
+{
+    static class Funzioni
+    {
         //Questa classe fornisce dei metodi globali che possono essere chiamati da tutta l'applicazione Client a fine di ottimizzazione del codice
 
         //Persona/Account
@@ -26,114 +29,163 @@ namespace WCFClient {
 
             string username = digitaNuovoUsername();
 
-            string codiceFiscale = string.Empty;
-            string nome = string.Empty;
-            string cognome = string.Empty;
-            string sesso = string.Empty;
-            string indirizzo = string.Empty;
-            string numeroDiTelefono = string.Empty;
-            string filiale = LoggedUser.idFiliale;
-            string citta = string.Empty;
-            string provincia = string.Empty;
-            string stato = string.Empty;
-            DateTime dataDiNascita = Globals.defaultDate;
-            int? CAP = null;
-            string temp;
+            if (username != string.Empty) {
 
-            //Tutti gli attributi devono essere valorizzati, altrimenti esegue il ciclo while
-            while (codiceFiscale == string.Empty || nome == string.Empty || cognome == string.Empty ||
-                sesso == string.Empty || indirizzo == string.Empty ||
-                numeroDiTelefono == string.Empty || filiale == string.Empty ||
-                citta == string.Empty || provincia == string.Empty || stato == string.Empty ||
-                !CAP.HasValue || (!Funzioni.checkEta(dataDiNascita))) {
+                string codiceFiscale = string.Empty;
+                string nome = string.Empty;
+                string cognome = string.Empty;
+                string sesso = string.Empty;
+                string indirizzo = string.Empty;
+                string numeroDiTelefono = string.Empty;
+                string filiale = LoggedUser.idFiliale;
+                string citta = string.Empty;
+                string provincia = string.Empty;
+                string stato = string.Empty;
+                DateTime dataDiNascita = Globals.defaultDate;
+                int? CAP = null;
+                string temp;
+                bool maggiorenne = false;
 
-                //Nome
-                temp = Input.ReadString("Nome: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { nome = temp; }
+                int scelta = 2;
 
-                //Cognome
-                temp = Input.ReadString("Cognome: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { cognome = temp; }
+                //Tutti gli attributi devono essere valorizzati, altrimenti esegue il ciclo while
+                while (scelta != 1) {
+                    Console.WriteLine("");
+                    try {
+                        //Nome
+                        if (nome == string.Empty) {
+                            temp = Input.ReadString("Nome: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { nome = temp; }
+                        }
 
-                //Data di nascita
-                temp = Input.ReadString("Data di nascita: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { DateTime.TryParse(temp, out dataDiNascita); }
+                        //Cognome
+                        if (cognome == string.Empty) {
+                            temp = Input.ReadString("Cognome: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { cognome = temp; }
+                        }
 
-                //Codice fiscale
-                temp = Input.ReadString("Codice fiscale: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { codiceFiscale = temp; }
+                        //Data di nascita
+                        if (!maggiorenne) {
+                            temp = Input.ReadString("Data di nascita: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) {
+                                DateTime.TryParse(temp, out dataDiNascita);
+                                maggiorenne = Funzioni.checkEta(dataDiNascita);
+                            }
+                        }
 
-                //Sesso
-                temp = Input.ReadString("Sesso: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { sesso = temp; }
+                        //Codice fiscale
+                        if (codiceFiscale == string.Empty) {
+                            temp = Input.ReadString("Codice fiscale: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) {
+                                Match match = Regex.Match(temp, "^[A-Z]{6}[\\d]{2}[A-Z][\\d]{2}[A-Z][\\d]{3}[A-Z]$");
 
-                //Indirizzo
-                temp = Input.ReadString("Indirizzo: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { indirizzo = temp; }
+                                if (match != Match.Empty) {
+                                    codiceFiscale = temp;
+                                } else {
+                                    throw new Exception("Codice Fiscale non valido");
+                                }
+                            }
+                        }
 
-                //Citta
-                temp = Input.ReadString("Città: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { citta = temp; }
+                        //Sesso
+                        if (sesso == string.Empty) {
+                            temp = Input.ReadString("Sesso: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { sesso = temp; }
+                        }
 
-                //CAP
-                CAP = (int?)Input.ReadInt("CAP: ", 0, 99999);
+                        //Indirizzo
+                        if (indirizzo == string.Empty) {
+                            temp = Input.ReadString("Indirizzo: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { indirizzo = temp; }
+                        }
 
-                //Provincia
-                temp = Input.ReadString("Provincia: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { provincia = temp; }
+                        //Citta
+                        if (citta == string.Empty) {
+                            temp = Input.ReadString("Città: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { citta = temp; }
+                        }
 
-                //Stato
-                temp = Input.ReadString("Stato: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { stato = temp; }
+                        //CAP
+                        if (CAP == null) {
+                            CAP = Input.ReadInt("CAP: ", 0, 99999);
+                        }
 
-                //Numero di telefono
-                temp = Input.ReadString("Numero di telefono: ");
-                if (!string.IsNullOrWhiteSpace(temp)) { numeroDiTelefono = temp; }
+                        //Provincia
+                        if (provincia == string.Empty) {
+                            temp = Input.ReadString("Provincia: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { provincia = temp; }
+                        }
 
-                //Filiale
-                Output.WriteLine("Filiale di appartenenza: " + filiale + " - " + Globals.wcfClient.GetNameFiliale(filiale));
+                        //Stato
+                        if (stato == string.Empty) {
+                            temp = Input.ReadString("Stato: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { stato = temp; }
+                        }
+
+                        //Numero di telefono
+                        if (numeroDiTelefono == string.Empty) {
+                            temp = Input.ReadString("Numero di telefono: ");
+                            if (!string.IsNullOrWhiteSpace(temp)) { numeroDiTelefono = temp; }
+                        }
+
+                        //Filiale
+                        Output.WriteLine("Filiale di appartenenza: " + filiale + " - " + Globals.wcfClient.GetNameFiliale(filiale));
+
+                        if (codiceFiscale != string.Empty && nome != string.Empty && cognome != string.Empty &&
+                                sesso != string.Empty && indirizzo != string.Empty &&
+                                numeroDiTelefono != string.Empty && filiale != string.Empty &&
+                                citta != string.Empty && provincia != string.Empty && stato != string.Empty &&
+                                CAP.HasValue && maggiorenne) 
+                        {
+                            scelta = 1;
+                        }
+
+
+                    }
+                    catch (Exception ex) {
+                        Output.WriteLine(ConsoleColor.Red, ex.Message);
+                        scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                    }
+                }
+
+                //Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
+                //    indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale);
+                Persona persona = new Persona();
+                persona.username = username;
+                persona.privilegi = privilegio;
+                persona.codiceFiscale = codiceFiscale;
+                persona.nome = nome;
+                persona.cognome = cognome;
+                persona.dataDiNascita = dataDiNascita;
+                persona.sesso = sesso;
+                persona.indirizzo = indirizzo;
+                persona.CAP = CAP;
+                persona.citta = citta;
+                persona.provincia = provincia;
+                persona.stato = stato;
+                persona.numeroDiTelefono = numeroDiTelefono;
+                persona.filiale = filiale;
+
+                //La password non viene registrata nella classe Persona
+                string password1 = Input.ReadString("Password: ");
+                string password2 = Input.ReadString("Conferma password: ");
+
+                //Le password devono coincidere
+                while (password1 != password2) {
+                    Output.WriteLine(ConsoleColor.Red, "Le password non coincidono, riprovare\n");
+                    password1 = Input.ReadString("Password: ");
+                    password2 = Input.ReadString("Conferma password: ");
+                }
+                Output.WriteLine("Le password coincidono...\n\n");
+
+                bool risultato = Globals.wcfClient.AggiungiPersona(persona, password1);
+
+                if (risultato) {
+                    Output.WriteLine(ConsoleColor.DarkGreen, "\n" + privilegio + " aggiunto correttamente\n");
+                } else {
+                    Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, persona non aggiunta\n");
+                }
             }
-
-            //Persona persona = new Persona(username, privilegio, codiceFiscale, nome, cognome, dataDiNascita, sesso,
-            //    indirizzo, CAP, citta, provincia, stato, numeroDiTelefono, filiale);
-            Persona persona = new Persona();
-            persona.username = username;
-            persona.privilegi = privilegio;
-            persona.codiceFiscale = codiceFiscale;
-            persona.nome = nome;
-            persona.cognome = cognome;
-            persona.dataDiNascita = dataDiNascita;
-            persona.sesso = sesso;
-            persona.indirizzo = indirizzo;
-            persona.CAP = CAP;
-            persona.citta = citta;
-            persona.provincia = provincia;
-            persona.stato = stato;
-            persona.numeroDiTelefono = numeroDiTelefono;
-            persona.filiale = filiale;
-
-            bool risultato;
-
-            //La password non viene registrata nella classe Persona
-            string password1 = Input.ReadString("Password: ");
-            string password2 = Input.ReadString("Conferma password: ");
-
-            //Le password devono coincidere
-            while (password1 != password2) {
-                Output.WriteLine(ConsoleColor.Red, "Le password non coincidono, riprovare\n");
-                password1 = Input.ReadString("Password: ");
-                password2 = Input.ReadString("Conferma password: ");
-            }
-            Output.WriteLine("Le password coincidono...\n\n");
-
-            risultato = Globals.wcfClient.AggiungiPersona(persona, password1);
-
-            if (risultato) {
-                Output.WriteLine(ConsoleColor.DarkGreen,"\n" + privilegio + " aggiunto correttamente\n");
-            } else {
-                Output.WriteLine(ConsoleColor.DarkRed, "\nErrore, persona non aggiunta\n");
-            }
-
         }
 
         public static void modificaPersona(string usernamePersona) {
@@ -147,75 +199,93 @@ namespace WCFClient {
             per modificare il proprio profilo*/
 
 
-            if (usernamePersona == string.Empty) { usernamePersona = digitaUsername(); }        //Username vuoto
+            if (usernamePersona == string.Empty) { usernamePersona = digitaUsername(); }    //Username vuoto
 
-            Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
+            if (usernamePersona != string.Empty) {
+                Persona persona = Globals.wcfClient.CheckUsername(usernamePersona);
+                int scelta = 1;
+                do {
+                    StampaPersona(persona);
 
-            StampaPersona(persona);
+                    Output.WriteLine(ConsoleColor.Yellow, "\n\tInserire dati da aggiornare");
+                    Output.WriteLine(ConsoleColor.DarkYellow, "Premere invio per i campi che non si intende modificare\n");
 
-            Output.WriteLine(ConsoleColor.Yellow, "\n\tInserire dati da aggiornare");
-            Output.WriteLine(ConsoleColor.DarkYellow, "Premere invio per i campi che non si intende modificare\n");
+                    persona.username = string.Empty;
+                    persona.privilegi = string.Empty;
+                    persona.codiceFiscale = string.Empty;
+                    persona.nome = string.Empty;
+                    persona.cognome = string.Empty;
+                    persona.dataDiNascita = null;
+                    persona.sesso = string.Empty;
+                    persona.indirizzo = string.Empty;
+                    persona.CAP = null;
+                    persona.citta = string.Empty;
+                    persona.provincia = string.Empty;
+                    persona.stato = string.Empty;
+                    persona.numeroDiTelefono = string.Empty;
+                    persona.filiale = string.Empty;
 
-            persona.username = string.Empty;
-            persona.privilegi = string.Empty;
-            persona.codiceFiscale = string.Empty;
-            persona.nome = string.Empty;
-            persona.cognome = string.Empty;
-            persona.dataDiNascita = null;
-            persona.sesso = string.Empty;
-            persona.indirizzo = string.Empty;
-            persona.CAP = null;
-            persona.citta = string.Empty;
-            persona.provincia = string.Empty;
-            persona.stato = string.Empty;
-            persona.numeroDiTelefono = string.Empty;
-            persona.filiale = string.Empty;
+                    try {
+                        //Lista delle properties dell' oggetto
+                        List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
 
+                        //Lista delle properties non modificabili
+                        List<string> BlackList = new List<string>() { "privilegi", "filiale", "ExtensionData" };
 
-            //Lista delle properties dell' oggetto
-            List<System.Reflection.PropertyInfo> personaProperties = persona.GetType().GetProperties().ToList();
+                        string temp;
+                        //Itero tutte le properties dell'oggetto
+                        for (int index = 0; index < personaProperties.Count; index++) {
 
-            //Lista delle properties non modificabili
-            List<string> BlackList = new List<string>() { "privilegi", "filiale", "ExtensionData" };
+                            //Se la property si può modificare (non è contenuta nella blacklist)
+                            if (!BlackList.Contains(personaProperties[index].Name)) {
 
-            string temp;
-            //Itero tutte le properties dell'oggetto
-            for (int index = 0; index < personaProperties.Count; index++) {
+                                temp = Input.ReadString("Nuovo " + personaProperties[index].Name + ": ");
 
-                //Se la property si può modificare (non è contenuta nella blacklist)
-                if (!BlackList.Contains(personaProperties[index].Name)) {
+                                if (!string.IsNullOrWhiteSpace(temp)) {
+                                    if (personaProperties[index].PropertyType == typeof(int?)) {
+                                        //Int
+                                        personaProperties[index].SetValue(persona, Convert.ToInt32(temp));
 
-                    temp = Input.ReadString("Nuovo " + personaProperties[index].Name + ": ");
+                                    } else if (personaProperties[index].PropertyType == typeof(DateTime?)) {
+                                        //Date time
+                                        personaProperties[index].SetValue(persona, Convert.ToDateTime(temp));
 
-                    if (!string.IsNullOrWhiteSpace(temp)) {
-                        if (personaProperties[index].PropertyType == typeof(int?)) {
-                            //Int
-                            personaProperties[index].SetValue(persona, Convert.ToInt32(temp));
+                                    } else if (personaProperties[index].PropertyType == typeof(decimal?)) {
+                                        //decimal
+                                        personaProperties[index].SetValue(persona, Convert.ToDecimal(temp));
 
-                        } else if (personaProperties[index].PropertyType == typeof(DateTime?)) {
-                            //Date time
-                            personaProperties[index].SetValue(persona, Convert.ToDateTime(temp));
+                                    } else {
+                                        //string
+                                        personaProperties[index].SetValue(persona, temp);
+                                        if (personaProperties[index].Name == "codiceFiscale") {
 
-                        } else if (personaProperties[index].PropertyType == typeof(decimal?)) {
-                            //decimal
-                            personaProperties[index].SetValue(persona, Convert.ToDecimal(temp));
-
-                        } else {
-                            //string
-                            personaProperties[index].SetValue(persona, temp);
+                                            Match match = Regex.Match(temp, "^[A-Z]{6}[\\d]{2}[A-Z][\\d]{2}[A-Z][\\d]{3}[A-Z]$");
+                                            if (match == Match.Empty) {
+                                                throw new Exception("Il codice fiscale non è corretto");
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
+
+                        bool risultato = Globals.wcfClient.ModificaPersona(usernamePersona, persona);
+
+                        if (risultato) {
+                            Output.WriteLine(ConsoleColor.DarkGreen, "\n" + persona.privilegi + " modificato correttamente\n");
+                        } else {
+                            Output.WriteLine(ConsoleColor.DarkRed, "\nLa persona NON ha subito modifiche\n");
+                        }
+
+                        scelta = 1;
+
                     }
-                }
+                    catch (Exception ex) {
+                        Output.WriteLine(ConsoleColor.Red, ex.Message);
+                        scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                    }
+                } while (scelta != 1);
             }
-
-            bool risultato = Globals.wcfClient.ModificaPersona(usernamePersona, persona);
-
-            if (risultato) {
-                Output.WriteLine(ConsoleColor.DarkGreen ,"\n" +persona.privilegi + " modificato correttamente\n");
-            } else {
-                Output.WriteLine(ConsoleColor.DarkRed, "\nLa persona NON ha subito modifiche\n");
-            }
-
         }
 
         public static string digitaNuovoUsername() {
@@ -225,13 +295,28 @@ namespace WCFClient {
             Se checkUsername() restituisce una persona vuota, allora l'username non è stato utilizzato e questa funzione restituisce il nuovo username.
             In caso contrario verrà chiesto di digitare nuovamente l'username
             */
+            int scelta;
+            string username;
 
-            string username = Input.ReadString("Digitare l'username: ");
-            while (Globals.wcfClient.CheckUsername(username).username != string.Empty) {
-                //La persona restituita deve essere vuota (non esiste = username disponibile)
-                Output.WriteLine("Username già utilizzato, riprovare con un altro\n");
+            do {
                 username = Input.ReadString("Digitare l'username: ");
-            }
+
+                if (!string.IsNullOrEmpty(username)) {
+                    if (Globals.wcfClient.CheckUsername(username).username != string.Empty) {
+                        //La persona restituita deve essere vuota (non esiste = username disponibile)
+                        Output.WriteLine(ConsoleColor.Red, "Username già utilizzato\n");
+                        username = string.Empty;
+                        scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                    } else {
+                        return username;
+                    }
+                } else {
+                    Output.WriteLine(ConsoleColor.Red, "\nUsername non inserito");
+                    username = string.Empty;
+                    scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                }
+            } while (scelta != 1);
+
             return username;
         }
 
@@ -240,12 +325,26 @@ namespace WCFClient {
             //Attenzione! Questa funzione non viene richiamata per registrare una nuova persona, per questo utilizzare digitaNuoboUsername()
             //Restituisce l'username come stringa
 
-            string username = Input.ReadString("Digitare l'username: ");
-            while (Globals.wcfClient.CheckUsername(username).username == string.Empty) {
-                //Utente non trovato
-                Output.WriteLine("Username non trovato, riprovare\n");
+            int scelta;
+            string username;
+
+            do {
                 username = Input.ReadString("Digitare l'username: ");
-            }
+
+                if (!string.IsNullOrEmpty(username)) {
+                    if (Globals.wcfClient.CheckUsername(username).username == string.Empty) {
+                        Output.WriteLine(ConsoleColor.Red, "\nUsername non trovato");
+                        username = string.Empty;
+                        scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                    } else {
+                        return username;
+                    }
+                } else {
+                    Output.WriteLine(ConsoleColor.Red, "\nUsername non inserito");
+                    username = string.Empty;
+                    scelta = Input.ReadInt("Vuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                }
+            } while (scelta != 1);
 
             return username;
 
@@ -286,23 +385,20 @@ namespace WCFClient {
               da una lista di conti correnti di un utente*/
 
             int sceltaConto = 0;        //Indice numero di conto da scegliere
-            int index;                  //Contatore indici conto correnti
+            int index = 1;              //Contatore indici conto correnti
 
-            do {
-                var tableConti = new ConsoleTable(" # ", "Numero di conto", "IBAN", "Saldo");
+            var tableConti = new ConsoleTable(" # ", "Numero di conto", "IBAN", "Saldo");
 
-                index = 1;
+            listaContiUser.ForEach(conto => {
+                tableConti.AddRow(index, conto.idContoCorrente, conto.IBAN, conto.saldo);
+                index++;
+            });
 
-                listaContiUser.ForEach(conto => {
-                    tableConti.AddRow(index, conto.idContoCorrente, conto.IBAN, conto.saldo);
-                    index++;
-                });
+            tableConti.Write();
 
-                tableConti.Write();
-                sceltaConto = Convert.ToInt32(Input.ReadString("Digitare l'indice del conto corrente: "));
-                Output.WriteLine("Indice scelto {0}", sceltaConto);
+            sceltaConto = Input.ReadInt("Digitare l'indice del conto corrente: ", 1, index);
 
-            } while (sceltaConto < 1 || sceltaConto >= index);
+            Output.WriteLine("\nIndice scelto {0}", sceltaConto);
 
             Output.WriteLine("ContoCorrente selezionato: {0}", listaContiUser[sceltaConto - 1].idContoCorrente);
 
@@ -310,24 +406,23 @@ namespace WCFClient {
         }
 
         public static List<ContoCorrente> getListaContiByPrivilege() {
-
-            List<ContoCorrente> listaContiUser = new List<ContoCorrente>(); //Lista contenenti i conti di un utente
-
             //-----RICHIESTA USERNAME-------
             //---L'impiegato o il direttore devono inserire l'username dell'account della quale si vuole ottenere la lista movimenti
             //---Se invece il LoggedUser è cliente la lista dei conti viene caricata sia nella fase di login, sia qui per aggiornare eventuali modifiche
 
             //Impiegato e direttore
             if (LoggedUser.privilegi != "cliente") {
-                string username = Funzioni.digitaUsername();
-                listaContiUser = Globals.wcfClient.GetListaContoCorrente(username);
+                string username = digitaUsername();
+                if (username != string.Empty) {
+                    return Globals.wcfClient.GetListaContoCorrente(username);
+                } else { // Utente ha annullato l'operazione in digitaUsername
+                    return new List<ContoCorrente>();
+                }
             } else {
                 //Cliente
                 LoggedUser.contoCorrenti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);        //Ricalcola E aggiorna la lista dei conti e i relativi saldi
-                listaContiUser = LoggedUser.contoCorrenti;
+                return LoggedUser.contoCorrenti;
             }
-
-            return listaContiUser;
         }
 
         public static void printListaConti(List<ContoCorrente> listaConti) {

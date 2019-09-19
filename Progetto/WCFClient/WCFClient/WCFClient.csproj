@@ -77,8 +77,6 @@
     <Compile Include="Pages\Filiale\ModificaDatiFiliale.cs" />
     <Compile Include="Pages\Impiegati\ImpiegatiMenu.cs" />
     <Compile Include="Pages\Impiegati\ListaImpiegati.cs" />
-    <Compile Include="Pages\Impiegati\SospendiImpiegato.cs" />
-    <Compile Include="Pages\Impiegati\AttivaImpiegato.cs" />
     <Compile Include="Pages\Impiegati\EliminaImpiegato.cs" />
     <Compile Include="Pages\Impiegati\AggiungiImpiegato.cs" />
     <Compile Include="Pages\Impiegati\ModificaImpiegato.cs" />
