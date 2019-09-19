@@ -33,7 +33,8 @@ namespace WCFClient
             string logo = ConfigurationManager.AppSettings["logo"].Replace("\\n", "\n");
 
             //Login
-            string password, errorString= string.Empty;
+            string password = string.Empty;
+            string errorString = string.Empty;
             bool checkDati;
 
             do {
@@ -46,8 +47,9 @@ namespace WCFClient
                 Output.WriteLine(ConsoleColor.DarkRed, errorString);
 
                 LoggedUser.username = Input.ReadString("Username: ");  // Input è una classe astratta di EasyConsole
-                password = Input.ReadString("Password: ");  // Input offre diversi metodi tra cui ReadString
 
+                Console.Write("Password: ");
+                password = Funzioni.InputPassword();
 
                 if (string.IsNullOrWhiteSpace(LoggedUser.username) || string.IsNullOrWhiteSpace(password))
                 {
