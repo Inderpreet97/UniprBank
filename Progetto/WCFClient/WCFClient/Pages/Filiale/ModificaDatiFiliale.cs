@@ -56,7 +56,11 @@ namespace WCFClient.Pages
 
             bool risultato = Globals.wcfClient.ModificaDatiFiliale(LoggedUser.idFiliale, filiale);
 
-            if (risultato) { Output.WriteLine(ConsoleColor.DarkGreen,"\nModifica effettuata correttamente\n"); } else { Output.WriteLine(ConsoleColor.DarkRed,"\nErrore! I dati non sono stati modificati\n"); }
+            if (risultato) {
+                Output.WriteLine(ConsoleColor.DarkGreen,"\nModifica effettuata correttamente\n");
+            } else {
+                Output.WriteLine(ConsoleColor.DarkRed,"\nErrore! I dati non sono stati modificati\n");
+            }
         }
 
         public override void Display(){
@@ -73,7 +77,7 @@ namespace WCFClient.Pages
             //Stampa nuovamente la filiale
             Funzioni.StampaFiliale(filiale);
 
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
             Program.NavigateHome();
 
         }

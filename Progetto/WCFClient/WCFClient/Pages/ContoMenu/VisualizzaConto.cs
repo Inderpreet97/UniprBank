@@ -13,13 +13,18 @@ namespace WCFClient.Pages {
             base.Display();
 
             List<ContoCorrente> listaConti = new List<ContoCorrente>();
+            string username = "temp";
 
             if (LoggedUser.privilegi == "cliente") {
                 listaConti = Globals.wcfClient.GetListaContoCorrente(LoggedUser.username);
             }
             else if (LoggedUser.privilegi == "admin" || LoggedUser.privilegi == "impiegato") {
-                string username = Funzioni.digitaUsername();
-                listaConti = Globals.wcfClient.GetListaContoCorrente(username);
+                username = Funzioni.digitaUsername();
+                if (username != string.Empty) {
+                    listaConti = Globals.wcfClient.GetListaContoCorrente(username);
+                } else {
+                    username = "temp";
+                }
             }
 
             if (listaConti.Count > 0) {
@@ -32,7 +37,10 @@ namespace WCFClient.Pages {
                 table.Write();
 
             } else {
-                Output.WriteLine("Non ci sono conto correnti aperti con questo username");
+                if(username == "temp")
+                    Output.WriteLine("Operazione annullata");
+                else
+                    Output.WriteLine("Non ci sono conto correnti aperti con questo username");
             }
 
             Input.ReadString("Press [Enter] to navigate home");

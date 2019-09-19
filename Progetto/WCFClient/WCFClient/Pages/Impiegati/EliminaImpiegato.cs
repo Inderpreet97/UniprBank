@@ -20,32 +20,37 @@ namespace WCFClient.Pages
 
                 usernameImpiegato = Funzioni.digitaUsername();
 
-                if (Globals.wcfClient.GetPrivilegi(usernameImpiegato).ToLower() == "impiegato"){ //E' un impiegato
-                    risultato = Globals.wcfClient.EliminaAccount(usernameImpiegato);
+                if (usernameImpiegato != string.Empty) {
+                    if (Globals.wcfClient.GetPrivilegi(usernameImpiegato).ToLower() == "impiegato") { //E' un impiegato
+                        risultato = Globals.wcfClient.EliminaAccount(usernameImpiegato);
 
-                    //Rimosso con successo
-                    if (risultato) { 
-                        Output.WriteLine("Impiegato rimosso con successo");
-                        risultato = true;
+                        //Rimosso con successo
+                        if (risultato) {
+                            Output.WriteLine("Impiegato rimosso con successo");
+                            risultato = true;
+                        } else {
+                            //Non trovato
+                            Output.WriteLine("Impiegato non trovato");
+
+                            int scelta = Input.ReadInt("\nVuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                            if (scelta == 1) { risultato = true; }
+                        }
+
                     } else {
-                        //Non trovato
-                        Output.WriteLine("Impiegato non trovato");
-                        string esc = Input.ReadString("1-Riprova\nPremere qualsiasi tasto per uscire");
-                        if (esc != "1") { risultato = true; }
+                        //Non è un impiegato
+                        Output.WriteLine("Attenzione!...L'utente non è un impiegato");
+
+                        int scelta = Input.ReadInt("\nVuoi annullare l'operazione?\n1) Si\n2) No\nScelta: ", 1, 2);
+                        if (scelta == 1) { risultato = true; }
                     }
-
-                } else{
-                    //Non è un impiegato
-                    Output.WriteLine("Attenzione!...L'utente non è un impiegato");
-
-                    string esc = Input.ReadString("1-Riprova\nPremere qualsiasi tasto per uscire");
-                    if (esc != "1") { risultato = true; }
+                } else {
+                    risultato = true;
                 }
 
-                
+
             }
 
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
             Program.NavigateHome();
         }
     }

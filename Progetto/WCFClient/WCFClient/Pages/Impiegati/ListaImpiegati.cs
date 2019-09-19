@@ -29,7 +29,7 @@ namespace WCFClient.Pages
 
             table.Write();
 
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
             Program.NavigateHome();
         }
     }

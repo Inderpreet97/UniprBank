@@ -9,11 +9,11 @@ namespace WCFClient.Pages
         public override void Display()
         {
             base.Display();
-            Output.WriteLine("Hello from Page 1Ai");
 
             Funzioni.modificaPersona(string.Empty);
 
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
+
             Program.NavigateHome();
         }
     }

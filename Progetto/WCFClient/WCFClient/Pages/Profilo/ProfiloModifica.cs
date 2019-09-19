@@ -13,7 +13,7 @@ namespace WCFClient.Pages {
             Funzioni.modificaPersona(LoggedUser.username);
 
             // ========================
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
             Program.NavigateHome();
         }
     }

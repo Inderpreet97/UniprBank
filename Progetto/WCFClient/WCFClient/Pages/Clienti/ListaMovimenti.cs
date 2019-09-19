@@ -19,20 +19,22 @@ namespace WCFClient.Pages
             do {
                 try {
 
-                    List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege();
+                    List<ContoCorrente> listaContiUser = Funzioni.getListaContiByPrivilege(); // definizione in funzioni.cs
 
-                    UInt64? idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
+                    if (listaContiUser.Count != 0) {
+                        UInt64? idContoCorrente = Funzioni.scegliIdContoCorrente(listaContiUser);
 
-                    List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(Convert.ToUInt64(idContoCorrente));
+                        List<Movimento> listaMovimenti = Globals.wcfClient.GetListaMovimenti(Convert.ToUInt64(idContoCorrente));
 
-                    var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
+                        var table = new ConsoleTable("Id Movimento", "IBAN Committente", "Tipo Movimento", "Importo", "IBAN Beneficiario", "Data/Ora");
 
-                    listaMovimenti.ForEach(movimento => {
-                        table.AddRow(movimento.idMovimenti, movimento.IBANCommittente, movimento.tipo, movimento.importo,
-                            movimento.IBANBeneficiario, movimento.dataOra);
-                    });
+                        listaMovimenti.ForEach(movimento => {
+                            table.AddRow(movimento.idMovimenti, movimento.IBANCommittente, movimento.tipo, movimento.importo,
+                                movimento.IBANBeneficiario, movimento.dataOra);
+                        });
 
-                    table.Write();
+                        table.Write();
+                    }
 
                     scelta = 1;
                 }
@@ -43,7 +45,7 @@ namespace WCFClient.Pages
                 }
             } while (scelta != 1);
 
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi [Invio] per ritornare al menu principale");
             Program.NavigateHome();
         }
     }

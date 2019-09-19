@@ -9,7 +9,10 @@ namespace WCFClient.Pages
     {
         public ListaClienti(Program program) : base("Lista clienti", program) { }
 
-        public void getListaClienti() {
+        public override void Display()
+        {
+            base.Display();
+            Output.WriteLine("Lista clienti");
 
             //LoggedUser.idFiliale = L'id filiale del direttore/impiegato che sta richiedendo la lista dei clienti
             List<Persona> listaClienti = Globals.wcfClient.GetListaPersone("cliente", LoggedUser.idFiliale);
@@ -28,16 +31,7 @@ namespace WCFClient.Pages
 
             table.Write();
 
-        }
-
-        public override void Display()
-        {
-            base.Display();
-            Output.WriteLine("Lista clienti");
-
-            this.getListaClienti();
-
-            Input.ReadString("Press [Enter] to navigate home");
+            Input.ReadString("\nPremi[Invio] per ritornare al menu principale");
             Program.NavigateHome();
         }
     }
