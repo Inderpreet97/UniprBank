@@ -43,7 +43,7 @@ Metodi:
 	Se la Page che vogliamo aprire è la Page aperta in questo momento allora non facciamo niente e ritorniamo la
 	CurrentPage.
 	Altrimenti, se questa Page esiste nel dictionary Pages del program, la inseriamo in cima alla History. Quindi diventerà
-	la nuova CurrentPage.
+	la nuova CurrentPage. Se la Page non dovesse esistere lancia una KeyNotFoundException ( per Dictionary<T key, T value> ).
 
   - public T NavigateTo<T>()
 	Usa SetPage per impostare la prossima Page da aprire, pulisce la console, e chiama il metodo Display della CurrentPage,

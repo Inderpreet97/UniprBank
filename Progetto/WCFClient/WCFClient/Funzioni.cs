@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 
 namespace WCFClient
 {
-    static class Funzioni
+    public static class Funzioni
     {
         //Questa classe fornisce dei metodi globali che possono essere chiamati da tutta l'applicazione Client a fine di ottimizzazione del codice
 
@@ -421,7 +421,7 @@ namespace WCFClient
 
             tableConti.Write();
 
-            sceltaConto = Input.ReadInt("Digitare l'indice del conto corrente: ", 1, index);
+            sceltaConto = Input.ReadInt("Digitare l'indice del conto corrente: ", 1, --index);
 
             Output.WriteLine("\nIndice scelto {0}", sceltaConto);
 
