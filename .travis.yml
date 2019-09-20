@@ -1,2 +1,2 @@
 language: csharp
-solution: WCFClient.sln
+solution: ./Progetto/WCFClient/WCFClient.sln
