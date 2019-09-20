@@ -25,6 +25,27 @@ namespace WCFClient
             Output.WriteLine("\nNumero di telefono: " + p.numeroDiTelefono);
         }
 
+        public static string InputPassword() {
+            string password = string.Empty;
+            do {
+                ConsoleKeyInfo key = Console.ReadKey(true);
+                // Backspace Should Not Work
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter) {
+                    password += key.KeyChar;
+                    Console.Write("*");
+                } else {
+                    if (key.Key == ConsoleKey.Backspace && password.Length > 0) {
+                        password = password.Substring(0, (password.Length - 1));
+                        Console.Write("\b \b");
+                    } else if (key.Key == ConsoleKey.Enter) {
+                        break;
+                    }
+                }
+            } while (true);
+
+            return password;
+        }
+
         public static void aggiungiPersona(string privilegio) {
 
             string username = digitaNuovoUsername();
@@ -167,14 +188,18 @@ namespace WCFClient
                 persona.filiale = filiale;
 
                 //La password non viene registrata nella classe Persona
-                string password1 = Input.ReadString("Password: ");
-                string password2 = Input.ReadString("Conferma password: ");
+                Console.Write("Password: ");
+                string password1 = Funzioni.InputPassword();
+                Console.Write("Conferma Password: ");
+                string password2 = Funzioni.InputPassword();
 
                 //Le password devono coincidere
                 while (password1 != password2) {
                     Output.WriteLine(ConsoleColor.Red, "Le password non coincidono, riprovare\n");
-                    password1 = Input.ReadString("Password: ");
-                    password2 = Input.ReadString("Conferma password: ");
+                    Console.Write("Password: ");
+                    password1 = Funzioni.InputPassword();
+                    Console.Write("Conferma Password: ");
+                    password2 = Funzioni.InputPassword();
                 }
                 Output.WriteLine("Le password coincidono...\n\n");
 
