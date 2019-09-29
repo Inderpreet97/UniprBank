@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EasyConsole;
 using System.Configuration;
 using WCFClient.ServiceReference1;
+using EasyConsole;
 using ConsoleTables;
+
 
 namespace WCFClient
 {
